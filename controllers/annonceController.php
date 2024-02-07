@@ -25,15 +25,16 @@ class AnnonceController {
     }
 
     public function addAnnonce($data) {
-        if (isset($data['titre'], $data['description'], $data['prix'], $data['marque'], $data['modele'], $data['annee'])) {
+        if (isset($data['titre'], $data['description'], $data['prix'], $data['marque'], $data['modele'], $data['annee'], $data['kilometrage'])) {
             $titre = $data['titre'];
             $description = $data['description'];
             $prix = floatval($data['prix']);
             $marque = $data['marque'];
             $modele = $data['modele'];
+            $kilometrage = intval($data['kilometrage']);
             $annee = intval($data['annee']);
 
-            $result = $this->annonceModel->addAnnonce($titre, $description, $prix, $marque, $modele, $annee);
+            $result = $this->annonceModel->addAnnonce($titre, $description, $prix, $marque, $modele, $kilometrage, $annee);
             if ($result) {
                 header("Location: index.php");
             } else {
@@ -48,7 +49,16 @@ class AnnonceController {
         $keyword = $_GET['keyword'] ?? '';
         $marque = $_GET['marque'] ?? '';
         $modele = $_GET['modele'] ?? '';
-        $annonces = $this->annonceModel->searchAnnonces($keyword, $marque, $modele);
+        $kilometrage = $_GET['kilometrage'] ?? '';
+        $sort = $_GET['sort'] ?? 'id_asc';
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 10;
+
+        
+        $totalAnnonces = $this->annonceModel->getTotalAnnonces($keyword, $marque, $modele);
+        $totalPages = ceil($totalAnnonces / $perPage);
+
+        $annonces = $this->annonceModel->searchAnnoncesWithPagination($keyword, $marque, $modele, $sort, $page, $perPage);
         $marques = $this->annonceModel->getUniqueBrands();
         require_once '../views/home.php';
     }
