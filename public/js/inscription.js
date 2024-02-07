@@ -1,14 +1,11 @@
-console.log("coucou");
 function validateForm() {
-    console.log("testonsubmit");
-    if(verifierMotDePasse()){
+    if(verifierMotDePasse() && checkConfirmMdp()){
         return true;
     }
     return false;
 }
 
 function verifierMotDePasse() {
-    console.log("Verification du mot de passe...");
     var motDePasseInput = document.getElementById("mot_de_passe");
     // Récupérer la valeur du mot de passe
     var motDePasse = motDePasseInput.value;
@@ -31,4 +28,25 @@ function verifierMotDePasse() {
         document.getElementById("message").innerHTML = message;
         return false;
     }
+}
+
+function checkConfirmMdp(){
+    var motDePasse = document.getElementById("mot_de_passe").value;
+    var confirmMdpInput = document.getElementById("confirm_mdp");
+    var confirmMdp = confirmMdpInput.value;
+    var message = "";
+
+    if(motDePasse === confirmMdp){
+        message = "";
+        confirmMdpInput.style.border = '';
+        document.getElementById("message2").innerHTML = message;
+        return true;
+    }
+    else{
+        message = "les 2 mots de passes sont différents";
+        confirmMdpInput.style.border = '1px solid red';
+        document.getElementById("message2").innerHTML = message;
+        return false;
+    }
+    
 }

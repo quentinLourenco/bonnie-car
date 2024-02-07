@@ -23,7 +23,8 @@
             <div id="message"></div>
 
             <label for="confirmMdp">Confirmation :</label>
-            <input type="password" id="confirmMdp" name="confirmMdp" required>
+            <input type="password" id="confirm_mdp" name="confirm_mdp" onchange="checkConfirmMdp()" required>
+            <div id="message2"></div>
 
             <input type='submit' value="inscription"/>
         </form>
