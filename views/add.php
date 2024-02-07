@@ -12,6 +12,7 @@
         Prix: <input type="text" name="prix"><br>
         Marque: <input type="text" name="marque"><br>
         Modèle: <input type="text" name="modele"><br>
+        Kilomètrage: <input type="text" name="kilometrage"><br>
         Année: <input type="text" name="annee"><br>
         <input type="submit" value="Ajouter">
     </form>
