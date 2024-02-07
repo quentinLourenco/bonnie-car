@@ -1,5 +1,4 @@
 <?php 
-// index.php
 require_once '../controllers/annonceController.php';
 
 $controller = new AnnonceController();
