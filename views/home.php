@@ -1,3 +1,11 @@
+<?php
+session_start();
+if($_SESSION['idUtilisateur']===' '){
+    header("Location: connexion.php");
+}else{
+   $idUtilisateur =  $_SESSION['idUtilisateur'];
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -21,6 +29,7 @@
     </script>
 </head>
 <body>
+  <a href="../controllers/deconnexionController.php" onclick="deconnexion()">Déconnexion</a>
     <h1>Annonces</h1>
     <a href="?action=add">Ajouter une annonce</a>
     <form action="index.php" method="GET">
