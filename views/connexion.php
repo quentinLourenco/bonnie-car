@@ -23,6 +23,8 @@ session_start();
             <input type="password" id="mot_de_passe" name="mot_de_passe" required>
 
             <input type="submit" value="connexion">
+            <p>Pas encore de compte?</p>
+            <a href="inscription.php">Inscrivez vous ici.</a>
         </form>
     </div>
 

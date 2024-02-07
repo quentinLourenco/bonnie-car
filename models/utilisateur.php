@@ -7,16 +7,22 @@ class Utilisateur {
         $this->db = new Database();
     }
 
-    public function enregistrerUtilisateur(string $nom,string $prenom ,string $email,string $mot_de_passe) {
+    public function enregistrerUtilisateur(string $nom,string $prenom ,string $email,string $mot_de_passe): bool {
         $mdpHash = password_hash($mot_de_passe, PASSWORD_DEFAULT );
-        $stmt = $this->db->getConnection()->prepare("INSERT INTO utilisateur(nom, prenom, email, mot_de_passe) VALUES (?, ?, ?,?)");
-        $stmt->bind_param("ssss", $nom, $prenom, $email, $mdpHash);
-        $stmt->execute();
-        $idUtilisateur = $stmt->insert_id;
-        $stmt->close();
-        session_start();
-        $_SESSION['idUtilisateur'] = $idUtilisateur;
-        return true;
+        try{
+            $stmt = $this->db->getConnection()->prepare("INSERT INTO utilisateur(nom, prenom, email, mot_de_passe) VALUES (?, ?, ?,?)");
+            $stmt->bind_param("ssss", $nom, $prenom, $email, $mdpHash);
+            $stmt->execute();
+            $idUtilisateur = $stmt->insert_id;
+            $stmt->close();
+            session_start();
+            $_SESSION['idUtilisateur'] = $idUtilisateur;
+            return true;
+        }
+        catch(\Exception $exception){
+            echo 'Une erreur inattendue s\'est produite '. $exception;
+            return false;
+        }
     }
 
     public function getUserByEmail(string $email)  
@@ -28,7 +34,7 @@ class Utilisateur {
         return $result->fetch_assoc();
     }
 
-    public function getIdByEmail(string $email){
+    public function getIdByEmail(string $email): int {
         $user= $this->getUserByEmail($email);
         return intval($user['id']);
     }
@@ -40,16 +46,21 @@ class Utilisateur {
         
     }
 
-    public function deconnexion(){
+    public function deconnexion():bool {
         unset($_SESSION['idUtilisateur']);
+        if($_SESSION['idUtilisateur']){
+            return false;
+        }
         return true;
     }
 
-    public function connexion(string $email,string $mot_de_passe){
+    public function connexion(string $email,string $mot_de_passe): bool{
         if($this->checkUser($email, $mot_de_passe)){
-            return $this->getIdByEmail( $email );
+            $idUtilisateur = $this->getIdByEmail( $email );
+            $_SESSION['idUtilisateur'] = $idUtilisateur;
+            return true;
         }
-        return null;
+        return false;
     }
 }
 

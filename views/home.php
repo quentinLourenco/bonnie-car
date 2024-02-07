@@ -1,7 +1,10 @@
 <?php
 session_start();
-isset($_GET['idUtilisateur']) ? $_SESSION['idUtilisateur'] = $_GET['idUtilisateur'] : header("Location: connexion.php");
-$idUtilisateur = $_SESSION['idUtilisateur'];
+if($_SESSION['idUtilisateur']===' '){
+    header("Location: connexion.php");
+}else{
+   $idUtilisateur =  $_SESSION['idUtilisateur'];
+}
 ?>
 
 <!DOCTYPE html>
