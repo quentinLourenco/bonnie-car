@@ -5,7 +5,11 @@ if($_SESSION['idUtilisateur']===' '){
 }else{
    $idUtilisateur =  $_SESSION['idUtilisateur'];
 }
+
+$sort = $sort ?? 'default';
+
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -58,6 +62,7 @@ if($_SESSION['idUtilisateur']===' '){
 
             <label for="sort">Trier par :</label>
             <select name="sort" id="sort" onchange="this.form.submit()">
+                <option value="default" <?= $sort == 'default' ? 'selected' : '' ?>>Bonnie & Car</option>
                 <option value="prix_asc" <?= $sort == 'prix_asc' ? 'selected' : '' ?>>Prix croissant</option>
                 <option value="prix_desc" <?= $sort == 'prix_desc' ? 'selected' : '' ?>>Prix décroissant</option>
                 <option value="km_asc" <?= $sort == 'km_asc' ? 'selected' : '' ?>>Kilométrage croissant</option>

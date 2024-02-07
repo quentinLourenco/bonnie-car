@@ -91,6 +91,7 @@ class Annonce {
 
     private function determineOrderBy($sort) {
         switch ($sort) {
+            case 'default': return 'annonces.id ASC';
             case 'prix_asc': return 'annonces.prix ASC';
             case 'prix_desc': return 'annonces.prix DESC';
             case 'km_asc': return 'vehicules.kilometrage ASC';
