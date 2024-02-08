@@ -6,7 +6,7 @@ $nom = $_POST["nom"];
 $prenom = $_POST["prenom"];
 $email = $_POST["email"];
 $mot_de_passe = $_POST["mot_de_passe"];
-$confirmMdp = $_POST["confirmMdp"];
+$confirmMdp = $_POST["confirm_mdp"];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($nom) || empty($prenom) || empty($email) || empty($mot_de_passe) || $mot_de_passe != $confirmMdp) {

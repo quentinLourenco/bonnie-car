@@ -4,5 +4,5 @@ session_start();
 
 $utilisateur = new Utilisateur();
 if($utilisateur->deconnexion()){
-    header("Location: ../views/connexion.php");
+    header("Location: ../views/home.php");
 }
