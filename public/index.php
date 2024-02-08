@@ -43,14 +43,28 @@ if (!isset($_GET['action'])) {
         case 'listing':
             $adController->listing();
             break;
+        case 'loginPage':
+            $userController->loginPage();
+            break;
         case 'login':
-            $userController->connexion();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $userController->login($_POST);
+            } else {
+                echo "Erreur : Méthode de requête invalide.";
+            }
             break;
         case 'logout':
-            $userController->deconnexion();
+            $userController->logout();
+            break;
+        case 'registrationPage':
+            $userController->registrationPage();
             break;
         case 'registration':
-            $userController->inscription();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $userController->registration($_POST);
+            } else {
+                echo "Erreur : Méthode de requête invalide.";
+            }
             break;
         default:
             $adController->home();

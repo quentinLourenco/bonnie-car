@@ -1,16 +1,10 @@
-<?php
-session_start();
-
-?>
-
 <?php 
 include_once '../public/includes/header.php';
 ?>
     <div class="container">
         <h2>Connexion</h2>
-        <form action="../controllers/connexionController.php" method="post">
-           
-
+        <form action="?action=login" method="post">
+        
             <label for="email">E-mail :</label>
             <input type="email" id="email" name="email" required>
 
@@ -19,7 +13,7 @@ include_once '../public/includes/header.php';
 
             <input type="submit" value="connexion">
             <p>Pas encore de compte?</p>
-            <a href="inscription.php">Inscrivez vous ici.</a>
+            <a href="?action=registrationPage">Inscrivez vous ici.</a>
         </form>
     </div>
 

@@ -41,7 +41,7 @@
         ['Vendre', 'index.php'],
         ['A propos', 'index.php'],
         ['Contact', 'index.php'],
-        [isset($_SESSION['idUtilisateur']) ? 'Mon compte' : 'Se connecter', isset($_SESSION['idUtilisateur']) ? 'index.php' : 'index.php?action=login']
+        [isset($_SESSION['idUtilisateur']) ? 'Mon compte' : 'Se connecter', isset($_SESSION['idUtilisateur']) ? 'index.php' : 'index.php?action=loginPage']
     ];
 
     $submenu_items = [

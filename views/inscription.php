@@ -2,7 +2,7 @@
 include_once '../public/includes/header.php';
 ?>
         <h2>Inscription</h2>
-        <form action="../controllers/inscriptionController.php" method="post" id="formulaireInscription" onsubmit="return validateForm()">
+        <form action="?action=registration" method="post" id="formulaireInscription" onsubmit="return validateForm()">
             <label for="nom">Nom :</label>
             <input type="text" id="nom" name="nom" required>
 
@@ -21,6 +21,8 @@ include_once '../public/includes/header.php';
             <div id="message2"></div>
 
             <input type='submit' value="inscription"/>
+            <p>Déjà un compte?</p>
+            <a href="?action=loginPage">Connectez vous ici.</a>
         </form>
     </div>
     <script src="../public/js/inscription.js"></script>

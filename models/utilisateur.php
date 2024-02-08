@@ -47,7 +47,7 @@ class Utilisateur {
         return false;
     }
 
-    public function deconnexion():bool {
+    public function logout():bool {
         unset($_SESSION['idUtilisateur']);
         if($_SESSION['idUtilisateur']){
             return false;

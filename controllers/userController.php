@@ -2,71 +2,59 @@
 require_once '../models/utilisateur.php';
 
 class UserController {
-    public function connexion() {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $email = $_POST["email"];
-            $mot_de_passe = $_POST["mot_de_passe"];
-            
-            $utilisateur = new Utilisateur();
-            $idUtilisateur = $utilisateur->connexion($email, $mot_de_passe);
+    private $userModel;
+
+    public function __construct() {
+        $this->userModel = new Utilisateur();
+    }
+
+    public function loginPage(){
+        require_once '../views/connexion.php';
+    }
+
+    public function registrationPage(){
+        require_once '../views/inscription.php';
+    }
+
+    public function login($data) {
+            $email = $data["email"];
+            $mot_de_passe = $data["mot_de_passe"];
+            $idUtilisateur = $this->userModel->connexion($email, $mot_de_passe);
             
             if ($idUtilisateur) {
                 $_SESSION['idUtilisateur'] = $idUtilisateur;
-                header("Location: ../views/home.php");
-                exit();
+                header("Location: index.php");
             } else {
                 header("Location: ../views/connexion.php?erreur=echec");
-                exit();
             }
-        }
     }
 
-    public function deconnexion() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-    
-        unset($_SESSION['idUtilisateur']);
-        // session_destroy();
-        header("Location: '../views/connexion.php'") ;
-        exit();
+    public function logout() {  
+        $this->userModel->logout();
+        header("Location: index.php");
     }
 
-    public function inscription() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+    public function registration($data) {  
+        $nom = $data["nom"];
+        $prenom = $data["prenom"];
+        $email = $data["email"];
+        $mot_de_passe = $data["mot_de_passe"];
+        $confirmMdp = $data["confirm_mdp"];
     
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $nom = $_POST["nom"];
-            $prenom = $_POST["prenom"];
-            $email = $_POST["email"];
-            $mot_de_passe = $_POST["mot_de_passe"];
-            $confirmMdp = $_POST["confirmMdp"];
-    
-            if (empty($nom) || empty($prenom) || empty($email) || empty($mot_de_passe) || $mot_de_passe != $confirmMdp) {
-                $_SESSION['erreurInscription'] = "Vous devez remplir tous les champs et les mots de passe doivent correspondre.";
-                header("Location: ../views/inscription.php");
-                exit();
-            } else {
-                $utilisateur = new Utilisateur();
-                if (!($utilisateurExiste = $utilisateur->getUserByEmail($email))) {
-                    $reponse = $utilisateur->enregistrerUtilisateur($nom, $prenom, $email, $mot_de_passe);
-                    if ($reponse === true) {
-                        header("Location: ../views/home.php");
-                        exit();
-                    } else {
-                        $_SESSION['erreurInscription'] = "Une erreur est survenue lors de l'inscription.";
-                        header("Location: ../views/inscription.php");
-                        exit();
-                    }
+        if (empty($nom) || empty($prenom) || empty($email) || empty($mot_de_passe) || $mot_de_passe != $confirmMdp) {
+            header("Location: index.php?erreur=echec");
+        } else {
+            $utilisateur = new Utilisateur();
+            if (!($utilisateurExiste = $utilisateur->getUserByEmail($email))) {
+                $reponse = $utilisateur->enregistrerUtilisateur($nom, $prenom, $email, $mot_de_passe);
+                if ($reponse === true) {
+                    header("Location: index.php");
                 } else {
-                    $_SESSION['erreurInscription'] = "L'email est déjà utilisé par un autre compte.";
-                    header("Location: ../views/inscription.php");
-                    exit();
+                    header("Location: index.php?erreur=echec");
                 }
+            } else {
+                header("Location: index.php?erreur=echec");
             }
         }
     }
-    
 }
