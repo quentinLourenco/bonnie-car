@@ -1,13 +1,7 @@
 <?php
 session_start();
-if($_SESSION['idUtilisateur']===' '){
-    header("Location: connexion.php");
-}else{
-   $idUtilisateur =  $_SESSION['idUtilisateur'];
-}
-
+$idUtilisateur = isset($_SESSION['idUtilisateur']) ? $_SESSION['idUtilisateur'] : null;
 $sort = $sort ?? 'default';
-
 ?>
 
 <!DOCTYPE html>
@@ -79,7 +73,21 @@ $sort = $sort ?? 'default';
     </script>
 </head>
 <body>
-  <a href="../controllers/deconnexionController.php" onclick="deconnexion()">Déconnexion</a>
+    <header>
+        <?php
+            if($idUtilisateur){ 
+                ?>
+                <p>Bienvenue <?php echo $idUtilisateur ?></p>
+                <a href="../controllers/deconnexionController.php" onclick="deconnexion()">Déconnexion</a>
+                <?php
+            }else{
+                ?>
+                <a href="connexion.php">connexion</a>
+                <a href="inscription.php">Inscription</a>
+                <?php
+            }
+        ?>
+    </header>
     <h1>Annonces</h1>
     <a href="?action=add">Ajouter une annonce</a>
     <form action="index.php" method="GET">

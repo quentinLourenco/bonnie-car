@@ -8,7 +8,7 @@ class Utilisateur {
     }
 
     public function enregistrerUtilisateur(string $nom,string $prenom ,string $email,string $mot_de_passe): bool {
-        $mdpHash = password_hash($mot_de_passe, PASSWORD_DEFAULT );
+        $mdpHash = password_hash($mot_de_passe, PASSWORD_BCRYPT );
         try{
             $stmt = $this->db->getConnection()->prepare("INSERT INTO utilisateur(nom, prenom, email, mot_de_passe) VALUES (?, ?, ?,?)");
             $stmt->bind_param("ssss", $nom, $prenom, $email, $mdpHash);
@@ -39,11 +39,13 @@ class Utilisateur {
         return intval($user['id']);
     }
 
-    public function checkUser(string $email, string $mot_de_passe): bool {
+    public function checkUser(string $email, string $mot_de_passe){
         $user= $this->getUserByEmail($email);
         $mdpHash = $user['mot_de_passe'];
-        return(password_verify($mot_de_passe, $mdpHash));
-        
+        if(password_verify($mot_de_passe, $mdpHash)){
+            return true;
+        }
+        return false;
     }
 
     public function deconnexion():bool {
@@ -54,10 +56,9 @@ class Utilisateur {
         return true;
     }
 
-    public function connexion(string $email,string $mot_de_passe): bool{
+    public function connexion(string $email,string $mot_de_passe){
         if($this->checkUser($email, $mot_de_passe)){
-            $idUtilisateur = $this->getIdByEmail( $email );
-            $_SESSION['idUtilisateur'] = $idUtilisateur;
+            $_SESSION['idUtilisateur'] = $this->getIdByEmail($email);
             return true;
         }
         return false;
