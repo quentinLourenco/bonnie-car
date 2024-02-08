@@ -10,10 +10,22 @@ class AnnonceController {
     }
 
     public function home() {
-        $annonces = $this->annonceModel->getAll();
-        $marques = $this->annonceModel->getUniqueBrands();
-        $modeles = $this->annonceModel->getUniqueModeles(); 
         require_once '../views/home.php';
+    }
+
+    public function listing() {
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 10; 
+    
+        $totalAnnonces = $this->annonceModel->getTotalAnnonces(); 
+        $totalPages = ceil($totalAnnonces / $perPage);
+    
+        $annonces = $this->annonceModel->getAnnoncesWithPagination(($page - 1) * $perPage, $perPage); 
+    
+        $marques = $this->annonceModel->getUniqueBrands();
+        $modeles = $this->annonceModel->getUniqueModeles();
+    
+        require_once '../views/listing.php';
     }
 
     public function detail($id) {
@@ -61,7 +73,7 @@ class AnnonceController {
 
         $annonces = $this->annonceModel->searchAnnoncesWithPagination($keyword, $marque, $modele, $sort, $page, $perPage);
         $marques = $this->annonceModel->getUniqueBrands();
-        require_once '../views/home.php';
+        require_once '../views/listing.php';
     }
 
     public function getAllModels() {

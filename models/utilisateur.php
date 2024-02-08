@@ -1,5 +1,5 @@
 <?php
-require_once 'Database.php';
+require_once 'database.php';
 class Utilisateur {
     private $db;
 
@@ -15,7 +15,6 @@ class Utilisateur {
             $stmt->execute();
             $idUtilisateur = $stmt->insert_id;
             $stmt->close();
-            session_start();
             $_SESSION['idUtilisateur'] = $idUtilisateur;
             return true;
         }

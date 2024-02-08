@@ -16,6 +16,55 @@ class Annonce {
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
 
+    public function getAnnoncesWithPagination($offset, $limit) {
+        $query = "SELECT * FROM annonces ORDER BY date_creation DESC LIMIT ?, ?";
+        $stmt = $this->db->prepare($query);
+    
+        $stmt->bind_param('ii', $offset, $limit);
+        $stmt->execute();
+    
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    
+
+    public function getTotalAnnonces($keyword = '', $marque = '', $modele = '') {
+        $query = "SELECT COUNT(*) as count FROM annonces JOIN vehicules ON annonces.id = vehicules.annonce_id WHERE 1=1";
+        
+        $params = []; 
+        $types = ''; 
+    
+        if (!empty($keyword)) {
+            $query .= " AND (annonces.titre LIKE ? OR annonces.description LIKE ? OR vehicules.marque LIKE ? OR vehicules.modele LIKE ?)";
+            $keywordParam = "%$keyword%";
+            array_push($params, $keywordParam, $keywordParam, $keywordParam, $keywordParam);
+            $types .= 'ssss';
+        }
+    
+        if (!empty($marque)) {
+            $query .= " AND vehicules.marque = ?";
+            $params[] = $marque;
+            $types .= 's';
+        }
+    
+        if (!empty($modele)) {
+            $query .= " AND vehicules.modele = ?";
+            $params[] = $modele;
+            $types .= 's';
+        }
+    
+        $stmt = $this->db->prepare($query);
+    
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
+        }
+    
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_assoc();
+        return $result['count'];
+    }
+    
+
     public function getById($id) {
         $stmt = $this->db->prepare("SELECT * FROM annonces WHERE id = ?");
         $stmt->bind_param("i", $id);
@@ -131,41 +180,4 @@ class Annonce {
         $result = $stmt->get_result();
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
-
-    public function getTotalAnnonces($keyword = '', $marque = '', $modele = '') {
-        $query = "SELECT COUNT(*) as count FROM annonces JOIN vehicules ON annonces.id = vehicules.annonce_id WHERE 1=1";
-        
-        $params = []; 
-        $types = ''; 
-    
-        if (!empty($keyword)) {
-            $query .= " AND (annonces.titre LIKE ? OR annonces.description LIKE ? OR vehicules.marque LIKE ? OR vehicules.modele LIKE ?)";
-            $keywordParam = "%$keyword%";
-            array_push($params, $keywordParam, $keywordParam, $keywordParam, $keywordParam);
-            $types .= 'ssss';
-        }
-    
-        if (!empty($marque)) {
-            $query .= " AND vehicules.marque = ?";
-            $params[] = $marque;
-            $types .= 's';
-        }
-    
-        if (!empty($modele)) {
-            $query .= " AND vehicules.modele = ?";
-            $params[] = $modele;
-            $types .= 's';
-        }
-    
-        $stmt = $this->db->prepare($query);
-    
-        if (!empty($params)) {
-            $stmt->bind_param($types, ...$params);
-        }
-    
-        $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
-        return $result['count'];
-    }
-    
 }
