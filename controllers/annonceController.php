@@ -10,6 +10,7 @@ class AnnonceController {
     }
 
     public function home() {
+        $brands = $this->annonceModel->getUniqueBrands();
         require_once '../views/home.php';
     }
 
