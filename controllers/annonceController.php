@@ -12,6 +12,8 @@ class AnnonceController {
     public function home() {
         $brands = $this->annonceModel->getUniqueBrands();
         $bikesAds = $this->annonceModel->getAdsOfBikes();
+        $scootersAds = $this->annonceModel->getAdsOfScooters();
+        $quadsAds = $this->annonceModel->getAdsOfQuads();
         require_once '../views/home.php';
     }
 

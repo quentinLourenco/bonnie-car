@@ -32,6 +32,38 @@ if (!empty($bikesAds)) {
 }
 ?>
 
+<?php
+if (!empty($scootersAds)) {
+    echo "<p>Nos annonces scooters</p>";
+    foreach ($scootersAds as $scootersAd) {
+        $marqueUrlEncoded = urlencode($scootersAd['marque']);
+        $idAd = $scootersAd['id'];
+
+        echo "<a href='index.php?action=detail&id={$idAd}'>";
+        echo "<p>" . htmlspecialchars($scootersAd['description']) . "</p>";
+        echo "</a>";
+    }
+} else {
+    echo "<p>Aucune annonces trouvée.</p>";
+}
+?>
+
+<?php
+if (!empty($quadsAds)) {
+    echo "<p>Nos annonces quads</p>";
+    foreach ($quadsAds as $quadsAd) {
+        $marqueUrlEncoded = urlencode($quadsAd['marque']);
+        $idAd = $quadsAd['id'];
+
+        echo "<a href='index.php?action=detail&id={$idAd}'>";
+        echo "<p>" . htmlspecialchars($quadsAd['description']) . "</p>";
+        echo "</a>";
+    }
+} else {
+    echo "<p>Aucune annonces trouvée.</p>";
+}
+?>
+
 
 <a href="index.php?action=listing">Go to listing</a>
 

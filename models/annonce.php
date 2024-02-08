@@ -198,4 +198,16 @@ class Annonce {
         $result = $this->db->query($query);
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
+
+    public function getAdsOfScooters() {
+        $query = "SELECT * FROM annonces JOIN vehicules ON annonces.id = vehicules.annonce_id WHERE vehicules.type = 'scooter'";
+        $result = $this->db->query($query);
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    }
+
+    public function getAdsOfQuads() {
+        $query = "SELECT * FROM annonces JOIN vehicules ON annonces.id = vehicules.annonce_id WHERE vehicules.type = 'quad'";
+        $result = $this->db->query($query);
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    }
 }
