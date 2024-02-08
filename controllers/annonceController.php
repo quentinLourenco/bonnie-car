@@ -12,6 +12,7 @@ class AnnonceController {
     public function home() {
         $annonces = $this->annonceModel->getAll();
         $marques = $this->annonceModel->getUniqueBrands();
+        $modeles = $this->annonceModel->getUniqueModeles(); 
         require_once '../views/home.php';
     }
 
@@ -63,11 +64,27 @@ class AnnonceController {
         require_once '../views/home.php';
     }
 
+    public function getAllModels() {
+        $modeles = $this->annonceModel->getUniqueModeles();
+        header('Content-Type: application/json');
+        echo json_encode($modeles);
+    }
+    
     public function getModels() {
         $marque = $_GET['marque'] ?? '';
         if (!empty($marque)) {
             $modeles = $this->annonceModel->getModelesByMarque($marque);
             echo json_encode($modeles);
+        } else {
+            echo json_encode([]);
+        }
+    }
+
+    public function getBrand() {
+        $modele = $_GET['modele'] ?? '';
+        if (!empty($modele)) {
+            $brand = $this->annonceModel->getMarqueByModeles($modele);
+            echo json_encode($brand);
         } else {
             echo json_encode([]);
         }

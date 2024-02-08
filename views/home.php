@@ -16,18 +16,65 @@ $sort = $sort ?? 'default';
     <meta charset="UTF-8">
     <title>Liste des annonces</title>
     <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            fetchAllModels();
+        });
+
+        function fetchAllModels() {
+            fetch(`index.php?action=getAllModels`)
+                .then(response => response.json())
+                .then(data => {
+                    const modeleSelect = document.getElementById('modele');
+                    modeleSelect.innerHTML = '<option value="">Tous les modèles</option>';
+                    data.forEach(modele => {
+                        modeleSelect.innerHTML += `<option value="${modele.modele}">${modele.modele}</option>`;
+                    });
+                })
+                .catch(error => console.error('Erreur lors du chargement des modèles:', error));
+        }
         function updateModelOptions(event) {
-        const marque = event.target.value;
-        fetch(`index.php?action=getModels&marque=${marque}`)
-            .then(response => response.json())
-            .then(data => {
-                const modeleSelect = document.getElementById('modele');
-                modeleSelect.innerHTML = '<option value="">Tous les modèles</option>';
-                data.forEach(modele => {
-                    modeleSelect.innerHTML += `<option value="${modele.modele}">${modele.modele}</option>`;
-                });
-            })
-            .catch(error => console.error('Erreur lors du chargement des modèles:', error));
+            const marqueSelect = document.getElementById('marque');
+            const modeleSelect = document.getElementById('modele');
+            const selectedMarque = marqueSelect.value;
+            const selectedModele = modeleSelect.value;
+
+            if (!selectedMarque) {
+                fetch(`index.php?action=getAllModeles`)
+                    .then(response => response.json())
+                    .then(data => {
+                        modeleSelect.innerHTML = '<option value="">Tous les modèles</option>';
+                        data.forEach(modele => {
+                            modeleSelect.innerHTML += `<option value="${modele.modele}" ${selectedModele === modele.modele ? 'selected' : ''}>${modele.modele}</option>`;
+                        });
+                    })
+                    .catch(error => console.error('Erreur lors du chargement des modèles:', error));
+            } else {
+                fetch(`index.php?action=getModels&marque=${selectedMarque}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        modeleSelect.innerHTML = '<option value="">Tous les modèles</option>';
+                        data.forEach(modele => {
+                            modeleSelect.innerHTML += `<option value="${modele.modele}" ${selectedModele === modele.modele ? 'selected' : ''}>${modele.modele}</option>`;
+                        });
+                    })
+                    .catch(error => console.error('Erreur lors du chargement des modèles:', error));
+            }
+        }
+
+        function updateBrandFromModel(event) {
+            const marqueSelect = document.getElementById('marque');
+            const modeleSelect = document.getElementById('modele');
+            const selectedMarque = marqueSelect.value;
+            const selectedModele = modeleSelect.value;
+
+            if (selectedModele) {
+                fetch(`index.php?action=getBrand&modele=${selectedModele}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        marqueSelect.value = data[0].marque;
+                    })
+                    .catch(error => console.error('Erreur lors de la récupération de la marque:', error));
+            }
         }
     </script>
 </head>
@@ -52,7 +99,7 @@ $sort = $sort ?? 'default';
             </div>
             <div>
                 <label for="modele">Modèle:</label>
-                <select name="modele" id="modele">
+                <select name="modele" id="modele" onchange="updateBrandFromModel(event)">
                     <option value="">Tous les modèles</option>
                 </select>
             </div>

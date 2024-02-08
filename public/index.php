@@ -30,6 +30,12 @@ if (!isset($_GET['action'])) {
         case 'getModels':
             $controller->getModels();
             break;
+        case 'getBrand':
+            $controller->getBrand();
+            break;
+        case 'getAllModels': 
+            $controller->getAllModels();
+            break;
         default:
             $controller->home();
     }

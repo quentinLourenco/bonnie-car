@@ -110,9 +110,23 @@ class Annonce {
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
 
+    public function getUniqueModeles() {
+        $query = "SELECT DISTINCT modele FROM vehicules ORDER BY modele ASC";
+        $result = $this->db->query($query);
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    }
+
     public function getModelesByMarque($marque) {
         $stmt = $this->db->prepare("SELECT DISTINCT modele FROM vehicules WHERE marque = ?");
         $stmt->bind_param("s", $marque);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    }
+
+    public function getMarqueByModeles($modele) {
+        $stmt = $this->db->prepare("SELECT DISTINCT marque FROM vehicules WHERE modele = ?");
+        $stmt->bind_param("s", $modele);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
