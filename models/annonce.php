@@ -28,16 +28,16 @@ class Annonce {
     }
     
 
-    public function getTotalAnnonces($keyword = '', $marque = '', $modele = '') {
+    public function getTotalAnnonces($keyword = '', $type= '', $marque = '', $modele = '') {
         $query = "SELECT COUNT(*) as count FROM annonces JOIN vehicules ON annonces.id = vehicules.annonce_id WHERE 1=1";
         
         $params = []; 
         $types = ''; 
     
         if (!empty($keyword)) {
-            $query .= " AND (annonces.titre LIKE ? OR annonces.description LIKE ? OR vehicules.marque LIKE ? OR vehicules.modele LIKE ?)";
+            $query .= " AND (annonces.titre LIKE ? OR annonces.description LIKE ? OR vehicules.marque LIKE ? OR vehicules.modele LIKE ? OR vehicules.type LIKE ?)";
             $keywordParam = "%$keyword%";
-            array_push($params, $keywordParam, $keywordParam, $keywordParam, $keywordParam);
+            array_push($params, $keywordParam, $keywordParam, $keywordParam, $keywordParam, $keywordParam);
             $types .= 'ssss';
         }
     
@@ -50,6 +50,12 @@ class Annonce {
         if (!empty($modele)) {
             $query .= " AND vehicules.modele = ?";
             $params[] = $modele;
+            $types .= 's';
+        }
+
+        if (!empty($type)) {
+            $query .= " AND vehicules.type = ?";
+            $params[] = $type;
             $types .= 's';
         }
     
@@ -73,15 +79,15 @@ class Annonce {
         return $result->fetch_assoc();
     }
 
-    public function addAnnonce($titre, $description, $prix, $marque, $modele, $annee, $kilometrage) {
+    public function addAnnonce($titre, $description, $prix, $type, $marque, $modele, $annee, $kilometrage) {
         $stmt = $this->db->prepare("INSERT INTO annonces (titre, description, prix) VALUES (?, ?, ?)");
         $stmt->bind_param("ssd", $titre, $description, $prix);
         $stmt->execute();
         $annonce_id = $stmt->insert_id;
         $stmt->close();
         if ($annonce_id) {
-            $stmt = $this->db->prepare("INSERT INTO vehicules (marque, modele, annee, kilometrage, annonce_id) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssiii", $marque, $modele, $annee, $kilometrage, $annonce_id);
+            $stmt = $this->db->prepare("INSERT INTO vehicules (type, marque, modele, annee, kilometrage, annonce_id) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssiii", $type, $marque, $modele, $annee, $kilometrage, $annonce_id);
             $stmt->execute();
             $stmt->close();
             return true;
@@ -89,11 +95,11 @@ class Annonce {
         return false;
     }
 
-    public function searchAnnoncesWithPagination($keyword, $marque, $modele, $sort, $page, $perPage) {
+    public function searchAnnoncesWithPagination($keyword, $type, $marque, $modele, $sort, $page, $perPage) {
         $offset = ($page - 1) * $perPage;
         $orderBy = $this->determineOrderBy($sort);
         
-        $query = "SELECT annonces.*, vehicules.marque, vehicules.modele, vehicules.annee FROM annonces JOIN vehicules ON annonces.id = vehicules.annonce_id WHERE 1=1";
+        $query = "SELECT * FROM annonces JOIN vehicules ON annonces.id = vehicules.annonce_id WHERE 1=1";
         
         $params = [];
         $types = '';
@@ -102,6 +108,12 @@ class Annonce {
             $query .= " AND (annonces.titre LIKE ? OR annonces.description LIKE ? OR vehicules.marque LIKE ? OR vehicules.modele LIKE ?)";
             array_push($params, "%$keyword%", "%$keyword%", "%$keyword%", "%$keyword%");
             $types .= 'ssss';
+        }
+
+        if (!empty($type)) {
+            $query .= " AND vehicules.type = ?";
+            $params[] = $type;
+            $types .= 's';
         }
     
         if (!empty($marque)) {
@@ -178,6 +190,12 @@ class Annonce {
         $stmt->bind_param("s", $modele);
         $stmt->execute();
         $result = $stmt->get_result();
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    }
+
+    public function getAdsOfBikes() {
+        $query = "SELECT * FROM annonces JOIN vehicules ON annonces.id = vehicules.annonce_id WHERE vehicules.type = 'moto'";
+        $result = $this->db->query($query);
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
 }

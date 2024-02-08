@@ -11,6 +11,7 @@ class AnnonceController {
 
     public function home() {
         $brands = $this->annonceModel->getUniqueBrands();
+        $bikesAds = $this->annonceModel->getAdsOfBikes();
         require_once '../views/home.php';
     }
 
@@ -39,16 +40,17 @@ class AnnonceController {
     }
 
     public function addAnnonce($data) {
-        if (isset($data['titre'], $data['description'], $data['prix'], $data['marque'], $data['modele'], $data['annee'], $data['kilometrage'])) {
+        if (isset($data['titre'], $data['description'], $data['prix'], $data['type'], $data['marque'], $data['modele'], $data['annee'], $data['kilometrage'])) {
             $titre = $data['titre'];
             $description = $data['description'];
             $prix = floatval($data['prix']);
+            $type = $data['type'];
             $marque = $data['marque'];
             $modele = $data['modele'];
             $kilometrage = intval($data['kilometrage']);
             $annee = intval($data['annee']);
 
-            $result = $this->annonceModel->addAnnonce($titre, $description, $prix, $marque, $modele, $kilometrage, $annee);
+            $result = $this->annonceModel->addAnnonce($titre, $description, $prix, $type, $marque, $modele, $kilometrage, $annee);
             if ($result) {
                 header("Location: index.php");
             } else {
@@ -61,6 +63,7 @@ class AnnonceController {
     
     public function search() {
         $keyword = $_GET['keyword'] ?? '';
+        $type = $_GET['type'] ?? '';
         $marque = $_GET['marque'] ?? '';
         $modele = $_GET['modele'] ?? '';
         $kilometrage = $_GET['kilometrage'] ?? '';
@@ -69,10 +72,10 @@ class AnnonceController {
         $perPage = 10;
 
         
-        $totalAnnonces = $this->annonceModel->getTotalAnnonces($keyword, $marque, $modele);
+        $totalAnnonces = $this->annonceModel->getTotalAnnonces($keyword, $type, $marque, $modele);
         $totalPages = ceil($totalAnnonces / $perPage);
 
-        $annonces = $this->annonceModel->searchAnnoncesWithPagination($keyword, $marque, $modele, $sort, $page, $perPage);
+        $annonces = $this->annonceModel->searchAnnoncesWithPagination($keyword, $type, $marque, $modele, $sort, $page, $perPage);
         $marques = $this->annonceModel->getUniqueBrands();
         require_once '../views/listing.php';
     }

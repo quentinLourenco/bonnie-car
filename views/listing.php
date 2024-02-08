@@ -1,11 +1,13 @@
 <?php
 $keyword = $keyword ?? '';
+$type = $type ?? '';
 $marque = $marque ?? '';
 $modele = $modele ?? '';
 $sort = $sort ?? 'default';
 $page = $page ?? 1;
 
 $keyword = $keyword !== null ? urlencode($keyword) : '';
+$type = $type !== null ? urlencode($type) : '';
 $marque = $marque !== null ? urlencode($marque) : '';
 $modele = $modele !== null ? urlencode($modele) : '';
 $sort = $sort !== null ? urlencode($sort) : '';
@@ -83,11 +85,18 @@ $sort = $sort !== null ? urlencode($sort) : '';
     <a href="?action=add">Ajouter une annonce</a>
     <form action="index.php" method="GET">
         <input type="hidden" name="action" value="search">
-        <div>
+    
             <label for="keyword">Mot-clé:</label>
             <input type="text" name="keyword" id="keyword" placeholder="Entrez un mot-clé">
-        </div>
-        <div>
+        
+        <label for="type">Type:</label>
+        <select name="type" id="type">
+            <option value="">Touts les types</option>
+            <option value="moto">Moto</option>
+            <option value="scooter">Scooter</option>
+            <option value="quad">Quad</option>
+        </select>
+  
             <label for="marque">Marque:</label>
             <select name="marque" id="marque" onchange="updateModelOptions(event)">
                 <option value="">Toutes les marques</option>
@@ -95,16 +104,15 @@ $sort = $sort !== null ? urlencode($sort) : '';
                     <option value="<?= htmlspecialchars($marqueItem['marque']) ?>"><?= htmlspecialchars($marqueItem['marque']) ?></option>
                 <?php endforeach; ?>
             </select>
-        </div>
-        <div>
+
+       
             <label for="modele">Modèle:</label>
             <select name="modele" id="modele" onchange="updateBrandFromModel(event)">
                 <option value="">Tous les modèles</option>
             </select>
-        </div>
-        <div>
+       
             <input type="submit" value="Rechercher">
-        </div>
+    
 
         <label for="sort">Trier par :</label>
         <select name="sort" id="sort" onchange="this.form.submit()">
@@ -123,6 +131,7 @@ $sort = $sort !== null ? urlencode($sort) : '';
         <li>
             <a href="?action=detail&id=<?= htmlspecialchars($annonce['id']) ?>">
                 <?= htmlspecialchars($annonce['titre']) ?> -
+                <?= htmlspecialchars($annonce['type'] ?? 'Type inconnue') ?> 
                 <?= htmlspecialchars($annonce['marque'] ?? 'Marque inconnue') ?> 
                 <?= htmlspecialchars($annonce['modele'] ?? 'Modèle inconnu') ?> - 
                 <?= htmlspecialchars(number_format($annonce['prix'], 2)) ?>€
