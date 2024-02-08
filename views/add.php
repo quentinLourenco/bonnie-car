@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Ajouter une annonce</title>
-</head>
-<body>
+<?php 
+include_once '../public/includes/header.php';
+?>
     <h1>Ajouter une annonce</h1>
     <form action="index.php?action=save" method="post">
         Titre: <input type="text" name="titre"><br>
@@ -16,5 +12,6 @@
         Année: <input type="text" name="annee"><br>
         <input type="submit" value="Ajouter">
     </form>
-</body>
-</html>
+<?php 
+include_once '../public/includes/footer.php';
+?>

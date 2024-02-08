@@ -3,14 +3,9 @@ session_start();
 
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Bouton de Déconnexion</title>
-    </head>
-    <body>
+<?php 
+include_once '../public/includes/header.php';
+?>
     <div class="container">
         <h2>Connexion</h2>
         <form action="../controllers/connexionController.php" method="post">
@@ -28,6 +23,6 @@ session_start();
         </form>
     </div>
 
-
-    </body>
-</html>
+<?php 
+include_once '../public/includes/footer.php';
+?>

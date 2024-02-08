@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Détail de l'annonce</title>
-</head>
-<body>
+<?php 
+include_once '../public/includes/header.php';
+?>
     <h1><?= htmlspecialchars($annonce['titre']) ?></h1>
     <p><?= htmlspecialchars($annonce['description']) ?></p>
     <p>Prix : <?= htmlspecialchars($annonce['prix']) ?> €</p>
-</body>
-</html>
+<?php 
+include_once '../public/includes/footer.php';
+?>

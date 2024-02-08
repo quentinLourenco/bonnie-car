@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Accueil</title>
-</head>
-<body>
+<?php 
+include_once '../public/includes/header.php';
+?>
     <a href="index.php?action=listing">Go to listing</a>
-</body>
-</html>
+<?php 
+include_once '../public/includes/footer.php';
+?>

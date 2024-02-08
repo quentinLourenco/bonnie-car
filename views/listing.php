@@ -1,5 +1,14 @@
 <?php
+$keyword = $keyword ?? '';
+$marque = $marque ?? '';
+$modele = $modele ?? '';
 $sort = $sort ?? 'default';
+$page = $page ?? 1;
+
+$keyword = $keyword !== null ? urlencode($keyword) : '';
+$marque = $marque !== null ? urlencode($marque) : '';
+$modele = $modele !== null ? urlencode($modele) : '';
+$sort = $sort !== null ? urlencode($sort) : '';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -70,7 +79,6 @@ $sort = $sort ?? 'default';
     </script>
 </head>
 <body>
-  <a href="?action=logout">Déconnexion</a>
     <h1>Annonces</h1>
     <a href="?action=add">Ajouter une annonce</a>
     <form action="index.php" method="GET">
@@ -124,16 +132,16 @@ $sort = $sort ?? 'default';
     </ul>
 
     <nav>
-        <ul class="pagination">
+        <ul>
             <?php $totalPages = $totalPages ?? 0;
                 for ($i = 1; $i <= $totalPages; $i++): ?>
                 <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                    <a class="page-link" href="?action=search&keyword=<?= urlencode($keyword) ?>&marque=<?= urlencode($marque) ?>&modele=<?= urlencode($modele) ?>&sort=<?= urlencode($sort) ?>&page=<?= $i ?>"><?= $i ?></a>
+                    <a href="?action=search&keyword=<?= $keyword ?>&marque=<?= $marque ?>&modele=<?= $modele ?>&sort=<?= $sort ?>&page=<?= $i ?>"><?= $i ?></a>
                 </li>
             <?php endfor; ?>
         </ul>
     </nav> 
 
-   
- </body>
-</html>
+<?php 
+include_once '../public/includes/footer.php';
+?>

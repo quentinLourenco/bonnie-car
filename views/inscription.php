@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Inscription</title>
-    <link rel="stylesheet" href="../public/css/inscription.css">
-</head>
-<body>
-    <div class="container">
+<?php 
+include_once '../public/includes/header.php';
+?>
         <h2>Inscription</h2>
         <form action="../controllers/inscriptionController.php" method="post" id="formulaireInscription" onsubmit="return validateForm()">
             <label for="nom">Nom :</label>
@@ -30,5 +24,6 @@
         </form>
     </div>
     <script src="../public/js/inscription.js"></script>
-</body>
-</html>
+<?php 
+include_once '../public/includes/footer.php';
+?>

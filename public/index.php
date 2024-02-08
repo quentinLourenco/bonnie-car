@@ -42,12 +42,16 @@ if (!isset($_GET['action'])) {
             break;
         case 'listing':
             $adController->listing();
+            break;
         case 'login':
             $userController->connexion();
+            break;
         case 'logout':
             $userController->deconnexion();
+            break;
         case 'registration':
             $userController->inscription();
+            break;
         default:
             $adController->home();
     }
