@@ -1,10 +1,10 @@
 <?php 
 session_start();
 
-require_once '../controllers/annonceController.php';
+require_once '../controllers/adController.php'; 
 require_once '../controllers/userController.php';
 
-$adController = new AnnonceController();
+$adController = new AdController(); 
 $userController = new UserController();
 
 if (!isset($_GET['action'])) {
@@ -13,38 +13,38 @@ if (!isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'detail':
             if (isset($_GET['id'])) {
-                $adController->detail($_GET['id']);
+                $adController->showAdDetail($_GET['id']); 
             } else {
                 echo "Erreur : ID manquant.";
             }
             break;
         case 'add':
-            $adController->addForm();
+            $adController->showAddForm(); 
             break;
         case 'save':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $adController->addAnnonce($_POST);
+                $adController->processAddAd($_POST); 
             } else {
                 echo "Erreur : Méthode de requête invalide.";
             }
             break;
         case 'search':
-            $adController->search();
+            $adController->searchAds(); 
             break;
         case 'getModels':
-            $adController->getModels();
+            $adController->getModels(); 
             break;
         case 'getBrand':
-            $adController->getBrand();
+            $adController->getBrand(); 
             break;
         case 'getAllModels': 
             $adController->getAllModels();
             break;
         case 'listing':
-            $adController->listing();
+            $adController->listAds();
             break;
         case 'loginPage':
-            $userController->loginPage();
+            $userController->showLoginPage(); 
             break;
         case 'login':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -57,11 +57,11 @@ if (!isset($_GET['action'])) {
             $userController->logout();
             break;
         case 'registrationPage':
-            $userController->registrationPage();
+            $userController->showRegistrationPage(); 
             break;
         case 'registration':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $userController->registration($_POST);
+                $userController->register($_POST);
             } else {
                 echo "Erreur : Méthode de requête invalide.";
             }

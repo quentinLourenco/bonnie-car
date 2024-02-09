@@ -2,19 +2,18 @@
 
 class Database {
     private $host = "localhost";
-    private $db_name = "BonnieAndCar";
+    private $dbName = "BonnieAndCar"; 
     private $username = "root";
     private $password = "root";
-    
-    public $conn;
+    private $conn = null;
 
     public function getConnection() {
-        $this->conn = null;
+        if ($this->conn === null) { 
+            $this->conn = new mysqli($this->host, $this->username, $this->password, $this->dbName);
 
-        $this->conn = new mysqli($this->host, $this->username, $this->password, $this->db_name);
-
-        if ($this->conn->connect_error) {
-            die("Échec de la connexion : " . $this->conn->connect_error);
+            if ($this->conn->connect_error) {
+                die("Connection failed: " . $this->conn->connect_error);
+            }
         }
 
         return $this->conn;

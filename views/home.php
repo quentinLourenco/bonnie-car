@@ -1,14 +1,61 @@
-<?php 
+<?php
+$keyword = $keyword ?? '';
+$type = $type ?? '';
+$brand = $brand ?? '';
+$model = $model ?? '';
+$sort = $sort ?? 'default';
+$page = $page ?? 1;
+
+$keyword = $keyword !== null ? urlencode($keyword) : '';
+$type = $type !== null ? urlencode($type) : '';
+$brand = $brand !== null ? urlencode($brand) : '';
+$model = $model !== null ? urlencode($model) : '';
+$sort = $sort !== null ? urlencode($sort) : '';
+
 include_once '../public/includes/header.php';
 ?>
+
+<p>La vente de véhicule en toute sécurité et accompagnée</p>
+<p>Bonnie & Ride vous accompagne dans la vente ou l’achat d’un véhicule en toute sécurité grâce à nos équipes qui vous fournira un service de qualité vous assurant une tranquillité et un confort pour la vente de votre véhicule, et ce partout en France métropolitaine.</p>
+
+<form action="index.php" method="GET">
+    <input type="hidden" name="action" value="search">
+        <label for="keyword">Mot-clé:</label>
+        <input type="text" name="keyword" id="keyword" placeholder="Entrez un mot-clé">
+    <label for="type">Type:</label>
+    <select name="type" id="type">
+        <option value="">Touts les types</option>
+        <option value="moto">Moto</option>
+        <option value="scooter">Scooter</option>
+        <option value="quad">Quad</option>
+    </select>
+
+        <label for="brand">Marque:</label>
+        <select name="brand" id="brand" onchange="updateModelOptions(event)">
+            <option value="">Toutes les marques</option>
+            <?php foreach ($brands as $brand): ?>
+                <option value="<?= htmlspecialchars($brand['brand']) ?>"><?= htmlspecialchars($brand['brand']) ?></option>
+            <?php endforeach; ?>
+        </select>
+
+    
+        <label for="model">Modèle:</label>
+        <select name="model" id="model" onchange="updateBrandFromModel(event)">
+            <option value="">Tous les modèles</option>
+        </select>
+    
+        <input type="submit" value="Rechercher">
+</form>
+
+
 <?php
 if (!empty($brands)) {
     echo "<p>Les offres par marques</p>";
     foreach ($brands as $brand) {
-        $marqueUrlEncoded = urlencode($brand['marque']);
+        $marqueUrlEncoded = urlencode($brand['brand']);
         
         echo "<a href='index.php?action=search&keyword=&marque={$marqueUrlEncoded}&modele=&sort=default'>";
-        echo "<p>" . htmlspecialchars($brand['marque']) . "</p>";
+        echo "<p>" . htmlspecialchars($brand['brand']) . "</p>";
         echo "</a>";
     }
 } else {
@@ -21,7 +68,7 @@ if (!empty($bikesAds)) {
     echo "<p>Nos annonces motos</p>";
     echo "<a href='index.php?action=search&keyword=&type=moto&marque=&modele=&sort=default'>Voir tous</a>";
     foreach ($bikesAds as $bikesAd) {
-        $marqueUrlEncoded = urlencode($bikesAd['marque']);
+        $marqueUrlEncoded = urlencode($bikesAd['brand']);
         $idAd = $bikesAd['id'];
 
         echo "<a href='index.php?action=detail&id={$idAd}'>";
@@ -29,41 +76,41 @@ if (!empty($bikesAds)) {
         echo "</a>";
     }
 } else {
-    echo "<p>Aucune annonces trouvée.</p>";
+    echo "<p>Aucune annonces de moto trouvée.</p>";
 }
 ?>
 
 <?php
-if (!empty($scootersAds)) {
+if (!empty($scooterAds)) {
     echo "<p>Nos annonces scooters</p>";
     echo "<a href='index.php?action=search&keyword=&type=scooter&marque=&modele=&sort=default'>Voir tous</a>";
-    foreach ($scootersAds as $scootersAd) {
-        $marqueUrlEncoded = urlencode($scootersAd['marque']);
-        $idAd = $scootersAd['id'];
+    foreach ($scooterAds as $scooterAd) {
+        $marqueUrlEncoded = urlencode($scooterAd['brand']);
+        $idAd = $scooterAd['id'];
 
         echo "<a href='index.php?action=detail&id={$idAd}'>";
-        echo "<p>" . htmlspecialchars($scootersAd['description']) . "</p>";
+        echo "<p>" . htmlspecialchars($scooterAd['description']) . "</p>";
         echo "</a>";
     }
 } else {
-    echo "<p>Aucune annonces trouvée.</p>";
+    echo "<p>Aucune annonces de scooter trouvée.</p>";
 }
 ?>
 
 <?php
-if (!empty($quadsAds)) {
+if (!empty($quadAds)) {
     echo "<p>Nos annonces quads</p>";
     echo "<a href='index.php?action=search&keyword=&type=quad&marque=&modele=&sort=default'>Voir tous</a>";
-    foreach ($quadsAds as $quadsAd) {
-        $marqueUrlEncoded = urlencode($quadsAd['marque']);
-        $idAd = $quadsAd['id'];
+    foreach ($quadAds as $quadAd) {
+        $marqueUrlEncoded = urlencode($quadAd['brand']);
+        $idAd = $quadAd['id'];
 
         echo "<a href='index.php?action=detail&id={$idAd}'>";
-        echo "<p>" . htmlspecialchars($quadsAd['description']) . "</p>";
+        echo "<p>" . htmlspecialchars($quadAd['description']) . "</p>";
         echo "</a>";
     }
 } else {
-    echo "<p>Aucune annonces trouvée.</p>";
+    echo "<p>Aucune annonces de quad trouvée.</p>";
 }
 ?>
 
@@ -99,8 +146,8 @@ if (!empty($partners)) {
 if (!empty($testimonials)) {
     echo "<p>Nos témoignages</p>";
     foreach ($testimonials as $testimonial) {
-        echo "<h4>" . htmlspecialchars($testimonial['nom']) . " " . htmlspecialchars($testimonial['prenom']) . "</h4>";
-        echo "<p>Avis : " . htmlspecialchars($testimonial['avis']) . "/5</p>";
+        echo "<h4>" . htmlspecialchars($testimonial['last_name']) . " " . htmlspecialchars($testimonial['first_name']) . "</h4>";
+        echo "<p>Avis : " . htmlspecialchars($testimonial['rating']) . "/5</p>";
         echo "<p>" . htmlspecialchars($testimonial['description']) . "</p>";
     }
 } else {
@@ -114,7 +161,7 @@ if (!empty($testimonials)) {
 if (!empty($articles)) {
     echo "<h1>Nos articles</h1>";
     foreach ($articles as $article) {
-        echo "<h4>" . htmlspecialchars($article['titre']) . "</h4>";
+        echo "<h4>" . htmlspecialchars($article['title']) . "</h4>";
         echo "<p>"  . htmlspecialchars($article['description']) . "/5</p>";
         echo "<p>" . htmlspecialchars($article['image']) . "</p>";
     }

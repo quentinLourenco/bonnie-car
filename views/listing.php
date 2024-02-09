@@ -1,122 +1,59 @@
 <?php
 $keyword = $keyword ?? '';
 $type = $type ?? '';
-$marque = $marque ?? '';
-$modele = $modele ?? '';
+$brand = $brand ?? '';
+$model = $model ?? '';
 $sort = $sort ?? 'default';
 $page = $page ?? 1;
 
 $keyword = $keyword !== null ? urlencode($keyword) : '';
 $type = $type !== null ? urlencode($type) : '';
-$marque = $marque !== null ? urlencode($marque) : '';
-$modele = $modele !== null ? urlencode($modele) : '';
+$brand = $brand !== null ? urlencode($brand) : '';
+$model = $model !== null ? urlencode($model) : '';
 $sort = $sort !== null ? urlencode($sort) : '';
+
+include_once '../public/includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Liste des annonces</title>
-    <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            fetchAllModels();
-        });
-
-        function fetchAllModels() {
-            fetch(`index.php?action=getAllModels`)
-                .then(response => response.json())
-                .then(data => {
-                    const modeleSelect = document.getElementById('modele');
-                    modeleSelect.innerHTML = '<option value="">Tous les modèles</option>';
-                    data.forEach(modele => {
-                        modeleSelect.innerHTML += `<option value="${modele.modele}">${modele.modele}</option>`;
-                    });
-                })
-                .catch(error => console.error('Erreur lors du chargement des modèles:', error));
-        }
-        function updateModelOptions(event) {
-            const marqueSelect = document.getElementById('marque');
-            const modeleSelect = document.getElementById('modele');
-            const selectedMarque = marqueSelect.value;
-            const selectedModele = modeleSelect.value;
-
-            if (!selectedMarque) {
-                fetch(`index.php?action=getAllModeles`)
-                    .then(response => response.json())
-                    .then(data => {
-                        modeleSelect.innerHTML = '<option value="">Tous les modèles</option>';
-                        data.forEach(modele => {
-                            modeleSelect.innerHTML += `<option value="${modele.modele}" ${selectedModele === modele.modele ? 'selected' : ''}>${modele.modele}</option>`;
-                        });
-                    })
-                    .catch(error => console.error('Erreur lors du chargement des modèles:', error));
-            } else {
-                fetch(`index.php?action=getModels&marque=${selectedMarque}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        modeleSelect.innerHTML = '<option value="">Tous les modèles</option>';
-                        data.forEach(modele => {
-                            modeleSelect.innerHTML += `<option value="${modele.modele}" ${selectedModele === modele.modele ? 'selected' : ''}>${modele.modele}</option>`;
-                        });
-                    })
-                    .catch(error => console.error('Erreur lors du chargement des modèles:', error));
-            }
-        }
-
-        function updateBrandFromModel(event) {
-            const marqueSelect = document.getElementById('marque');
-            const modeleSelect = document.getElementById('modele');
-            const selectedMarque = marqueSelect.value;
-            const selectedModele = modeleSelect.value;
-
-            if (selectedModele) {
-                fetch(`index.php?action=getBrand&modele=${selectedModele}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        marqueSelect.value = data[0].marque;
-                    })
-                    .catch(error => console.error('Erreur lors de la récupération de la marque:', error));
-            }
-        }
-    </script>
-</head>
 <body>
     <h1>Annonces</h1>
     <a href="?action=add">Ajouter une annonce</a>
     <form action="index.php" method="GET">
         <input type="hidden" name="action" value="search">
     
-            <label for="keyword">Mot-clé:</label>
-            <input type="text" name="keyword" id="keyword" placeholder="Entrez un mot-clé">
+        <label for="keyword">Mot-clé:</label>
+        <input type="text" name="keyword" id="keyword" placeholder="Entrez un mot-clé">
         
         <label for="type">Type:</label>
         <select name="type" id="type">
-            <option value="">Touts les types</option>
-            <option value="moto">Moto</option>
-            <option value="scooter">Scooter</option>
-            <option value="quad">Quad</option>
+            <option value="">Toutes les types</option>
+            <?php foreach ($types as $type): ?>
+                    <option value="<?= htmlspecialchars($type['type']) ?>"><?= htmlspecialchars($type['type']) ?></option>
+            <?php endforeach; ?>
         </select>
-  
-            <label for="marque">Marque:</label>
-            <select name="marque" id="marque" onchange="updateModelOptions(event)">
-                <option value="">Toutes les marques</option>
-                <?php foreach ($marques as $marqueItem): ?>
-                    <option value="<?= htmlspecialchars($marqueItem['marque']) ?>"><?= htmlspecialchars($marqueItem['marque']) ?></option>
-                <?php endforeach; ?>
-            </select>
+
+        <label for="brand">Marque:</label>
+        <select name="brand" id="brand">
+            <option value="">Toutes les marques</option>
+            <?php foreach ($brands as $brand): ?>
+                <option value="<?= htmlspecialchars($brand['brand']) ?>"><?= htmlspecialchars($brand['brand']) ?></option>
+            <?php endforeach; ?>
+        </select>
+       
+        <label for="model">Modèle:</label>
+        <select name="model" id="model">
+            <option value="">Tous les modèles</option>
+            <?php foreach ($models as $model): ?>
+                    <option value="<?= htmlspecialchars($model['model']) ?>"><?= htmlspecialchars($model['model']) ?></option>
+            <?php endforeach;
+            ?>
+        </select>
 
        
-            <label for="modele">Modèle:</label>
-            <select name="modele" id="modele" onchange="updateBrandFromModel(event)">
-                <option value="">Tous les modèles</option>
-            </select>
-       
-            <input type="submit" value="Rechercher">
-    
+        <input type="submit" value="Rechercher">
 
         <label for="sort">Trier par :</label>
         <select name="sort" id="sort" onchange="this.form.submit()">
-            <option value="default" <?= $sort == 'default' ? 'selected' : '' ?>>Bonnie & Car</option>
+            <option value="default" <?= $sort == 'default' ? 'selected' : '' ?>>Par défaut</option>
             <option value="prix_asc" <?= $sort == 'prix_asc' ? 'selected' : '' ?>>Prix croissant</option>
             <option value="prix_desc" <?= $sort == 'prix_desc' ? 'selected' : '' ?>>Prix décroissant</option>
             <option value="km_asc" <?= $sort == 'km_asc' ? 'selected' : '' ?>>Kilométrage croissant</option>
@@ -127,14 +64,14 @@ $sort = $sort !== null ? urlencode($sort) : '';
     </form>
 
     <ul>
-    <?php foreach ($annonces as $annonce): ?>
+    <?php foreach ($ads as $ad): ?>
         <li>
-            <a href="?action=detail&id=<?= htmlspecialchars($annonce['id']) ?>">
-                <?= htmlspecialchars($annonce['titre']) ?> -
-                <?= htmlspecialchars($annonce['type'] ?? 'Type inconnue') ?> 
-                <?= htmlspecialchars($annonce['marque'] ?? 'Marque inconnue') ?> 
-                <?= htmlspecialchars($annonce['modele'] ?? 'Modèle inconnu') ?> - 
-                <?= htmlspecialchars(number_format($annonce['prix'], 2)) ?>€
+            <a href="?action=detail&id=<?= htmlspecialchars($ad['id']) ?>">
+                <?= htmlspecialchars($ad['title']) ?> -
+                <?= htmlspecialchars($ad['type'] ?? 'Type inconnu') ?> 
+                <?= htmlspecialchars($ad['brand'] ?? 'Marque inconnue') ?> 
+                <?= htmlspecialchars($ad['model'] ?? 'Modèle inconnu') ?> - 
+                <?= htmlspecialchars(number_format($ad['price'], 2)) ?>€
             </a>
         </li>
     <?php endforeach; ?>
@@ -145,7 +82,7 @@ $sort = $sort !== null ? urlencode($sort) : '';
             <?php $totalPages = $totalPages ?? 0;
                 for ($i = 1; $i <= $totalPages; $i++): ?>
                 <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                    <a href="?action=search&keyword=<?= $keyword ?>&marque=<?= $marque ?>&modele=<?= $modele ?>&sort=<?= $sort ?>&page=<?= $i ?>"><?= $i ?></a>
+                    <a href="?action=search&keyword=<?= $keyword ?>&marque=<?= $brand ?>&modele=<?= $model ?>&sort=<?= $sort ?>&page=<?= $i ?>"><?= $i ?></a>
                 </li>
             <?php endfor; ?>
         </ul>

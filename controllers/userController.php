@@ -1,59 +1,59 @@
 <?php
-require_once '../models/utilisateur.php';
+
+require_once '../models/user.php';
 
 class UserController {
     private $userModel;
 
     public function __construct() {
-        $this->userModel = new Utilisateur();
+        $this->userModel = new User(); 
     }
 
-    public function loginPage(){
-        require_once '../views/connexion.php';
+    public function showLoginPage() {
+        require_once '../views/login.php'; 
     }
 
-    public function registrationPage(){
-        require_once '../views/inscription.php';
+    public function showRegistrationPage() { 
+        require_once '../views/register.php'; 
     }
 
     public function login($data) {
-            $email = $data["email"];
-            $mot_de_passe = $data["mot_de_passe"];
-            $idUtilisateur = $this->userModel->connexion($email, $mot_de_passe);
-            
-            if ($idUtilisateur) {
-                $_SESSION['idUtilisateur'] = $idUtilisateur;
-                header("Location: index.php");
-            } else {
-                header("Location: ../views/connexion.php?erreur=echec");
-            }
+        $email = $data["email"];
+        $password = $data["password"]; 
+        $userId = $this->userModel->login($email, $password); 
+        
+        if ($userId) {
+            $_SESSION['userId'] = $userId;
+            header("Location: index.php");
+        } else {
+            header("Location: ../views/login.php?error=failure");
+        }
     }
 
-    public function logout() {  
+    public function logout() {
         $this->userModel->logout();
         header("Location: index.php");
     }
 
-    public function registration($data) {  
-        $nom = $data["nom"];
-        $prenom = $data["prenom"];
+    public function register($data) {
+        $firstName = $data["firstName"]; 
+        $lastName = $data["lastName"];
         $email = $data["email"];
-        $mot_de_passe = $data["mot_de_passe"];
-        $confirmMdp = $data["confirm_mdp"];
+        $password = $data["password"];
+        $confirmPassword = $data["confirmPassword"]; 
     
-        if (empty($nom) || empty($prenom) || empty($email) || empty($mot_de_passe) || $mot_de_passe != $confirmMdp) {
-            header("Location: index.php?erreur=echec");
+        if (empty($firstName) || empty($lastName) || empty($email) || empty($password) || $password != $confirmPassword) {
+            header("Location: index.php?error=failure");
         } else {
-            $utilisateur = new Utilisateur();
-            if (!($utilisateurExiste = $utilisateur->getUserByEmail($email))) {
-                $reponse = $utilisateur->enregistrerUtilisateur($nom, $prenom, $email, $mot_de_passe);
-                if ($reponse === true) {
+            if (!$this->userModel->getUserByEmail($email)) {
+                $response = $this->userModel->registerUser($firstName, $lastName, $email, $password); 
+                if ($response) {
                     header("Location: index.php");
                 } else {
-                    header("Location: index.php?erreur=echec");
+                    header("Location: index.php?error=failure");
                 }
             } else {
-                header("Location: index.php?erreur=echec");
+                header("Location: index.php?error=failure");
             }
         }
     }
