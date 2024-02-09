@@ -91,12 +91,44 @@ if (!empty($partners)) {
 } else {
     echo "<p>Aucun partenaire trouvé.</p>";
 }
+
 ?>
+
+<?php
+
+if (!empty($testimonials)) {
+    echo "<p>Nos témoignages</p>";
+    foreach ($testimonials as $testimonial) {
+        echo "<h4>" . htmlspecialchars($testimonial['nom']) . " " . htmlspecialchars($testimonial['prenom']) . "</h4>";
+        echo "<p>Avis : " . htmlspecialchars($testimonial['avis']) . "/5</p>";
+        echo "<p>" . htmlspecialchars($testimonial['description']) . "</p>";
+    }
+} else {
+    echo "<p>Aucun témoignage trouvé.</p>";
+}
+
+?>
+
+<?php
+
+if (!empty($articles)) {
+    echo "<h1>Nos articles</h1>";
+    foreach ($articles as $article) {
+        echo "<h4>" . htmlspecialchars($article['titre']) . "</h4>";
+        echo "<p>"  . htmlspecialchars($article['description']) . "/5</p>";
+        echo "<p>" . htmlspecialchars($article['image']) . "</p>";
+    }
+    echo "<a href='#'>Voir tous</a>";
+} else {
+    echo "<p>Aucun article trouvé.</p>";
+}
+
+?>
+
+
 
 <br>
 <a href="index.php?action=listing">Go to listing</a>
-
-
 
 <?php 
 include_once '../public/includes/footer.php';

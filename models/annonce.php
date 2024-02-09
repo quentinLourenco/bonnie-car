@@ -215,4 +215,23 @@ class Annonce {
         $result = glob('../public/images/partners/*.png');
         return $result;
     }
+
+    public function getTestimonials() {
+        $query = "
+            SELECT temoignages.*, utilisateurs.nom, utilisateurs.prenom, utilisateurs.email
+            FROM temoignages
+            JOIN utilisateurs ON temoignages.utilisateur_id = utilisateurs.id
+            ORDER BY temoignages.dateAjout ASC;
+        ";
+        $result = $this->db->query($query);
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    }
+
+    public function getArticles() {
+        $query = "
+            SELECT * FROM articles ORDER BY datePublication DESC;;
+        ";
+        $result = $this->db->query($query);
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    }
 }
