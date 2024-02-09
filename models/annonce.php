@@ -210,4 +210,9 @@ class Annonce {
         $result = $this->db->query($query);
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
+
+    public function getPartnersList() {
+        $result = glob('../public/images/partners/*.png');
+        return $result;
+    }
 }

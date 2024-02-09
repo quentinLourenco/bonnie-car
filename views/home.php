@@ -19,6 +19,7 @@ if (!empty($brands)) {
 <?php
 if (!empty($bikesAds)) {
     echo "<p>Nos annonces motos</p>";
+    echo "<a href='index.php?action=search&keyword=&type=moto&marque=&modele=&sort=default'>Voir tous</a>";
     foreach ($bikesAds as $bikesAd) {
         $marqueUrlEncoded = urlencode($bikesAd['marque']);
         $idAd = $bikesAd['id'];
@@ -35,6 +36,7 @@ if (!empty($bikesAds)) {
 <?php
 if (!empty($scootersAds)) {
     echo "<p>Nos annonces scooters</p>";
+    echo "<a href='index.php?action=search&keyword=&type=scooter&marque=&modele=&sort=default'>Voir tous</a>";
     foreach ($scootersAds as $scootersAd) {
         $marqueUrlEncoded = urlencode($scootersAd['marque']);
         $idAd = $scootersAd['id'];
@@ -51,6 +53,7 @@ if (!empty($scootersAds)) {
 <?php
 if (!empty($quadsAds)) {
     echo "<p>Nos annonces quads</p>";
+    echo "<a href='index.php?action=search&keyword=&type=quad&marque=&modele=&sort=default'>Voir tous</a>";
     foreach ($quadsAds as $quadsAd) {
         $marqueUrlEncoded = urlencode($quadsAd['marque']);
         $idAd = $quadsAd['id'];
@@ -64,7 +67,20 @@ if (!empty($quadsAds)) {
 }
 ?>
 
+<?php
 
+
+if (!empty($partners)) {
+    echo "<p>Nos annonces quads</p>";
+    foreach ($partners as $partner) {
+        echo '<img src="' . $partner . '" alt="Image" style="width: 100px;height:auto;"/>';
+    }
+} else {
+    echo "<p>Aucun partenaire trouvé.</p>";
+}
+?>
+
+<br>
 <a href="index.php?action=listing">Go to listing</a>
 
 

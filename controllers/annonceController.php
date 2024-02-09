@@ -14,6 +14,7 @@ class AnnonceController {
         $bikesAds = $this->annonceModel->getAdsOfBikes();
         $scootersAds = $this->annonceModel->getAdsOfScooters();
         $quadsAds = $this->annonceModel->getAdsOfQuads();
+        $partners = $this->annonceModel->getPartnersList();
         require_once '../views/home.php';
     }
 
