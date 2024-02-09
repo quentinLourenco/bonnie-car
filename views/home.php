@@ -68,7 +68,20 @@ if (!empty($quadsAds)) {
 ?>
 
 <?php
+    $adsOfBonnieAndCar = [
+        ["Transparence absolue", "A chaque vente, un mécanicien vous accompagne et regarde avec vous l'historique, l'état administratif, l'état mécanique et l'état esthétique du véhicule pour vous assurer une connaissance précise avant achat."],
+        ["Le juste prix", "L'analyse approfondie de chaque véhicule et sa connaissance marché permet à Bonnie&Car d'être plus précis que les côtes d'occasion classiques. Garantissant à l'acheteur et au vendeur la juste valeur du véhicule au moment de la vente. Ainsi, plus besoin de négocier, vous êtes sûr d'avoir bien acheté votre voiture !"],
+        ["Administratif et paiement sécurisé", "La présence physique lors du rendez-vous d'un agent Bonnie&Car vous assure des démarches administratives simplifiées et un paiement sécurisé."],
+    ];
 
+
+    foreach ($adsOfBonnieAndCar as $adOfBonnieAndCar) {
+        echo "<h2>" . htmlspecialchars($adOfBonnieAndCar[0]) . "</h2>";
+        echo "<p>" . htmlspecialchars($adOfBonnieAndCar[1]) . "</p>";
+    }
+?>
+
+<?php
 
 if (!empty($partners)) {
     echo "<p>Nos annonces quads</p>";
@@ -82,8 +95,6 @@ if (!empty($partners)) {
 
 <br>
 <a href="index.php?action=listing">Go to listing</a>
-
-
 
 
 
