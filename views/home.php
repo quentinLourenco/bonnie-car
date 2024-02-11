@@ -1,17 +1,40 @@
 <?php
-$keyword = $keyword ?? '';
-$type = $type ?? '';
-$brand = $brand ?? '';
-$model = $model ?? '';
-$sort = $sort ?? 'default';
-$page = $page ?? 1;
+// Assurez-vous que toutes les variables sont initialisées correctement
+$keyword = $_GET['keyword'] ?? '';
+$type = $_GET['type'] ?? '';
+$brand = $_GET['brand'] ?? '';
+$model = $_GET['model'] ?? '';
+$sort = $_GET['sort'] ?? 'default';
+$page = $_GET['page'] ?? 1; // Modification ici pour utiliser $_GET directement
+$cc_min = $_GET['cc_min'] ?? null;
+$cc_max = $_GET['cc_max'] ?? null;
+$price_min = $_GET['price_min'] ?? null;
+$price_max = $_GET['price_max'] ?? null;
+$first_hand = $_GET['first_hand'] ?? null;
+$history = $_GET['history'] ?? null;
 
-$keyword = $keyword !== null ? urlencode($keyword) : '';
-$type = $type !== null ? urlencode($type) : '';
-$brand = $brand !== null ? urlencode($brand) : '';
-$model = $model !== null ? urlencode($model) : '';
-$sort = $sort !== null ? urlencode($sort) : '';
+// Conversion des valeurs numériques
+$cc_min = is_numeric($cc_min) ? $cc_min : null;
+$cc_max = is_numeric($cc_max) ? $cc_max : null;
+$price_min = is_numeric($price_min) ? $price_min : null;
+$price_max = is_numeric($price_max) ? $price_max : null;
 
+// Conversion en booléen pour les valeurs de case à cocher
+$first_hand = isset($first_hand) ? 1 : null;
+$history = isset($history) ? 1 : null;
+
+// Encodage des paramètres pour utilisation dans les URL
+$keyword = urlencode($keyword);
+$type = urlencode($type);
+$brand = urlencode($brand);
+$model = urlencode($model);
+$sort = urlencode($sort);
+
+$page = (int)$page; // Assurez-vous que $page est un entier
+$perPage = 10;
+$offset = ($page - 1) * $perPage;
+
+// Inclure les fichiers nécessaires ici
 include_once '../public/includes/header.php';
 ?>
 
@@ -54,7 +77,7 @@ if (!empty($brands)) {
     foreach ($brands as $brand) {
         $marqueUrlEncoded = urlencode($brand['brand']);
         
-        echo "<a href='index.php?action=search&keyword=&marque={$marqueUrlEncoded}&modele=&sort=default'>";
+        echo "<a href='index.php?action=search&keyword=&type=&brand={$marqueUrlEncoded}&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'";
         echo "<p>" . htmlspecialchars($brand['brand']) . "</p>";
         echo "</a>";
     }
@@ -64,15 +87,15 @@ if (!empty($brands)) {
 ?>
 
 <?php
-if (!empty($bikesAds)) {
+if (!empty($bikeAds)) {
     echo "<p>Nos annonces motos</p>";
-    echo "<a href='index.php?action=search&keyword=&type=moto&marque=&modele=&sort=default'>Voir tous</a>";
-    foreach ($bikesAds as $bikesAd) {
-        $marqueUrlEncoded = urlencode($bikesAd['brand']);
-        $idAd = $bikesAd['id'];
+    echo "<a href='index.php?action=search&keyword=&type=moto&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'>Voir tous</a>";
+    foreach ($bikeAds as $bikeAd) {
+        $marqueUrlEncoded = urlencode($bikeAd['brand']);
+        $idAd = $bikeAd['ad_id'] ;
 
         echo "<a href='index.php?action=detail&id={$idAd}'>";
-        echo "<p>" . htmlspecialchars($bikesAd['description']) . "</p>";
+        echo "<p>" . htmlspecialchars($bikeAd['description']) . "</p>";
         echo "</a>";
     }
 } else {
@@ -83,10 +106,10 @@ if (!empty($bikesAds)) {
 <?php
 if (!empty($scooterAds)) {
     echo "<p>Nos annonces scooters</p>";
-    echo "<a href='index.php?action=search&keyword=&type=scooter&marque=&modele=&sort=default'>Voir tous</a>";
+    echo "<a href='index.php?action=search&keyword=&type=scooter&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'>Voir tous</a>";
     foreach ($scooterAds as $scooterAd) {
         $marqueUrlEncoded = urlencode($scooterAd['brand']);
-        $idAd = $scooterAd['id'];
+        $idAd = $scooterAd['ad_id'];
 
         echo "<a href='index.php?action=detail&id={$idAd}'>";
         echo "<p>" . htmlspecialchars($scooterAd['description']) . "</p>";
@@ -100,10 +123,10 @@ if (!empty($scooterAds)) {
 <?php
 if (!empty($quadAds)) {
     echo "<p>Nos annonces quads</p>";
-    echo "<a href='index.php?action=search&keyword=&type=quad&marque=&modele=&sort=default'>Voir tous</a>";
+    echo "<a href='index.php?action=search&keyword=&type=quad&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'>Voir tous</a>";
     foreach ($quadAds as $quadAd) {
         $marqueUrlEncoded = urlencode($quadAd['brand']);
-        $idAd = $quadAd['id'];
+        $idAd = $quadAd['ad_id'];
 
         echo "<a href='index.php?action=detail&id={$idAd}'>";
         echo "<p>" . htmlspecialchars($quadAd['description']) . "</p>";

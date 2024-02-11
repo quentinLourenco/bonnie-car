@@ -27,7 +27,7 @@ class Ad {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
     
-    public function getTotalAds($keyword = '', $type = '', $brand = '', $model = '') {
+    public function getTotalAds($keyword = '', $type = '', $brand = '', $model = '', $cc_min = '', $cc_max = '', $price_min = '', $price_max = '', $first_hand = '', $history = '') {
         $query = "SELECT COUNT(*) as count FROM ads JOIN vehicles ON ads.id = vehicles.ad_id WHERE 1=1";
         
         $params = [];
@@ -58,6 +58,38 @@ class Ad {
             $types .= 's';
         }
         
+        if ($cc_min !== null && $cc_min !== '') {
+            $query .= " AND vehicles.engine_size >= ?";
+            $params[] = $cc_min;
+            $types .= 'i';
+        }
+        if ($cc_max !== null && $cc_max !== '') {
+            $query .= " AND vehicles.engine_size <= ?";
+            $params[] = $cc_max;
+            $types .= 'i';
+        }
+        if ($price_min !== null && $price_min !== '') {
+            $query .= " AND ads.price >= ?";
+            $params[] = $price_min;
+            $types .= 'd';
+        }
+        if ($price_max !== null && $price_max !== '') {
+            $query .= " AND ads.price <= ?";
+            $params[] = $price_max;
+            $types .= 'd';
+        }
+    
+        if ($first_hand !== null) {
+            $query .= " AND vehicles.first_hand = ?";
+            $params[] = $first_hand;
+            $types .= 'i'; 
+        }
+        if ($history !== null) {
+            $query .= " AND vehicles.history = ?";
+            $params[] = $history;
+            $types .= 'i';
+        }
+
         $stmt = $this->db->prepare($query);
         
         if (!empty($params)) {
@@ -95,11 +127,11 @@ class Ad {
         return false;
     }
 
-    public function searchAdsWithPagination($keyword, $type, $brand, $model, $sort, $page, $perPage) {
+    public function searchAdsWithPagination($keyword, $type, $brand, $model, $cc_min, $cc_max, $price_min, $price_max, $first_hand, $history, $sort, $page, $perPage) {
         $offset = ($page - 1) * $perPage;
         $orderBy = $this->determineOrderBy($sort);
         
-        $query = "SELECT * FROM ads JOIN vehicles ON ads.id = vehicles.ad_id WHERE 1=1";
+        $query = "SELECT ads.*, vehicles.* FROM ads JOIN vehicles ON ads.id = vehicles.ad_id WHERE 1=1";
         
         $params = [];
         $types = '';
@@ -129,13 +161,51 @@ class Ad {
             $types .= 's';
         }
     
+        if ($cc_min !== null && $cc_min !== '') {
+            $query .= " AND vehicles.engine_size >= ?";
+            $params[] = $cc_min;
+            $types .= 'i';
+        }
+        if ($cc_max !== null && $cc_max !== '') {
+            $query .= " AND vehicles.engine_size <= ?";
+            $params[] = $cc_max;
+            $types .= 'i';
+        }
+        if ($price_min !== null && $price_min !== '') {
+            $query .= " AND ads.price >= ?";
+            $params[] = $price_min;
+            $types .= 'd';
+        }
+        if ($price_max !== null && $price_max !== '') {
+            $query .= " AND ads.price <= ?";
+            $params[] = $price_max;
+            $types .= 'd';
+        }
+    
+        if ($first_hand !== null) {
+            $query .= " AND vehicles.first_hand = ?";
+            $params[] = $first_hand;
+            $types .= 'i'; 
+        }
+        if ($history !== null) {
+            $query .= " AND vehicles.history = ?";
+            $params[] = $history;
+            $types .= 'i';
+        }
+    
         $query .= " ORDER BY $orderBy LIMIT ?, ?";
-        array_push($params, $offset, $perPage);
+        $params[] = $offset;
+        $params[] = $perPage;
         $types .= 'ii';
     
         $stmt = $this->db->prepare($query);
+        if ($stmt === false) {
+            throw new Exception("Erreur de préparation de la requête : " . $this->db->error);
+        }
     
-        $this->bindDynamicParams($stmt, $types, $params);
+        if (!empty($types)) {
+            $stmt->bind_param($types, ...$params);
+        }
     
         $stmt->execute();
         $result = $stmt->get_result();
@@ -146,6 +216,7 @@ class Ad {
             return [];
         }
     }
+    
     
     private function bindDynamicParams($stmt, $types, $params) {
         $stmt->bind_param($types, ...$params);

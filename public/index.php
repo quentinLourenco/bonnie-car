@@ -31,15 +31,6 @@ if (!isset($_GET['action'])) {
         case 'search':
             $adController->searchAds(); 
             break;
-        case 'getModels':
-            $adController->getModels(); 
-            break;
-        case 'getBrand':
-            $adController->getBrand(); 
-            break;
-        case 'getAllModels': 
-            $adController->getAllModels();
-            break;
         case 'listing':
             $adController->listAds();
             break;

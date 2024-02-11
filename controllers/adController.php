@@ -21,18 +21,28 @@ class AdController {
     }
 
     public function listAds() { 
+        $keyword = $_GET['keyword'] ?? '';
+        $type = $_GET['type'] ?? '';
+        $brand = $_GET['brand'] ?? '';
+        $model = $_GET['model'] ?? '';
+        $cc_min = $_GET['cc_min'] ?? null;
+        $cc_max = $_GET['cc_max'] ?? null;
+        $price_min = $_GET['price_min'] ?? null;
+        $price_max = $_GET['price_max'] ?? null;
+        $first_hand = isset($_GET['first_hand']) ? 1 : null;
+        $history = isset($_GET['history']) ? 1 : null;
+        $sort = $_GET['sort'] ?? 'id_asc';
         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
         $perPage = 10;
-
-        $totalAds = $this->adModel->getTotalAds();
+    
+        $totalAds = $this->adModel->getTotalAds($keyword, $type, $brand, $model, $cc_min, $cc_max, $price_min, $price_max, $first_hand, $history);
         $totalPages = ceil($totalAds / $perPage);
-
-        $ads = $this->adModel->getAdsWithPagination(($page - 1) * $perPage, $perPage);
-
+    
+        $ads = $this->adModel->searchAdsWithPagination($keyword, $type, $brand, $model, $cc_min, $cc_max, $price_min, $price_max, $first_hand, $history, $sort, $page, $perPage);
+        
         $brands = $this->adModel->getUniqueBrands();
         $models = $this->adModel->getUniqueModels();
         $types = $this->adModel->getUniqueTypes();
-
         require_once '../views/listing.php';
     }
 
@@ -72,19 +82,26 @@ class AdController {
         $type = $_GET['type'] ?? '';
         $brand = $_GET['brand'] ?? '';
         $model = $_GET['model'] ?? '';
-        $mileage = $_GET['mileage'] ?? '';
+        $cc_min = $_GET['cc_min'] ?? null;
+        $cc_max = $_GET['cc_max'] ?? null;
+        $price_min = $_GET['price_min'] ?? null;
+        $price_max = $_GET['price_max'] ?? null;
+        $first_hand = isset($_GET['first_hand']) ? 1 : null;
+        $history = isset($_GET['history']) ? 1 : null;
         $sort = $_GET['sort'] ?? 'id_asc';
         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
         $perPage = 10;
-
-        $totalAds = $this->adModel->getTotalAds($keyword, $type, $brand, $model);
-        $totalPages = ceil($totalAds / $perPage);
-
-        $ads = $this->adModel->searchAdsWithPagination($keyword, $type, $brand, $model, $sort, $page, $perPage);
     
+        $totalAds = $this->adModel->getTotalAds($keyword, $type, $brand, $model, $cc_min, $cc_max, $price_min, $price_max, $first_hand, $history);
+        $totalPages = ceil($totalAds / $perPage);
+    
+        $ads = $this->adModel->searchAdsWithPagination($keyword, $type, $brand, $model, $cc_min, $cc_max, $price_min, $price_max, $first_hand, $history, $sort, $page, $perPage);
+        
         $brands = $this->adModel->getUniqueBrands();
         $models = $this->adModel->getUniqueModels();
         $types = $this->adModel->getUniqueTypes();
+    
         require_once '../views/listing.php';
     }
+    
 }

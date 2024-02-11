@@ -10,7 +10,7 @@ class User {
         $this->db = $database->getConnection();
     }
 
-    public function register(string $firstName, string $lastName, string $email, string $password): bool {
+    public function registerUser(string $firstName, string $lastName, string $email, string $password): bool {
         $passwordHash = password_hash($password, PASSWORD_BCRYPT);
         try {
             $stmt = $this->db->prepare("INSERT INTO users(first_name, last_name, email, password) VALUES (?, ?, ?, ?)");

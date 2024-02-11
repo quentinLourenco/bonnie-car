@@ -1,16 +1,34 @@
 <?php
-$keyword = $keyword ?? '';
-$type = $type ?? '';
-$brand = $brand ?? '';
-$model = $model ?? '';
-$sort = $sort ?? 'default';
-$page = $page ?? 1;
+$keyword = $_GET['keyword'] ?? '';
+$type = $_GET['type'] ?? '';
+$brand = $_GET['brand'] ?? '';
+$model = $_GET['model'] ?? '';
+$sort = $_GET['sort'] ?? 'default';
+$page = $_GET['page'] ?? 1;
+$cc_min = $_GET['cc_min'] ?? null;
+$cc_max = $_GET['cc_max'] ?? null;
+$price_min = $_GET['price_min'] ?? null;
+$price_max = $_GET['price_max'] ?? null;
+$first_hand = $_GET['first_hand'] ?? null;
+$history = $_GET['history'] ?? null;
 
-$keyword = $keyword !== null ? urlencode($keyword) : '';
-$type = $type !== null ? urlencode($type) : '';
-$brand = $brand !== null ? urlencode($brand) : '';
-$model = $model !== null ? urlencode($model) : '';
-$sort = $sort !== null ? urlencode($sort) : '';
+$cc_min = is_numeric($cc_min) ? $cc_min : null;
+$cc_max = is_numeric($cc_max) ? $cc_max : null;
+$price_min = is_numeric($price_min) ? $price_min : null;
+$price_max = is_numeric($price_max) ? $price_max : null;
+
+$first_hand = isset($first_hand) ? 1 : null;
+$history = isset($history) ? 1 : null;
+
+$keyword = urlencode($keyword);
+$type = urlencode($type);
+$brand = urlencode($brand);
+$model = urlencode($model);
+$sort = urlencode($sort);
+
+$page = (int)$page; 
+$perPage = 10;
+$offset = ($page - 1) * $perPage;
 
 include_once '../public/includes/header.php';
 ?>
@@ -48,6 +66,36 @@ include_once '../public/includes/header.php';
             ?>
         </select>
 
+        <label for="cc_min">Cylindrée Min (cc):</label>
+        <input type="number" name="cc_min" id="cc_min" placeholder="Ex: 50">
+
+        <label for="cc_max">Cylindrée Max (cc):</label>
+        <input type="number" name="cc_max" id="cc_max" placeholder="Ex: 1200">
+
+        <label for="price_min">Prix Min (€):</label>
+        <input type="number" name="price_min" id="price_min" placeholder="Ex: 500">
+
+        <label for="price_max">Prix Max (€):</label>
+        <input type="number" name="price_max" id="price_max" placeholder="Ex: 15000">
+
+        <label for="">Localisation:</label>
+        <input type="text" name="" id="" placeholder="Code Postal">
+
+        <label for="">Rayon (km):</label>
+        <select name="" id="">
+            <option value="">Sélectionnez le rayon</option>
+            <option value="10">10 km</option>
+            <option value="20">20 km</option>
+            <option value="50">50 km</option>
+            <option value="100">100 km</option>
+            <option value="200">200 km</option>
+        </select>
+
+        <label for="first_hand">Première main:</label>
+        <input type="checkbox" name="first_hand" id="first_hand" value="1">
+        <label for="history">Historique disponible:</label>
+        <input type="checkbox" name="history" id="history" value="1">
+
        
         <input type="submit" value="Rechercher">
 
@@ -66,28 +114,19 @@ include_once '../public/includes/header.php';
     <ul>
     <?php foreach ($ads as $ad): ?>
         <li>
-            <a href="?action=detail&id=<?= htmlspecialchars($ad['id']) ?>">
-                <?= htmlspecialchars($ad['title']) ?> -
+        <a href="?action=detail&id=<?= isset($ad['ad_id']) ? htmlspecialchars($ad['ad_id']) : '' ?>">
+                <?= htmlspecialchars($ad['title'] ?? '' ?: '', ENT_QUOTES | ENT_HTML5, 'UTF-8') ?> -
                 <?= htmlspecialchars($ad['type'] ?? 'Type inconnu') ?> 
                 <?= htmlspecialchars($ad['brand'] ?? 'Marque inconnue') ?> 
                 <?= htmlspecialchars($ad['model'] ?? 'Modèle inconnu') ?> - 
-                <?= htmlspecialchars(number_format($ad['price'], 2)) ?>€
+                <?= htmlspecialchars(number_format($ad['price'] ?? 0, 2)) ?>€
             </a>
         </li>
     <?php endforeach; ?>
     </ul>
+<?php
 
-    <nav>
-        <ul>
-            <?php $totalPages = $totalPages ?? 0;
-                for ($i = 1; $i <= $totalPages; $i++): ?>
-                <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                    <a href="?action=search&keyword=<?= $keyword ?>&marque=<?= $brand ?>&modele=<?= $model ?>&sort=<?= $sort ?>&page=<?= $i ?>"><?= $i ?></a>
-                </li>
-            <?php endfor; ?>
-        </ul>
-    </nav> 
-
+?>
 <?php 
 include_once '../public/includes/footer.php';
 ?>

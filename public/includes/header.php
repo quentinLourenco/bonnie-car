@@ -62,7 +62,6 @@
                     data.forEach(brand => {
                         brandSelect.innerHTML += `<option value="${brand.marque}">${brand.marque}</option>`;
                     });
-                    // Reset and update model options
                     updateModelOptions();
                 })
                 .catch(error => console.error('Error loading brands:', error));
