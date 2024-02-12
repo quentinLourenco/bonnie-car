@@ -328,5 +328,26 @@ class Ad {
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
 
+    public function getAdsById($listAd){
+        $placeholders = implode(',', array_fill(0, count($listAd), '?'));
+        $query = "SELECT * FROM ads WHERE id IN ($placeholders)";
+        $stmt = $this->db->prepare($query);
+
+        if ($stmt) {
+            $types = str_repeat('i', count($listAd));
+            $stmt->bind_param($types, ...$listAd);
+            $success = $stmt->execute();
+            if ($success) {
+                $result = $stmt->get_result();
+                $ads = $result->fetch_all(MYSQLI_ASSOC);
+                $stmt->close();
+                return $ads;
+            } else {
+                echo "Erreur lors de l'exécution de la requête : " . $stmt->error;
+            }
+        } else {
+            echo "Erreur lors de la préparation de la requête : " . $this->db->error;
+        }
+    }
     
 }

@@ -103,5 +103,9 @@ class AdController {
     
         require_once '../views/listing.php';
     }
+
+    public function getFavoritesAdsByAdId($data){
+        
+    }
     
 }

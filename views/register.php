@@ -3,11 +3,11 @@ include_once '../public/includes/header.php';
 ?>
         <h2>Inscription</h2>
         <form action="?action=registration" method="post" id="formulaireInscription" onsubmit="return validateForm()">
-            <label for="lastName">Nom :</label>
-            <input type="text" id="lastName" name="lastName" required>
+            <label for="last_name">Nom :</label>
+            <input type="text" id="last_name" name="last_name" required>
 
-            <label for="firstName">Prenom :</label>
-            <input type="text" id="firstName" name="firstName" required>
+            <label for="first_name">Prenom :</label>
+            <input type="text" id="first_name" name="first_name" required>
 
             <label for="email">E-mail :</label>
             <input type="email" id="email" name="email" required>

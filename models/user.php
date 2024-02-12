@@ -10,10 +10,10 @@ class User {
         $this->db = $database->getConnection();
     }
 
-    public function registerUser(string $firstName, string $lastName, string $email,string $tel, string $password): bool {
-        $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+    public function registerUser(string $firstName, string $lastName, string $email,string $tel, string $fieldPassword): bool {
+        $passwordHash = password_hash($fieldPassword, PASSWORD_BCRYPT);
         try {
-            $stmt = $this->db->prepare("INSERT INTO users(first_name, last_name, email,phone, password) VALUES (?, ?, ?,?, ?)");
+            $stmt = $this->db->prepare("INSERT INTO users(first_name, last_name, email, phone, password) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("sssss", $firstName, $lastName, $email,$tel, $passwordHash);
             $stmt->execute();
             $userId = $stmt->insert_id;
@@ -24,6 +24,15 @@ class User {
             error_log('Unexpected error occurred: ' . $exception->getMessage());
             return false;
         }
+    }
+
+    public function getUserById(){
+        $userId = $_SESSION['userId'];
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
     }
 
     public function getUserByEmail(string $email) {
@@ -63,11 +72,41 @@ class User {
     public function updateUser(string $champ,string $value){
         $userId = $_SESSION['userId'];
         try{
-            $stmt = $this->db->getConnection()->prepare("UPDATE utilisateur SET $champ=? WHERE id=? ");
+            $stmt = $this->db->prepare("UPDATE users SET $champ=? WHERE id=? ");
             $stmt->bind_param("si", $value,$userId);
             $stmt->execute();
             $stmt->close();
             return true;
+        }
+        catch(\Exception $exception){
+            echo 'Une erreur inattendue s\'est produite '. $exception;
+            return false;
+        }
+    }
+
+    public function deleteUser(){
+        $userId = $_SESSION['userId'];
+        try{
+            $stmt = $this->db->prepare("DELETE FROM users WHERE  id= ?");
+            $stmt->bind_param("i", $userId);
+            $stmt->execute();
+            $stmt->close();
+            return true;
+        }
+        catch(\Exception $exception){
+            echo 'Une erreur inattendue s\'est produite '. $exception;
+            return false;
+        }
+    }
+
+    public function getMyFavorites(){
+        $userId = $_SESSION['userId'];
+        try{
+            $stmt = $this->db->prepare("SELECT * FROM favorites WHERE  id_user= ?");
+            $stmt->bind_param("i", $userId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result->fetch_all(MYSQLI_ASSOC);
         }
         catch(\Exception $exception){
             echo 'Une erreur inattendue s\'est produite '. $exception;
