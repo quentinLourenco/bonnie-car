@@ -1,6 +1,7 @@
 <?php 
 include_once '../public/includes/header.php';
 ?>
+    <div>
         <h2>Inscription</h2>
         <form action="?action=registration" method="post" id="formulaireInscription" onsubmit="return validateForm()">
             <label for="nom">Nom :</label>
@@ -11,6 +12,9 @@ include_once '../public/includes/header.php';
 
             <label for="email">E-mail :</label>
             <input type="email" id="email" name="email" required>
+
+            <label for="tel">Téléphone :</label>
+            <input type="tel" id="tel" name="tel" required>
 
             <label for="mot_de_passe">Mot de passe :</label>
             <input type="password" id="mot_de_passe" name="mot_de_passe" onchange="verifierMotDePasse()" required>
@@ -26,6 +30,7 @@ include_once '../public/includes/header.php';
         </form>
     </div>
     <script src="../public/js/inscription.js"></script>
+    
 <?php 
 include_once '../public/includes/footer.php';
 ?>

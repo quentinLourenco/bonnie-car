@@ -9,9 +9,8 @@ $keyword = $keyword !== null ? urlencode($keyword) : '';
 $marque = $marque !== null ? urlencode($marque) : '';
 $modele = $modele !== null ? urlencode($modele) : '';
 $sort = $sort !== null ? urlencode($sort) : '';
+include_once '../public/includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Liste des annonces</title>

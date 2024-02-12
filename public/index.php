@@ -66,6 +66,16 @@ if (!isset($_GET['action'])) {
                 echo "Erreur : Méthode de requête invalide.";
             }
             break;
+        case 'updateUser':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $userController->updateUser($_POST);
+            } else {
+                echo "Erreur : Méthode de requête invalide.";
+            }
+            break;
+        case 'accountPage':
+            $userController->accountPage();
+            break;
         default:
             $adController->home();
     }
