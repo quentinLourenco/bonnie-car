@@ -4,9 +4,11 @@ require_once '../models/user.php';
 
 class UserController {
     private $userModel;
+    private $adModel;
 
     public function __construct() {
         $this->userModel = new User(); 
+        $this->adModel = new Ad();
     }
 
     public function showLoginPage() {
@@ -18,7 +20,13 @@ class UserController {
     }
 
     public function showAccountPage(){
+        $userInfo = $this->userModel->getUserById();
         require_once '../views/account.php';
+    }
+
+    public function showFavoritePage(){
+        $userFavorites = $this->getFavoritesUser();
+        require_once '../views/favorite.php';
     }
 
     public function login($data) {
@@ -28,6 +36,7 @@ class UserController {
             header("Location: index.php");
             return  "Connexion réussie";
         }else{
+            header("Location: index.php?action=loginPage&failure");
             return  "Erreur de connexion";
         }
     }
@@ -37,9 +46,9 @@ class UserController {
         header("Location: index.php");
     }
 
-    public function register($data) {
-        $firstName = $data["firstName"]; 
-        $lastName = $data["lastName"];
+    public function register($data): bool {
+        $firstName = $data["first_name"]; 
+        $lastName = $data["last_name"];
         $email = $data["email"];
         $password = $data["password"];
         $confirmPassword = $data["confirmPassword"]; 
@@ -47,16 +56,20 @@ class UserController {
     
         if (empty($firstName) || empty($lastName) || empty($email) || empty($password) || empty($phone) || $password != $confirmPassword) {
             header("Location: index.php?error=failure");
+            return false;
         } else {
             if (!$this->userModel->getUserByEmail($email)) {
                 $response = $this->userModel->registerUser($firstName, $lastName, $email, $phone, $password); 
                 if ($response) {
                     header("Location: index.php");
+                    return true;
                 } else {
                     header("Location: index.php?error=failure2");
+                    return false;
                 }
             } else {
                 header("Location: index.php?error=failure3");
+                return false;
             }
         }
     }
@@ -66,6 +79,29 @@ class UserController {
         $value = $data[$champ];
         $req = $this->userModel->updateUser($champ, $value);
         if ($req === true) {
+            header("Location: index.php");
+        } else {
+            header("Location: index.php?erreur=echec");
+        }
+    }
+
+    public function getInfoUser(){
+        $userInfo = $this->userModel->getUserById();
+    }
+
+    public function getFavoritesUser(){
+        $tableFav = $this->userModel->getMyFavorites();
+        foreach ($tableFav as $elmt){
+            if(isset($elmt['id_ad'])){
+                $listIdAds[] = $elmt['id_ad'];
+            }
+        }
+        return $this->adModel->getAdsById($listIdAds);
+    }
+
+    public function deleteAccount(){
+        if($this->userModel->deleteUser()){
+            $this->userModel->logout();
             header("Location: index.php");
         } else {
             header("Location: index.php?erreur=echec");

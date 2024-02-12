@@ -39,7 +39,7 @@ if (!isset($_GET['action'])) {
             break;
         case 'login':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                echo $userController->login($_POST);
+                $userController->login($_POST);
             } else {
                 echo "Erreur : Méthode de requête invalide.";
             }
@@ -53,9 +53,22 @@ if (!isset($_GET['action'])) {
         case 'accountPage':
             $userController->showAccountPage(); 
             break;
+        case 'favoritePage':
+            $userController->showFavoritePage(); 
+            break;
+        case 'deleteAccount':
+            $userController->deleteAccount(); 
+            break;
+        case 'updateUser':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                echo $userController->updateUser($_POST);
+            } else {
+                echo "Erreur : Méthode de requête invalide.";
+            }
+            break;
         case 'registration':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $userController->register($_POST);
+                echo $userController->register($_POST);
             } else {
                 echo "Erreur : Méthode de requête invalide.";
             }
