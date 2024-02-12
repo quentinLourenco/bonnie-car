@@ -107,7 +107,7 @@
         ['Vendre', 'index.php'],
         ['A propos', 'index.php'],
         ['Contact', 'index.php'],
-        [isset($_SESSION['idUtilisateur']) ? 'Mon compte' : 'Se connecter', isset($_SESSION['idUtilisateur']) ? 'index.php' : 'index.php?action=loginPage']
+        [isset($_SESSION['userId']) ? 'Mon compte' : 'Se connecter', isset($_SESSION['userId']) ? 'index.php?action=accountPage' : 'index.php?action=loginPage']
     ];
 
     $submenu_items = [

@@ -17,16 +17,18 @@ class UserController {
         require_once '../views/register.php'; 
     }
 
+    public function showAccountPage(){
+        require_once '../views/account.php';
+    }
+
     public function login($data) {
         $email = $data["email"];
         $password = $data["password"]; 
-        $userId = $this->userModel->login($email, $password); 
-        
-        if ($userId) {
-            $_SESSION['userId'] = $userId;
+        if($this->userModel->login($email, $password )) {
             header("Location: index.php");
-        } else {
-            header("Location: ../views/login.php?error=failure");
+            return  "Connexion réussie";
+        }else{
+            return  "Erreur de connexion";
         }
     }
 
@@ -41,20 +43,32 @@ class UserController {
         $email = $data["email"];
         $password = $data["password"];
         $confirmPassword = $data["confirmPassword"]; 
+        $phone = $data["phone"];
     
-        if (empty($firstName) || empty($lastName) || empty($email) || empty($password) || $password != $confirmPassword) {
+        if (empty($firstName) || empty($lastName) || empty($email) || empty($password) || empty($phone) || $password != $confirmPassword) {
             header("Location: index.php?error=failure");
         } else {
             if (!$this->userModel->getUserByEmail($email)) {
-                $response = $this->userModel->registerUser($firstName, $lastName, $email, $password); 
+                $response = $this->userModel->registerUser($firstName, $lastName, $email, $phone, $password); 
                 if ($response) {
                     header("Location: index.php");
                 } else {
-                    header("Location: index.php?error=failure");
+                    header("Location: index.php?error=failure2");
                 }
             } else {
-                header("Location: index.php?error=failure");
+                header("Location: index.php?error=failure3");
             }
+        }
+    }
+
+    public function updateUser($data) {
+        $champ = $data["champ"];
+        $value = $data[$champ];
+        $req = $this->userModel->updateUser($champ, $value);
+        if ($req === true) {
+            header("Location: index.php");
+        } else {
+            header("Location: index.php?erreur=echec");
         }
     }
 }

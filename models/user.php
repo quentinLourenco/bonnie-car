@@ -10,11 +10,11 @@ class User {
         $this->db = $database->getConnection();
     }
 
-    public function registerUser(string $firstName, string $lastName, string $email, string $password): bool {
+    public function registerUser(string $firstName, string $lastName, string $email,string $tel, string $password): bool {
         $passwordHash = password_hash($password, PASSWORD_BCRYPT);
         try {
-            $stmt = $this->db->prepare("INSERT INTO users(first_name, last_name, email, password) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $firstName, $lastName, $email, $passwordHash);
+            $stmt = $this->db->prepare("INSERT INTO users(first_name, last_name, email,phone, password) VALUES (?, ?, ?,?, ?)");
+            $stmt->bind_param("sssss", $firstName, $lastName, $email,$tel, $passwordHash);
             $stmt->execute();
             $userId = $stmt->insert_id;
             $stmt->close();
@@ -58,5 +58,20 @@ class User {
             return true;
         }
         return false;
+    }
+
+    public function updateUser(string $champ,string $value){
+        $userId = $_SESSION['userId'];
+        try{
+            $stmt = $this->db->getConnection()->prepare("UPDATE utilisateur SET $champ=? WHERE id=? ");
+            $stmt->bind_param("si", $value,$userId);
+            $stmt->execute();
+            $stmt->close();
+            return true;
+        }
+        catch(\Exception $exception){
+            echo 'Une erreur inattendue s\'est produite '. $exception;
+            return false;
+        }
     }
 }

@@ -39,7 +39,7 @@ if (!isset($_GET['action'])) {
             break;
         case 'login':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $userController->login($_POST);
+                echo $userController->login($_POST);
             } else {
                 echo "Erreur : Méthode de requête invalide.";
             }
@@ -49,6 +49,9 @@ if (!isset($_GET['action'])) {
             break;
         case 'registrationPage':
             $userController->showRegistrationPage(); 
+            break;
+        case 'accountPage':
+            $userController->showAccountPage(); 
             break;
         case 'registration':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
