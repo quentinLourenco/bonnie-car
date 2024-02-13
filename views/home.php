@@ -38,22 +38,21 @@ $offset = ($page - 1) * $perPage;
 include_once '../public/includes/header.php';
 ?>
 
-<p>La vente de véhicule en toute sécurité et accompagnée</p>
-<p>Bonnie & Ride vous accompagne dans la vente ou l’achat d’un véhicule en toute sécurité grâce à nos équipes qui vous fournira un service de qualité vous assurant une tranquillité et un confort pour la vente de votre véhicule, et ce partout en France métropolitaine.</p>
+<div class="container_search">
+    <div class="container_btns">
+        <a href="" class="btn-action btn-active">Acheter</a>
+        <a href="" class="btn-action">Vendre</a>
+    </div>
+    
+    <form action="index.php" method="GET">
+        <input type="hidden" name="action" value="search">
+        <select name="type" id="type">
+            <option value="">Touts les types</option>
+            <option value="moto">Moto</option>
+            <option value="scooter">Scooter</option>
+            <option value="quad">Quad</option>
+        </select>
 
-<form action="index.php" method="GET">
-    <input type="hidden" name="action" value="search">
-        <label for="keyword">Mot-clé:</label>
-        <input type="text" name="keyword" id="keyword" placeholder="Entrez un mot-clé">
-    <label for="type">Type:</label>
-    <select name="type" id="type">
-        <option value="">Touts les types</option>
-        <option value="moto">Moto</option>
-        <option value="scooter">Scooter</option>
-        <option value="quad">Quad</option>
-    </select>
-
-        <label for="brand">Marque:</label>
         <select name="brand" id="brand" onchange="updateModelOptions(event)">
             <option value="">Toutes les marques</option>
             <?php foreach ($brands as $brand): ?>
@@ -61,29 +60,43 @@ include_once '../public/includes/header.php';
             <?php endforeach; ?>
         </select>
 
-    
-        <label for="model">Modèle:</label>
         <select name="model" id="model" onchange="updateBrandFromModel(event)">
             <option value="">Tous les modèles</option>
         </select>
     
         <input type="submit" value="Rechercher">
-</form>
+    </form>
+</div>
 
 
-<?php
-if (!empty($brands)) {
-    echo "<p>Les offres par marques</p>";
-    foreach ($brands as $brand) {
-        $marqueUrlEncoded = urlencode($brand['brand']);
-        
-        echo "<a href='index.php?action=search&keyword=&type=&brand={$marqueUrlEncoded}&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'";
-        echo "<p>" . htmlspecialchars($brand['brand']) . "</p>";
-        echo "</a>";
+
+<div class="hero">
+    <h3 class="title">La vente de véhicule en toute sécurité et accompagnée</h3>
+    <p class="subtitle">Bonnie & Ride vous accompagne dans la vente ou l’achat d’un véhicule en toute sécurité grâce à nos équipes qui vous fournira un service de qualité vous assurant une tranquillité et un confort pour la vente de votre véhicule, et ce partout en France métropolitaine.</p>
+</div>
+
+
+
+    <?php
+    if (!empty($brands)) {
+        echo "<p>Les offres par marques</p>";
+        ?>
+        <div class="container-scroll-x">
+        <?php
+        foreach ($brands as $brand) {
+            $marqueUrlEncoded = urlencode($brand['brand']);
+            ?>
+            <a href="index.php?action=search&keyword=&type=&brand=<?php echo $marqueUrlEncoded; ?>&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default" class="container-ads-brand">
+                <p class="item-scroll-x"><?php echo htmlspecialchars($brand['brand']); ?></p>
+            </a>
+        <?php 
+        }
+        ?>
+        </div>
+        <?php
+    } else {
+        echo "<p>Aucune marque trouvée.</p>";
     }
-} else {
-    echo "<p>Aucune marque trouvée.</p>";
-}
 ?>
 
 <?php

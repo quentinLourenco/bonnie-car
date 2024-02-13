@@ -5,16 +5,6 @@
     <title>BonnieAndCar</title>
     <link rel="stylesheet" type = "text/css" href ="../public/css/style.css">
     <script>
-        var checkbox = document.querySelector('.nav-container .checkbox');
-        var body = document.body;
-
-        checkbox.addEventListener('change', function() {
-            if (this.checked) {
-                body.classList.add('no-scroll');
-            } else {
-                body.classList.remove('no-scroll');
-            }
-        });
         // document.addEventListener('DOMContentLoaded', function() {
         //     fetchAllModels();
         // });
