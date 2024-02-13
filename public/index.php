@@ -59,6 +59,9 @@ if (!isset($_GET['action'])) {
         case 'salesPage':
             $userController->showSalesPage(); 
             break;
+         case 'documentPage':
+            $userController->showDocumentPage(); 
+            break;
         case 'deleteAccount':
             $userController->deleteAccount(); 
             break;

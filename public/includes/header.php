@@ -126,8 +126,8 @@
                             <?php endif; ?>
                         </li>
                     <?php endforeach; ?>
-                    <a href="<?php echo isset($_SESSION['idUtilisateur']) ? 'index.php' : 'index.php?action=loginPage'; ?>" class="btn">
-                        <?php echo isset($_SESSION['idUtilisateur']) ? 'Mon compte' : 'Se connecter'; ?>
+                    <a href="<?php echo isset($_SESSION['userId']) ? 'index.php?action=accountPage' : 'index.php?action=loginPage'; ?>" class="btn">
+                        <?php echo isset($_SESSION['userId']) ? 'Mon compte' : 'Se connecter'; ?>
                     </a>
                 </ul>
                 

@@ -34,6 +34,10 @@ class UserController {
         require_once '../views/sale.php';
     }
 
+    public function showDocumentPage() {
+        require_once '../views/document.php'; 
+    }
+
     public function login($data) {
         $email = $data["email"];
         $password = $data["password"]; 
