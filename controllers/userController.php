@@ -29,6 +29,11 @@ class UserController {
         require_once '../views/favorite.php';
     }
 
+    public function showSalesPage(){
+        $userSales = $this->adModel->getSalesByIdUser();
+        require_once '../views/sale.php';
+    }
+
     public function login($data) {
         $email = $data["email"];
         $password = $data["password"]; 
