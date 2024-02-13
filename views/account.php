@@ -90,7 +90,8 @@ include_once '../public/includes/header.php';
         </div>
         <a href="index.php?action=logout">deconnexion</a>
         <a onclick="showPopup('ModalSuppression')">suppression</a>
-        <button onclick="redirectFavorites()">mes favoris</button>
+        <button onclick="redirect('favoritePage')">mes favoris</button>
+        <button onclick="redirect('salesPage')">mes ventes</button>
     </div>
     <script>
         const tabIdBtnChamp= [document.getElementById('last_nameModif'),document.getElementById('first_nameModif'), document.getElementById('emailModif'),document.getElementById('phoneModif'),document.getElementById('passwordModif')];
@@ -127,8 +128,8 @@ include_once '../public/includes/header.php';
         function AccountSuppression(){
             window.location.href = 'index.php?action=deleteAccount';
         }
-        function redirectFavorites(){
-            window.location.href = 'index.php?action=favoritePage';
+        function redirect(path){
+            window.location.href = 'index.php?action='+path;
         }
     </script>
 
