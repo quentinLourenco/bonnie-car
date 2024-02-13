@@ -56,6 +56,9 @@ if (!isset($_GET['action'])) {
         case 'favoritePage':
             $userController->showFavoritePage(); 
             break;
+        case 'salesPage':
+            $userController->showSalesPage(); 
+            break;
         case 'deleteAccount':
             $userController->deleteAccount(); 
             break;

@@ -349,5 +349,20 @@ class Ad {
             echo "Erreur lors de la préparation de la requête : " . $this->db->error;
         }
     }
+
+    public function getSalesByIdUser(){
+        $userId = $_SESSION['userId'];
+        try{
+            $stmt = $this->db->prepare("SELECT * FROM ads WHERE id_customer = ?");
+            $stmt->bind_param("i", $userId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return  $result->fetch_all(MYSQLI_ASSOC);
+        }
+        catch (\Exception $exception) {
+            error_log('Unexpected error occurred: ' . $exception->getMessage());
+            return false;
+        }
+    }
     
 }
