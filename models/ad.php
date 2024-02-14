@@ -290,13 +290,13 @@ class Ad {
     }
 
     public function getPartnersList() {
-        $result = glob('./images/partners/*.png');
+        $result = glob('../public/assets/partners/*.png');
         return $result;
     }
 
     public function getTestimonials() {
         $query = "
-        SELECT testimonials.*, users.first_name, users.last_name, users.email FROM testimonials JOIN users ON testimonials.user_id = users.id ORDER BY testimonials.addition_date ASC;;
+        SELECT testimonials.*, users.first_name, users.last_name, users.age, users.email FROM testimonials JOIN users ON testimonials.user_id = users.id ORDER BY testimonials.addition_date ASC LIMIT 3;;
         ";
         $result = $this->db->query($query);
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
@@ -304,7 +304,7 @@ class Ad {
 
     public function getArticles() {
         $query = "
-            SELECT * FROM articles ORDER BY publication_date DESC;;
+            SELECT * FROM articles ORDER BY publication_date DESC LIMIT 4;
         ";
         $result = $this->db->query($query);
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];

@@ -45,39 +45,32 @@ include_once '../public/includes/header.php';
         <h1 class="title">La vente de véhicule en toute sécurité et accompagnée</h3>
         <p class="subtitle">Bonnie & Ride vous accompagne dans la vente ou l’achat d’un véhicule en toute sécurité grâce à nos équipes qui vous fournira un service de qualité vous assurant une tranquillité et un confort pour la vente de votre véhicule, et ce partout en France métropolitaine.</p>
     </div>
-
-
-    <div class="research">
-        <div class="btns">
-            <a href="" class="btn-action btn-active">Acheter</a>
-            <a href="" class="btn-action">Vendre</a>
-        </div>
             
+    <form action="index.php" method="GET" class="research">
+        <h2>Rechercher une annonce</h2>
+        <input type="hidden" name="action" value="search">
+        <select name="type" id="type">
+            <option value="">Touts les types</option>
+            <option value="moto">Moto</option>
+            <option value="scooter">Scooter</option>
+            <option value="quad">Quad</option>
+        </select>
+
+        <select name="brand" id="brand" onchange="updateModelOptions(event)">
+            <option value="">Toutes les marques</option>
+            <?php foreach ($brands as $brand): ?>
+                <option value="<?= htmlspecialchars($brand['brand']) ?>"><?= htmlspecialchars($brand['brand']) ?></option>
+            <?php endforeach; ?>
+        </select>
+        <input type="text">
+
+        <select name="model" id="model" onchange="updateBrandFromModel(event)">
+            <option value="">Tous les modèles</option>
+        </select>
     
-        <form action="index.php" method="GET" class="inputs">
-            <input type="hidden" name="action" value="search">
-            <select name="type" id="type">
-                <option value="">Touts les types</option>
-                <option value="moto">Moto</option>
-                <option value="scooter">Scooter</option>
-                <option value="quad">Quad</option>
-            </select>
+        <input type="submit" value="Rechercher">
+    </form>
 
-            <select name="brand" id="brand" onchange="updateModelOptions(event)">
-                <option value="">Toutes les marques</option>
-                <?php foreach ($brands as $brand): ?>
-                    <option value="<?= htmlspecialchars($brand['brand']) ?>"><?= htmlspecialchars($brand['brand']) ?></option>
-                <?php endforeach; ?>
-            </select>
-
-            <select name="model" id="model" onchange="updateBrandFromModel(event)">
-                <option value="">Tous les modèles</option>
-            </select>
-        
-            <input type="submit" value="Rechercher">
-        </form>
-
-    </div>
 </header>
 
 
@@ -222,66 +215,117 @@ if (!empty($quadAds)) {
 
 <?php
     $adsOfBonnieAndCar = [
-        ["Transparence absolue", "A chaque vente, un mécanicien vous accompagne et regarde avec vous l'historique, l'état administratif, l'état mécanique et l'état esthétique du véhicule pour vous assurer une connaissance précise avant achat."],
-        ["Le juste prix", "L'analyse approfondie de chaque véhicule et sa connaissance marché permet à Bonnie&Car d'être plus précis que les côtes d'occasion classiques. Garantissant à l'acheteur et au vendeur la juste valeur du véhicule au moment de la vente. Ainsi, plus besoin de négocier, vous êtes sûr d'avoir bien acheté votre voiture !"],
-        ["Administratif et paiement sécurisé", "La présence physique lors du rendez-vous d'un agent Bonnie&Car vous assure des démarches administratives simplifiées et un paiement sécurisé."],
+        ["poignée de main.svg", "Transparence absolue", "A chaque vente, un mécanicien vous accompagne et regarde avec vous l'historique, l'état administratif, l'état mécanique et l'état esthétique du véhicule pour vous assurer une connaissance précise avant achat."],
+        ["balance.svg","Le juste prix", "L'analyse approfondie de chaque véhicule et sa connaissance marché permet à Bonnie&Car d'être plus précis que les côtes d'occasion classiques. Garantissant à l'acheteur et au vendeur la juste valeur du véhicule au moment de la vente. Ainsi, plus besoin de négocier, vous êtes sûr d'avoir bien acheté votre voiture !"],
+        ["Sécurité.svg","Administratif et paiement sécurisé", "La présence physique lors du rendez-vous d'un agent Bonnie&Car vous assure des démarches administratives simplifiées et un paiement sécurisé."],
     ];
-
-
-    foreach ($adsOfBonnieAndCar as $adOfBonnieAndCar) {
-        echo "<h2>" . htmlspecialchars($adOfBonnieAndCar[0]) . "</h2>";
-        echo "<p>" . htmlspecialchars($adOfBonnieAndCar[1]) . "</p>";
-    }
 ?>
+<div class="container-ads-bonnieAndCar">
+    <?php foreach ($adsOfBonnieAndCar as $adOfBonnieAndCar): ?>
+        <div class="container-ad-bonnieAndCar">
+            <img src="<?= htmlspecialchars($glob_dev) ?>/assets/icons/<?= htmlspecialchars($adOfBonnieAndCar[0]) ?>" alt="" class="img-ad-bonnieAndCar">
+            <h2 class="title-ad-bonnieAndCar"><?= htmlspecialchars($adOfBonnieAndCar[1]) ?></h2>
+            <p class="text-ad-bonnieAndCar"><?= htmlspecialchars($adOfBonnieAndCar[2]) ?></p>
+        </div>
+    <?php endforeach; ?>
+</div>
 
 <?php
-
 if (!empty($partners)) {
-    echo "<p>Nos annonces quads</p>";
+    ?>
+    <div class="container-title">
+        <h2>Nos partenaires</h2>
+    </div>
+    <div class="container-partners">
+    <?php
     foreach ($partners as $partner) {
-        echo '<img src="' . $partner . '" alt="Image" style="width: 100px;height:auto;"/>';
+        echo '<div class="container-partner">';
+        echo '<img src="' . htmlspecialchars($partner) . '" alt="Image partenaire" style="width: 100px; height:auto;"/>';
+        echo '</div>';
     }
+    ?>
+    </div>
+    <?php
 } else {
     echo "<p>Aucun partenaire trouvé.</p>";
 }
-
 ?>
 
 <?php
-
 if (!empty($testimonials)) {
-    echo "<p>Nos témoignages</p>";
+    ?>
+    <div class="container-title">
+        <h2>Nos témoignages</h2>
+        <img src="<?= htmlspecialchars($glob_dev) ?>/assets/images/google-rating.png" alt="Google Rating" class="google-rating">
+    </div>
+    <div class="container-testimonials">
+    <?php
     foreach ($testimonials as $testimonial) {
-        echo "<h4>" . htmlspecialchars($testimonial['last_name']) . " " . htmlspecialchars($testimonial['first_name']) . "</h4>";
-        echo "<p>Avis : " . htmlspecialchars($testimonial['rating']) . "/5</p>";
-        echo "<p>" . htmlspecialchars($testimonial['description']) . "</p>";
+        ?>
+        <div class="container-testimonial">
+            <h4><?= htmlspecialchars($testimonial['last_name']) . " " . htmlspecialchars($testimonial['first_name']) ?></h4>
+            <p class="subtitle"><?= htmlspecialchars($testimonial['age']) ?> ans</p>
+            <p class="stars"> 
+                <?php
+                for ($i = 1; $i <= 5; $i++) {
+                    if ($i <= $testimonial['rating']) {
+                    ?>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="#FFD43B" d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"/></svg>
+                    <?php
+                    } else {
+                    ?>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="#ffffff" d="M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0zm0 79L235.4 187.2c-3.5 7.1-10.2 12.1-18.1 13.3L99 217.9 184.9 303c5.5 5.5 8.1 13.3 6.8 21L171.4 443.7l105.2-56.2c7.1-3.8 15.6-3.8 22.6 0l105.2 56.2L384.2 324.1c-1.3-7.7 1.2-15.5 6.8-21l85.9-85.1L358.6 200.5c-7.8-1.2-14.6-6.1-18.1-13.3L287.9 79z"/></svg>
+                    <?php
+                    }
+                }
+                ?>
+                
+            </p>
+            <p class="description"><?= htmlspecialchars($testimonial['description']) ?></p>
+        </div>
+        <?php
     }
+    ?>
+    </div>
+    <?php
 } else {
     echo "<p>Aucun témoignage trouvé.</p>";
 }
-
 ?>
 
-<?php
+    
 
+
+<?php
 if (!empty($articles)) {
-    echo "<h1>Nos articles</h1>";
+    ?>
+    <div class="container-title">
+        <h2>L'actualité</h2>
+    </div>
+    <div class="container-articles">
+    <?php
     foreach ($articles as $article) {
+        echo '<a href="#" class="container-article">';
+        if (!empty($article['image'])) {
+            echo "<img src='" . htmlspecialchars($glob_dev) . "/assets/images/" . urlencode($article['image']) . "' alt='" . htmlspecialchars($article['title']) . "' class='picture'/>";
+        }
         echo "<h4>" . htmlspecialchars($article['title']) . "</h4>";
-        echo "<p>"  . htmlspecialchars($article['description']) . "/5</p>";
-        echo "<p>" . htmlspecialchars($article['image']) . "</p>";
+        echo "<p>"  . htmlspecialchars($article['description']) . "</p>";
+        echo '</a>';
     }
-    echo "<a href='#'>Voir tous</a>";
+    ?>
+    <a href='index.php?action=search&keyword=&type=quad&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default' class="btn-second">Voir tous les articles</a>
+    </div>
+    <?php
 } else {
     echo "<p>Aucun article trouvé.</p>";
 }
-
 ?>
-
 
 
 <br>
 <a href="index.php?action=listing">Go to listing</a>
+<br>
 
 <?php 
 include_once '../public/includes/footer.php';
