@@ -3,118 +3,7 @@ include_once '../public/includes/header.php';
 $glob_dev = '/bonnie-car/public';
 ?>
 <head>
-    <style>
-        #main{
-            display: flex;
-            flex-direction: row;
-        }
-        h1 {
-            font-size: 50px;
-            text-align: center;
-            margin-top: 90px;
-            margin-bottom: 10px;
-            font-family: BritanicBoldRegular;
-        }
-        #divContainer{
-            margin: 120px;
-            display: flex;
-            flex-direction: column;
-            align-items: left;
-            
-        }
-        .boxRedirect {      
-            width: 287px;
-            height: 287px;
-            margin: 8px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            color: #7C7C7C;
-            gap: 24px;
-        }
-        .boxRedirect:hover {
-            color: #12486B;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-        }
-        .boxRedirect:hover #heartIconRedirect{
-            fill: #E72828;
-        }
-        .boxRedirect:hover .iconRedirect{
-            fill: #12486B;
-        }
-        #boxAction{
-            width: 288px;
-            height: 152px;
-            margin: 8px;
-            text-align: right;
-            line-height: 40px;
-            padding: 15px 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-        #boxAction > a {
-            font-size: 16px;
-            text-decoration: underline;
-        }
-        #boxAction > #supprimer{
-            color: #E72828;
-        }
-
-        .submitBtn{
-            display: none;
-        }
-        #modalModif{
-            width: 539px;
-            height: 579px;
-        }
-        #ModalSuppression{
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
-        h2{
-            font-size: 24px;
-            font-family: BritanicBoldRegular;
-        }
-        label{
-            font-size:20px;
-            font-family: BritanicBoldRegular;
-        }
-        .logoInBox{
-            width: 63px;
-            height: 63px;
-        }
-        .formInModal{
-            margin: 25px 0px;
-        }
-        .formInModal  input[type=text],input[type=password],input[type=email], input[type=tel]{
-            border: none;
-            width: 60%;
-            margin-bottom: 12px;
-        }
-        .formInModal input[type=button]{
-            border: none;
-            text-decoration: underline;
-        }
-        .formInModal input[type=submit]{
-            width: 140px;
-            height: 42px;
-        }
-        #svgExit{
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" type = "text/css" href ="../public/css/account.css">
 </head>
     <div id="main">
     <div id="divContainer">
@@ -139,74 +28,86 @@ $glob_dev = '/bonnie-car/public';
                 <h2>Mes documents</h2>
             </div>
             <div id="boxAction">
-                <a id="modalModification" onclick="showPopup('modalModif')">Voir mes infos personnelles</a>
-                <br>
                 <a onclick="redirect('logout')" >Déconnexion</a>
                 <br>
                 <a id="supprimer" onclick="showPopup('ModalSuppression')">Supprimer mon compte</a>
             </div>
         </div>
-        <div id="modalModif">
-        <h1>Mon Profil</h1>
+        <div>
+            <h1>Mon Profil</h1>
+            <div id="modalModif">
             <h2>Mes informations personnelles</h2>
-            <svg id="svgExit" onclick="showPopup('modalModif')" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512.021 512.021" style="enable-background:new 0 0 512.021 512.021;" xml:space="preserve" width="30" height="30">
-                <path d="M301.258,256.01L502.645,54.645c12.501-12.501,12.501-32.769,0-45.269c-12.501-12.501-32.769-12.501-45.269,0l0,0   L256.01,210.762L54.645,9.376c-12.501-12.501-32.769-12.501-45.269,0s-12.501,32.769,0,45.269L210.762,256.01L9.376,457.376   c-12.501,12.501-12.501,32.769,0,45.269s32.769,12.501,45.269,0L256.01,301.258l201.365,201.387   c12.501,12.501,32.769,12.501,45.269,0c12.501-12.501,12.501-32.769,0-45.269L301.258,256.01z"/>
-            </svg>
             <form action="index.php?action=updateUser" method="post" id="formulaireModification" >
                 <div class="formInModal">
                     <label for="last_name">Nom</label>
                     <br>
                     <input type="text" id="last_name" name="last_name" value=<?php echo $userInfo['last_name'] ?> disabled>
-                    <input type="button" id="last_nameModif" value="modifier" onclick= "modifChamp('last_name')"/>
+                    <input type="button" class="buttonModif" id="last_nameModif" value="modifier" onclick= "modifChamp('last_name')"/>
                     <input type="hidden" id="champ" name="champ" value="last_name"/>
                     <input type="submit" class="submitBtn "id="last_nameSubmit" value="enregistrer"/>
                 </div>
             </form>
-            <hr>
+            <hr class="hrOpacity">
             <form action="index.php?action=updateUser" method="post" id="formulaireModification" >
                 <div class="formInModal">
                     <label for="first_name">Prenom</label>
                     <br>
                     <input type="text" id="first_name" name="first_name" value=<?php echo $userInfo['first_name'] ?> disabled/>
-                    <input type="button" id="first_nameModif" value="modifier" onclick= "modifChamp('first_name')"/>
+                    <input type="button" class="buttonModif" id="first_nameModif" value="modifier" onclick= "modifChamp('first_name')"/>
                     <input type="hidden" id="champ" name="champ" value="first_name"/>
                     <input type="submit" class="submitBtn "id="first_nameSubmit" value="enregistrer"/>
                 </div>
             </form>
-            <hr>
+            <hr class="hrOpacity">
             <form action="index.php?action=updateUser" method="post" id="formulaireModification" >
                 <div class="formInModal">
                     <label for="email">E-mail</label>
                     <br>
                     <input type="email" id="email" name="email" value=<?php echo $userInfo['email'] ?> disabled/>
-                    <input type="button" id="emailModif" value="modifier" onclick= "modifChamp('email')"/>
+                    <input type="button" class="buttonModif" id="emailModif" value="modifier" onclick= "modifChamp('email')"/>
                     <input type="hidden" id="champ" name="champ" value="email"/>
                     <input type="submit" class="submitBtn "id="emailSubmit" value="enregistrer"/>
                 </div>
             </form>
-            <hr>
+            <hr class="hrOpacity">
             <form action="?action=updateUser" method="post" id="formulaireModification" >
                 <div class="formInModal">
                     <label for="phone">Téléphone</label>
                     <br>
                     <input type="tel" id="phone" name="phone" value=<?php echo $userInfo['phone'] ?> disabled/>
-                    <input type="button" id="phoneModif" value="modifier" onclick= "modifChamp('phone')"/>
+                    <input type="button" class="buttonModif" id="phoneModif" value="modifier" onclick= "modifChamp('phone')"/>
                     <input type="hidden" id="champ" name="champ" value="phone"/>
                     <input type="submit" class="submitBtn "id="phoneSubmit" value="enregistrer"/>
                 </div>
             </form>
-            <hr>
-            <form action="index.php?action=updateUser" method="post" id="formulaireModification" >
+            <hr class="hrOpacity">
+            <form action="index.php?action=updatePasswordUser" method="post" id="formulaireModification" onsubmit="return validateChangePassword()">
                 <div class="formInModal">
                     <label for="password">Mot de passe</label>
-                    <br>
-                    <input type="password" id="password" name="password" disabled/>
-                    <input type="button" id="passwordModif" value="modifier" onclick= "modifChamp('password')"/>
-                    <input type="hidden" id="champ" name="champ" value="password"/>
+                    <input type="button" class="buttonModif" id="passwordModif" value="modifier" onclick= "modifChamp('password')"/>
+                    <div id="containerPassword">
+                        <label for="oldPassword">Mot de passe actuel</label>
+                        <br>
+                        <input type="password" id="password" name="password" disabled/>
+                        <br>
+                        <label for="changePassword">Nouveau mot de passe</label>
+                        <br>
+                        <input type="password" id="changePassword" name="changePassword" onchange="verifierMotDePasse()"/>
+                        <br>
+                        <div id="message"></div>
+                        <br>
+                        <label for="confirmChangePassword">Confirmation nouveau mot de passe</label>
+                        <br>
+                        <input type="password" id="confirmChangePassword" name="confirmChangePassword" onchange="checkConfirmMdp()"/>
+                        <br>
+                        <div id="message2"></div>
+                        <br>
+                    </div>
                     <input type="submit" class="submitBtn "id="passwordSubmit" value="enregistrer"/>
                 </div>
             </form>
-            <hr>
+            <hr class="hrOpacity">
+            </div>
         </div>
         <div id="ModalSuppression">
             <h2>Confirmation de suppression du compte utilisateur.</h2>
@@ -214,7 +115,7 @@ $glob_dev = '/bonnie-car/public';
             <button onclick="showPopup('ModalSuppression')">non</button>
         </div>
     </div>
-    <script src="../public/js/account.js"></script>
+    <script src="../public/js/account.js"></script> 
 <?php 
 include_once '../public/includes/footer.php';
 ?>

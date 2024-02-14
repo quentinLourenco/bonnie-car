@@ -72,6 +72,13 @@ if (!isset($_GET['action'])) {
                 echo "Erreur : Méthode de requête invalide.";
             }
             break;
+        case 'updatePasswordUser':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                echo $userController->updatePasswordUser($_POST);
+            } else {
+                echo "Erreur : Méthode de requête invalide.";
+            }
+            break;
         case 'registration':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 echo $userController->register($_POST);

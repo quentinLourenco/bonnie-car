@@ -1,21 +1,18 @@
 function validateForm() {
-    if(verifierMotDePasse() && checkConfirmMdp()){
+    if(verifierMotDePasse() && checkConfirmMdp() && checkValidateConformite() ){
         return true;
     }
     return false;
 }
 
 function verifierMotDePasse() {
-    var motDePasseInput = document.getElementById("mot_de_passe");
-    // Récupérer la valeur du mot de passe
+    var motDePasseInput = document.getElementById("password");
     var motDePasse = motDePasseInput.value;
 
-    // Vérifier les critères
     var longueurOK = motDePasse.length >= 8;
     var majusculeOK = /[A-Z]/.test(motDePasse);
     var caractereSpecialOK = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(motDePasse);
 
-    // Afficher un message en fonction des résultats
     var message = "";
     if (longueurOK && majusculeOK && caractereSpecialOK) {
         message = "";
@@ -31,8 +28,8 @@ function verifierMotDePasse() {
 }
 
 function checkConfirmMdp(){
-    var motDePasse = document.getElementById("mot_de_passe").value;
-    var confirmMdpInput = document.getElementById("confirm_mdp");
+    var motDePasse = document.getElementById("password").value;
+    var confirmMdpInput = document.getElementById("confirmPassword");
     var confirmMdp = confirmMdpInput.value;
     var message = "";
 
@@ -49,4 +46,16 @@ function checkConfirmMdp(){
         return false;
     }
     
+}
+
+function checkValidateConformite(){
+    var checkBoxValidate = document.getElementById("checkBoxConfirmation");
+    if(checkBoxValidate.checked){
+        document.getElementById("checkBoxConfirmationLabel").style.color = "black";
+        return true;
+    }
+    else{
+        document.getElementById("checkBoxConfirmationLabel").style.color = "red";
+        return false;
+    }
 }
