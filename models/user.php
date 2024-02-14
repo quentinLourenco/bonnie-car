@@ -113,4 +113,20 @@ class User {
             return false;
         }
     }
+
+    public function updatePasswordUser(string $oldPassword,string $newPassword){
+        $userId = $_SESSION['userId'];
+        $user = $this->getUserById($userId);
+        if (password_verify($oldPassword, $user['password'])) {
+            $passwordHash = password_hash($newPassword, PASSWORD_BCRYPT);
+            $stmt = $this->db->prepare("UPDATE users SET password=? WHERE id=? ");
+            $stmt->bind_param("si", $passwordHash, $userId);
+            $stmt->execute();
+            $stmt->close();
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

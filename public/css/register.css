@@ -1,0 +1,70 @@
+h1{
+    font-size: 50px;
+    text-align: center;
+    margin-top: 10vh;
+    margin-bottom: 5vh;
+    font-family: BritanicBoldRegular;
+}
+    h2{
+        text-align: center;
+        font-size: 24px;
+        margin:5vh;
+        font-family: BritanicBoldRegular;
+    }
+    
+    label{
+        font-family: BritanicBoldRegular;
+    }
+    #container{
+        text-align: left;
+        border: solid 1px  black;
+        border-radius: 20px;
+        width: 592px;
+        margin:5vw auto;
+        padding: 0px 5vw;
+        padding-bottom: 2vh;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+    }
+    #container input[type=email],input[type=password],input[type=tel]{
+        width: 390px;
+        height: 50px;
+        margin: 12px 0px;
+        border-radius: 5px;
+        padding-left: 1vw;
+    }
+    #container input[type=text]{
+        width: 187px;
+        height: 50px;
+        margin-right: 15px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+        border-radius: 5px;
+        padding-left: 1vw;
+    }
+    #passwordForgot{
+        text-decoration: none;
+    }
+    input[type=submit]{
+        text-align: center;
+        margin: 5vh auto;
+        background-color: #FFDE59;
+        height: 40px;
+        width: 126px;
+        border:none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-family: BritanicBoldRegular;
+        cursor: pointer;
+    }
+    #checkBoxConfirmation{
+        font-family: Lato;
+        font-size: 12px;
+    }
+    #prenomLabel{
+        margin-left: 180px;
+    }
+#containerSubmit{
+    text-align: center;
+ }

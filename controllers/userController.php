@@ -88,7 +88,7 @@ class UserController {
         $value = $data[$champ];
         $req = $this->userModel->updateUser($champ, $value);
         if ($req === true) {
-            header("Location: index.php");
+            header("Location: index.php?action=accountPage");
         } else {
             header("Location: index.php?erreur=echec");
         }
@@ -114,6 +114,25 @@ class UserController {
             header("Location: index.php");
         } else {
             header("Location: index.php?erreur=echec");
+        }
+    }
+
+    public function updatePasswordUser($data){
+        $oldPassword = $data['password'];
+        $newPassword = $data['changePassword'];
+        $newConfirmPassword = $data['confirmChangePassword'];
+        if($newPassword === $newConfirmPassword){
+            if($this->userModel->updatePasswordUser($oldPassword, $newPassword)) {
+            header("Location: index.php?action=accountPage");
+            return  "Connexion réussie";
+            }else{
+                header("Location: index.php?error=failure");
+                return  "Erreur de connexion";
+            }
+        }
+        else{
+            header("Location: index.php?error=failure");
+            return  "Erreur de connexion";
         }
     }
 }
