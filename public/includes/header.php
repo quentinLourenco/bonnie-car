@@ -74,6 +74,7 @@
     $year = date("Y");
 
     $glob_dev = '/bonnie-car/public';
+    // $glob_dev = '/bonnie-car/public';
 
     $menu_items = [
         ['Accueil', 'index.php'],
