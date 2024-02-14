@@ -121,9 +121,9 @@
                     <?php endforeach; ?>
                     
                 </ul>
-                <a href="<?php echo isset($_SESSION['idUtilisateur']) ? 'index.php' : 'index.php?action=accountPage'; ?>" class="btn">
+                <a href="<?php echo isset($_SESSION['userId']) ? 'index.php?action=accountPage' : 'index.php?action=loginPage'; ?>" class="btn">
                 <img src="<?= $glob_dev ?>/assets/icons/myaccount.svg" alt="btn-icon" class="btn-icon">
-                    <?php echo isset($_SESSION['idUtilisateur']) ? 'Mon compte' : 'Se connecter'; ?>
+                    <?php echo isset($_SESSION['userId']) ? 'Mon compte' : 'Se connecter'; ?>
                 </a>
             </div>
         </div>

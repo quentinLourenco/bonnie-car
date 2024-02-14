@@ -86,8 +86,10 @@ include_once '../public/includes/header.php';
 
     <?php
     if (!empty($brandsAds)) {
-        echo "<h2>Les offres par marques</h2>";
         ?>
+        <div class="container-title">
+            <h2>Les offres par marques</h2>
+        </div>
         <div class="container-scroll-x">
         <?php
         foreach ($brandsAds as $brandsAd) {
@@ -113,21 +115,19 @@ if (!empty($bikeAds)) {
             <h2>Nos annonces motos</h2>
             <a href='index.php?action=search&keyword=&type=moto&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'>Voir tous</a>
         </div>
-        <div class="container-bikes-ads">
+        <div class="container-bike-ads">
         <?php foreach ($bikeAds as $bikeAd): 
             $model = isset($bikeAd['model']) ? $bikeAd['model'] : 'N/A';
-            // Now you can safely use htmlspecialchars as you have ensured $model is a string.
             $model = htmlspecialchars($model);
             $marqueUrlEncoded = urlencode($bikeAd['brand']);
             $idAd = $bikeAd['ad_id']; 
         ?>
-            <a href='index.php?action=detail&id=<?= $idAd ?>' class='bikes-ads'>
+            <a href='index.php?action=detail&id=<?= $idAd ?>' class='type-ads'>
                 <img src='<?= $glob_dev ?>/assets/images/<?= urlencode($bikeAd['picture_url']) ?>' alt='<?= htmlspecialchars($bikeAd['brand']) ?>' class="picture"/>
                 <div class="bot">
                     <?php
                     echo "<p class='ad-brand'>" . htmlspecialchars($bikeAd['brand']) . "</p>";
                     echo "<p class='ad-model'>" . $model . "</p>";
-                    // Corrected concatenation here
                     echo "<p class='ad-mileage-year-type'>" . 
                         (isset($bikeAd['mileage']) ? htmlspecialchars($bikeAd['mileage']) . " km" : "N/A") . " | " .
                         (isset($bikeAd['year']) ? htmlspecialchars($bikeAd['year']) : "N/A") . " | " .
@@ -144,40 +144,80 @@ if (!empty($bikeAds)) {
     } else {
         echo "<p>Aucune annonce de moto trouvée.</p>";
     }
-    ?>
-
+?>
 <?php
 if (!empty($scooterAds)) {
-    echo "<h2>Nos annonces scooters</h2>";
-    echo "<a href='index.php?action=search&keyword=&type=scooter&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'>Voir tous</a>";
-    foreach ($scooterAds as $scooterAd) {
-        $marqueUrlEncoded = urlencode($scooterAd['brand']);
-        $idAd = $scooterAd['ad_id'];
+    ?>
+        <div class="container-title">
+            <h2>Nos annonces scooters</h2>
+            <a href='index.php?action=search&keyword=&type=scooter&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'>Voir tous</a>
+        </div>
+        <div class="container-scooter-ads">
+        <?php foreach ($scooterAds as $scooterAd): 
+            $model = isset($scooterAd['model']) ? $scooterAd['model'] : 'N/A';
+            $model = htmlspecialchars($model);
+            $marqueUrlEncoded = urlencode($scooterAd['brand']);
+            $idAd = $scooterAd['ad_id']; 
+        ?>
+            <a href='index.php?action=detail&id=<?= $idAd ?>' class='type-ads'>
+                <img src='<?= $glob_dev ?>/assets/images/<?= urlencode($scooterAd['picture_url']) ?>' alt='<?= htmlspecialchars($scooterAd['brand']) ?>' class="picture"/>
+                <div class="bot">
+                    <?php
+                    echo "<p class='ad-brand'>" . htmlspecialchars($scooterAd['brand']) . "</p>";
+                    echo "<p class='ad-model'>" . $model . "</p>";
+                    echo "<p class='ad-mileage-year-type'>" . 
+                        (isset($scooterAd['mileage']) ? htmlspecialchars($scooterAd['mileage']) . " km" : "N/A") . " | " .
+                        (isset($scooterAd['year']) ? htmlspecialchars($scooterAd['year']) : "N/A") . " | " .
+                        (isset($scooterAd['type']) && $scooterAd['type'] == 'electrique' ? 'Électrique' : 'Essence') . "</p>";
+                        echo "<div class='ad-full-location'><img src='" . $glob_dev . "/assets/icons/location.svg'/><p class='ad-location'>" . htmlspecialchars($scooterAd['location']) . "</p></div>";
+                        echo "<p class='ad-price'> " . htmlspecialchars($scooterAd['price']) . '€'."</p>";
+                    ?>
+                </div>
+            </a>
+        <?php endforeach; ?>
 
-        echo "<a href='index.php?action=detail&id={$idAd}'>";
-        echo "<p>" . htmlspecialchars($scooterAd['description']) . "</p>";
-        echo "</a>";
+        </div>
+    <?php
+    } else {
+        echo "<p>Aucune annonce de scooter trouvée.</p>";
     }
-} else {
-    echo "<p>Aucune annonces de scooter trouvée.</p>";
-}
 ?>
-
 <?php
 if (!empty($quadAds)) {
-    echo "<h2>Nos annonces quads</h2>";
-    echo "<a href='index.php?action=search&keyword=&type=quad&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'>Voir tous</a>";
-    foreach ($quadAds as $quadAd) {
-        $marqueUrlEncoded = urlencode($quadAd['brand']);
-        $idAd = $quadAd['ad_id'];
+    ?>
+        <div class="container-title">
+            <h2>Nos annonces quads</h2>
+            <a href='index.php?action=search&keyword=&type=quad&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'>Voir tous</a>
+        </div>
+        <div class="container-quad-ads">
+        <?php foreach ($quadAds as $quadAd): 
+            $model = isset($quadAd['model']) ? $quadAd['model'] : 'N/A';
+            $model = htmlspecialchars($model);
+            $marqueUrlEncoded = urlencode($quadAd['brand']);
+            $idAd = $quadAd['ad_id']; 
+        ?>
+            <a href='index.php?action=detail&id=<?= $idAd ?>' class='type-ads'>
+                <img src='<?= $glob_dev ?>/assets/images/<?= urlencode($quadAd['picture_url']) ?>' alt='<?= htmlspecialchars($quadAd['brand']) ?>' class="picture"/>
+                <div class="bot">
+                    <?php
+                    echo "<p class='ad-brand'>" . htmlspecialchars($quadAd['brand']) . "</p>";
+                    echo "<p class='ad-model'>" . $model . "</p>";
+                    echo "<p class='ad-mileage-year-type'>" . 
+                        (isset($quadAd['mileage']) ? htmlspecialchars($quadAd['mileage']) . " km" : "N/A") . " | " .
+                        (isset($quadAd['year']) ? htmlspecialchars($quadAd['year']) : "N/A") . " | " .
+                        (isset($quadAd['type']) && $quadAd['type'] == 'electrique' ? 'Électrique' : 'Essence') . "</p>";
+                        echo "<div class='ad-full-location'><img src='" . $glob_dev . "/assets/icons/location.svg'/><p class='ad-location'>" . htmlspecialchars($quadAd['location']) . "</p></div>";
+                        echo "<p class='ad-price'> " . htmlspecialchars($quadAd['price']) . '€'."</p>";
+                    ?>
+                </div>
+            </a>
+        <?php endforeach; ?>
 
-        echo "<a href='index.php?action=detail&id={$idAd}'>";
-        echo "<p>" . htmlspecialchars($quadAd['description']) . "</p>";
-        echo "</a>";
+        </div>
+    <?php
+    } else {
+        echo "<p>Aucune annonce de quad trouvée.</p>";
     }
-} else {
-    echo "<p>Aucune annonces de quad trouvée.</p>";
-}
 ?>
 
 <?php

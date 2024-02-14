@@ -1,0 +1,110 @@
+#main{
+    display: flex;
+    flex-direction: row;
+}
+h1 {
+    font-size: 50px;
+    text-align: center;
+    margin-top: 90px;
+    margin-bottom: 10px;
+    font-family: BritanicBoldRegular;
+}
+#divContainer{
+    margin: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    
+}
+.boxRedirect {      
+    width: 287px;
+    height: 287px;
+    margin: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #7C7C7C;
+    gap: 24px;
+}
+.boxRedirect:hover {
+    color: #12486B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+.boxRedirect:hover #heartIconRedirect{
+    fill: #E72828;
+}
+.boxRedirect:hover .iconRedirect{
+    fill: #12486B;
+}
+#boxAction{
+    width: 288px;
+    height: 152px;
+    margin: 8px;
+    text-align: right;
+    line-height: 40px;
+    padding: 15px 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+#boxAction > a {
+    font-size: 16px;
+    text-decoration: underline;
+}
+#boxAction > #supprimer{
+    color: #E72828;
+}
+
+.submitBtn{
+    display: none;
+}
+#modalModif{
+    width: 539px;
+    height: 579px;
+}
+#ModalSuppression{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+h2{
+    font-size: 24px;
+    font-family: BritanicBoldRegular;
+}
+label{
+    font-size:20px;
+    font-family: BritanicBoldRegular;
+}
+.logoInBox{
+    width: 63px;
+    height: 63px;
+}
+.formInModal{
+    margin: 25px 0px;
+}
+.formInModal  input[type=text],input[type=password],input[type=email], input[type=tel]{
+    border: none;
+    width: 60%;
+    margin-bottom: 12px;
+}
+.formInModal input[type=button]{
+    border: none;
+    text-decoration: underline;
+}
+.formInModal input[type=submit]{
+    width: 140px;
+    height: 42px;
+}
+#svgExit{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}

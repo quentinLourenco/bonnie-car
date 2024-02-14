@@ -183,7 +183,7 @@ header .research .inputs {
 h2 {
   font-size: 24px;
   font-family: BritanicBoldRegular;
-  margin: 32px 128px 24px;
+  margin: 24px 128px 24px;
   color: var(--black);
 
 }
@@ -229,6 +229,7 @@ box-shadow: 5px 5px 50px -17px #0000005e;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 64px;
   
 }
 
@@ -237,7 +238,16 @@ box-shadow: 5px 5px 50px -17px #0000005e;
   margin: 0 128px;
 }
 
-.container-bikes-ads {
+.container-scooter-ads {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 32px;
+  margin: 0 128px;
+  
+}
+
+.container-bike-ads {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr;
@@ -246,7 +256,17 @@ box-shadow: 5px 5px 50px -17px #0000005e;
   
 }
 
-.bikes-ads {
+.container-quad-ads {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 32px;
+  margin: 0 128px;
+  
+}
+
+
+.type-ads {
   display: flex;
   flex-direction: column;
   text-decoration: none;
@@ -257,12 +277,11 @@ box-shadow: 5px 5px 50px -17px #0000005e;
   overflow: hidden;
 }
 
-.bikes-ads .top{
-  background-color: red;
-  height: 200px;
+.type-ads img{
+  width: 100%;
 }
 
-.bikes-ads .bot{
+.type-ads .bot{
   background-color: var(--white);
   height: auto;
 }
@@ -271,6 +290,7 @@ box-shadow: 5px 5px 50px -17px #0000005e;
   text-transform: uppercase;
   color: var(--yellow);
   margin: 16px 16px 0px;
+  font-family: BritanicBoldRegular;
 }
 
 .ad-model {
@@ -279,6 +299,7 @@ box-shadow: 5px 5px 50px -17px #0000005e;
   margin: 0px 16px 0px;
   font-weight: bold;
   font-size: 32px;
+  font-family: BritanicBoldRegular;
 }
 
 .ad-mileage-year-type {
@@ -301,7 +322,7 @@ box-shadow: 5px 5px 50px -17px #0000005e;
 .ad-price {
   color: var(--black);
   font-size: 32px;
-  font-weight: 300;
+  font-weight: 500;
   margin: 16px;
 }
 

@@ -78,8 +78,8 @@ class User {
             $stmt->close();
             return true;
         }
-        catch(\Exception $exception){
-            echo 'Une erreur inattendue s\'est produite '. $exception;
+        catch (\Exception $exception) {
+            error_log('Unexpected error occurred: ' . $exception->getMessage());
             return false;
         }
     }
@@ -93,8 +93,8 @@ class User {
             $stmt->close();
             return true;
         }
-        catch(\Exception $exception){
-            echo 'Une erreur inattendue s\'est produite '. $exception;
+        catch (\Exception $exception) {
+            error_log('Unexpected error occurred: ' . $exception->getMessage());
             return false;
         }
     }
@@ -108,8 +108,8 @@ class User {
             $result = $stmt->get_result();
             return $result->fetch_all(MYSQLI_ASSOC);
         }
-        catch(\Exception $exception){
-            echo 'Une erreur inattendue s\'est produite '. $exception;
+        catch (\Exception $exception) {
+            error_log('Unexpected error occurred: ' . $exception->getMessage());
             return false;
         }
     }

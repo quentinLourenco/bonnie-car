@@ -278,13 +278,13 @@ class Ad {
     }
 
     public function getScooterAds() {
-        $query = "SELECT * FROM ads JOIN vehicles ON ads.id = vehicles.ad_id WHERE vehicles.type = 'scooter' ORDER BY creation_date LIMIT 4";
+        $query = "SELECT * FROM ads JOIN vehicles ON ads.id = vehicles.ad_id WHERE vehicles.type = 'scooter' ORDER BY creation_date LIMIT 5";
         $result = $this->db->query($query);
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
 
     public function getQuadAds() {
-        $query = "SELECT * FROM ads JOIN vehicles ON ads.id = vehicles.ad_id WHERE vehicles.type = 'quad' ORDER BY creation_date LIMIT 4";
+        $query = "SELECT * FROM ads JOIN vehicles ON ads.id = vehicles.ad_id WHERE vehicles.type = 'quad' ORDER BY creation_date LIMIT 3";
         $result = $this->db->query($query);
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
