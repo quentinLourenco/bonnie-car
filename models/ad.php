@@ -272,19 +272,19 @@ class Ad {
     }
 
     public function getBikeAds() {
-        $query = "SELECT * FROM ads JOIN vehicles ON ads.id = vehicles.ad_id WHERE vehicles.type = 'moto'";
+        $query = "SELECT * FROM ads JOIN vehicles ON ads.id = vehicles.ad_id WHERE vehicles.type = 'moto' ORDER BY creation_date LIMIT 4";
         $result = $this->db->query($query);
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
 
     public function getScooterAds() {
-        $query = "SELECT * FROM ads JOIN vehicles ON ads.id = vehicles.ad_id WHERE vehicles.type = 'scooter'";
+        $query = "SELECT * FROM ads JOIN vehicles ON ads.id = vehicles.ad_id WHERE vehicles.type = 'scooter' ORDER BY creation_date LIMIT 4";
         $result = $this->db->query($query);
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
 
     public function getQuadAds() {
-        $query = "SELECT * FROM ads JOIN vehicles ON ads.id = vehicles.ad_id WHERE vehicles.type = 'quad'";
+        $query = "SELECT * FROM ads JOIN vehicles ON ads.id = vehicles.ad_id WHERE vehicles.type = 'quad' ORDER BY creation_date LIMIT 4";
         $result = $this->db->query($query);
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
@@ -363,6 +363,12 @@ class Ad {
             error_log('Unexpected error occurred: ' . $exception->getMessage());
             return false;
         }
+    }
+
+    public function getBrandsAds() {
+        $query = "SELECT DISTINCT brand FROM vehicles ORDER BY brand ASC LIMIT 6";
+        $result = $this->db->query($query);
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
     
 }

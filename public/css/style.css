@@ -22,7 +22,305 @@
     font-family: 'Lato', sans-serif;
 }
 
-ul {
+
+header {
+  max-height: 85vh;
+  height: 85vh;
+  background-image: url('/bonnie-car/public/assets/banniere.png');
+  background-size: cover;
+  display: flex;
+  justify-content: space-between;
+  padding: 5% 10%;
+  gap: 100px;
+}
+
+.navbar {
+  display: flex;
+  height: 15vh;
+  background-color: var(--black);
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 150px;
+}
+
+.navbar-logo {
+  width: 50px;
+  height: auto;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+}
+
+.navbar-link {
+  margin: 0 20px;
+  font-family: BritanicBoldRegular;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--white);
+  position: relative;
+}
+
+.navbar-link::before {
+  content: "";
+  width: 50%;
+  height: .2em;
+  background: var(--yellow);
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  border-radius: 10px;
+}
+
+
+.navbar-link--has-submenu::after {
+  content: ">"; 
+  font-size: 1em; 
+  margin-left: 5px; 
+  position: absolute; 
+  right: -20px;
+  top: 0;
+  transform: rotate(90deg);
+}
+
+.navbar-sublinks {
+  display: none; 
+  position: absolute; 
+  background-color: var(--black);
+  padding: 10px; 
+  border-radius: 5px; 
+  top: 100%; 
+}
+.navbar-sublinks {
+  display: none; 
+  position: absolute; /* Position absolue par rapport au parent */
+  left: 0; /* Aligné à gauche avec le lien parent */
+  top: 100%; /* Juste en dessous du lien parent */
+  background-color: var(--black); /* Fond du sous-menu */
+  border-radius: 5px; /* Coins arrondis */
+  padding: 10px; /* Espace intérieur */
+}
+
+/* Affiche le sous-menu lorsque le lien parent est survolé */
+.navbar-link:hover + .navbar-sublinks,
+.navbar-sublinks:hover {
+  display: block; /* Affiche le sous-menu */
+}
+
+/* Ajoutez un peu d'espace au-dessus du sous-menu pour éviter de le fermer accidentellement lors du passage de la souris */
+.navbar-link--has-submenu:hover + .navbar-sublinks {
+  margin-top: 5px;
+}
+
+.btn {
+  background: var(--yellow);
+  width: 100px;
+  margin: 8px 16px;
+  display: flex;
+  text-align: center;
+  width: auto;
+  padding: 10px 20px; 
+  border-radius: 10px;
+  align-items: center;
+  text-decoration: none;
+  color: var(--blue);
+}
+
+.btn img {
+  width: 24px;
+  margin-right: 10px;
+}
+
+
+header .description {
+  width: 70%;
+}
+
+header h1.title {
+  font-size: 50px;
+  font-family: BritanicBoldRegular;
+  margin: 10% 0;
+  color: var(--white);
+}
+
+header p.subtitle {
+  font-size: 16px;
+  color: var(--white);
+}
+
+header .research {
+  background-color: var(--blue);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 16px;
+}
+
+header .research .btns {
+  display: flex;
+  gap: 32px;
+}
+
+
+.research .btns .btn-action {
+  background-color: var(--grey);
+  color: var(--blue);
+  padding: 8px 32px;
+  border-radius: 16px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+header .research .inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+h2 {
+  font-size: 24px;
+  font-family: BritanicBoldRegular;
+  margin: 32px 128px 24px;
+  color: var(--black);
+
+}
+
+
+.container-scroll-x {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 16px;
+  margin: 0 128px;
+}
+
+.container-scroll-x:last-child {
+  grid-column-gap: 0px;
+}
+
+.container-scroll-x::-webkit-scrollbar {
+  width: 0;
+}
+
+.container-ads-brand {
+  height: 254px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--blue);
+  gap: 24px;
+  -webkit-box-shadow: 5px 5px 50px -17px #0000005e; 
+box-shadow: 5px 5px 50px -17px #0000005e;
+}
+
+.container-ads-brand img {
+  width: 64px;
+  
+}
+
+.container-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.container-title a {
+  color: var(--blue);
+  margin: 0 128px;
+}
+
+.container-bikes-ads {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 32px;
+  margin: 0 128px;
+  
+}
+
+.bikes-ads {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--black);
+  -webkit-box-shadow: 5px 5px 50px -17px #0000005e; 
+  box-shadow: 5px 5px 50px -17px #0000005e;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.bikes-ads .top{
+  background-color: red;
+  height: 200px;
+}
+
+.bikes-ads .bot{
+  background-color: var(--white);
+  height: auto;
+}
+
+.ad-brand {
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin: 16px 16px 0px;
+}
+
+.ad-model {
+  text-transform: uppercase;
+  color: var(--blue);
+  margin: 0px 16px 0px;
+  font-weight: bold;
+  font-size: 32px;
+}
+
+.ad-mileage-year-type {
+  color: var(--grey);
+  margin: 8px 16px 0px;
+}
+
+.ad-full-location {
+  display: flex;
+  margin: 8px 16px;
+}
+.ad-full-location img {
+  width: 16px;
+}
+.ad-location {
+  color: var(--black);
+  margin-left: 4px;
+}
+
+.ad-replace {
+  color: var(--black);
+  font-size: 32px;
+  font-weight: 300;
+  margin: 16px;
+}
+
+.bikes-ads .picture {
+  width: 100%;
+  background: #0d0d0d1d;
+}
+
+.bikes-ads .bot p img {
+  width: 16px;  
+}
+
+
+
+
+
+
+
+/* ul {
     list-style: none;
 }
 
@@ -295,7 +593,7 @@ color: red;
 } */
 
 /* footer */
-footer {
+/* footer {
     background-color: var(--black);
     color: var(--white);
     text-align: center;
@@ -376,7 +674,7 @@ footer .btn {
 }
 
 
-@media (min-width:768px){
+@media only screen and (min-width:768px){
     footer {
         display: flex;
         justify-content: space-between;
@@ -406,4 +704,4 @@ footer .btn {
         color: var(--white) !important;
     }
     
-}
+} */ 

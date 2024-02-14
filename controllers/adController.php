@@ -11,6 +11,7 @@ class AdController {
 
     public function home() {
         $brands = $this->adModel->getUniqueBrands();
+        $brandsAds = $this->adModel->getBrandsAds();
         $bikeAds = $this->adModel->getBikeAds(); 
         $scooterAds = $this->adModel->getScooterAds(); 
         $quadAds = $this->adModel->getQuadAds();

@@ -34,60 +34,67 @@ $page = (int)$page; // Assurez-vous que $page est un entier
 $perPage = 10;
 $offset = ($page - 1) * $perPage;
 
+
+
 // Inclure les fichiers nécessaires ici
 include_once '../public/includes/header.php';
 ?>
 
-<div class="container_search">
-    <div class="container_btns">
-        <a href="" class="btn-action btn-active">Acheter</a>
-        <a href="" class="btn-action">Vendre</a>
+<header>
+    <div class="description">
+        <h1 class="title">La vente de véhicule en toute sécurité et accompagnée</h3>
+        <p class="subtitle">Bonnie & Ride vous accompagne dans la vente ou l’achat d’un véhicule en toute sécurité grâce à nos équipes qui vous fournira un service de qualité vous assurant une tranquillité et un confort pour la vente de votre véhicule, et ce partout en France métropolitaine.</p>
     </div>
+
+
+    <div class="research">
+        <div class="btns">
+            <a href="" class="btn-action btn-active">Acheter</a>
+            <a href="" class="btn-action">Vendre</a>
+        </div>
+            
     
-    <form action="index.php" method="GET">
-        <input type="hidden" name="action" value="search">
-        <select name="type" id="type">
-            <option value="">Touts les types</option>
-            <option value="moto">Moto</option>
-            <option value="scooter">Scooter</option>
-            <option value="quad">Quad</option>
-        </select>
+        <form action="index.php" method="GET" class="inputs">
+            <input type="hidden" name="action" value="search">
+            <select name="type" id="type">
+                <option value="">Touts les types</option>
+                <option value="moto">Moto</option>
+                <option value="scooter">Scooter</option>
+                <option value="quad">Quad</option>
+            </select>
 
-        <select name="brand" id="brand" onchange="updateModelOptions(event)">
-            <option value="">Toutes les marques</option>
-            <?php foreach ($brands as $brand): ?>
-                <option value="<?= htmlspecialchars($brand['brand']) ?>"><?= htmlspecialchars($brand['brand']) ?></option>
-            <?php endforeach; ?>
-        </select>
+            <select name="brand" id="brand" onchange="updateModelOptions(event)">
+                <option value="">Toutes les marques</option>
+                <?php foreach ($brands as $brand): ?>
+                    <option value="<?= htmlspecialchars($brand['brand']) ?>"><?= htmlspecialchars($brand['brand']) ?></option>
+                <?php endforeach; ?>
+            </select>
 
-        <select name="model" id="model" onchange="updateBrandFromModel(event)">
-            <option value="">Tous les modèles</option>
-        </select>
-    
-        <input type="submit" value="Rechercher">
-    </form>
-</div>
+            <select name="model" id="model" onchange="updateBrandFromModel(event)">
+                <option value="">Tous les modèles</option>
+            </select>
+        
+            <input type="submit" value="Rechercher">
+        </form>
+
+    </div>
+</header>
 
 
-
-<div class="hero">
-    <h3 class="title">La vente de véhicule en toute sécurité et accompagnée</h3>
-    <p class="subtitle">Bonnie & Ride vous accompagne dans la vente ou l’achat d’un véhicule en toute sécurité grâce à nos équipes qui vous fournira un service de qualité vous assurant une tranquillité et un confort pour la vente de votre véhicule, et ce partout en France métropolitaine.</p>
-</div>
 
 
 
     <?php
-    if (!empty($brands)) {
-        echo "<p>Les offres par marques</p>";
+    if (!empty($brandsAds)) {
+        echo "<h2>Les offres par marques</h2>";
         ?>
         <div class="container-scroll-x">
         <?php
-        foreach ($brands as $brand) {
-            $marqueUrlEncoded = urlencode($brand['brand']);
+        foreach ($brandsAds as $brandsAd) {
+            $marqueUrlEncoded = urlencode($brandsAd['brand']);
             ?>
             <a href="index.php?action=search&keyword=&type=&brand=<?php echo $marqueUrlEncoded; ?>&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default" class="container-ads-brand">
-                <p class="item-scroll-x"><?php echo htmlspecialchars($brand['brand']); ?></p>
+                <img src="https://static.vecteezy.com/system/resources/previews/020/975/589/original/yamaha-logo-yamaha-icon-transparent-free-png.png" alt=""><?php echo htmlspecialchars($brandsAd['brand']);?>
             </a>
         <?php 
         }
@@ -101,24 +108,47 @@ include_once '../public/includes/header.php';
 
 <?php
 if (!empty($bikeAds)) {
-    echo "<p>Nos annonces motos</p>";
-    echo "<a href='index.php?action=search&keyword=&type=moto&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'>Voir tous</a>";
-    foreach ($bikeAds as $bikeAd) {
-        $marqueUrlEncoded = urlencode($bikeAd['brand']);
-        $idAd = $bikeAd['ad_id'] ;
+    ?>
+        <div class="container-title">
+            <h2>Nos annonces motos</h2>
+            <a href='index.php?action=search&keyword=&type=moto&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'>Voir tous</a>
+        </div>
+        <div class="container-bikes-ads">
+        <?php foreach ($bikeAds as $bikeAd): 
+            $model = isset($bikeAd['model']) ? $bikeAd['model'] : 'N/A';
+            // Now you can safely use htmlspecialchars as you have ensured $model is a string.
+            $model = htmlspecialchars($model);
+            $marqueUrlEncoded = urlencode($bikeAd['brand']);
+            $idAd = $bikeAd['ad_id']; 
+        ?>
+            <a href='index.php?action=detail&id=<?= $idAd ?>' class='bikes-ads'>
+                <img src='<?= $glob_dev ?>/assets/images/<?= urlencode($bikeAd['picture_url']) ?>' alt='<?= htmlspecialchars($bikeAd['brand']) ?>' class="picture"/>
+                <div class="bot">
+                    <?php
+                    echo "<p class='ad-brand'>" . htmlspecialchars($bikeAd['brand']) . "</p>";
+                    echo "<p class='ad-model'>" . $model . "</p>";
+                    // Corrected concatenation here
+                    echo "<p class='ad-mileage-year-type'>" . 
+                        (isset($bikeAd['mileage']) ? htmlspecialchars($bikeAd['mileage']) . " km" : "N/A") . " | " .
+                        (isset($bikeAd['year']) ? htmlspecialchars($bikeAd['year']) : "N/A") . " | " .
+                        (isset($bikeAd['type']) && $bikeAd['type'] == 'electrique' ? 'Électrique' : 'Essence') . "</p>";
+                        echo "<div class='ad-full-location'><img src='" . $glob_dev . "/assets/icons/location.svg'/><p class='ad-location'>" . htmlspecialchars($bikeAd['location']) . "</p></div>";
+                        echo "<p class='ad-price'> " . htmlspecialchars($bikeAd['price']) . '€'."</p>";
+                    ?>
+                </div>
+            </a>
+        <?php endforeach; ?>
 
-        echo "<a href='index.php?action=detail&id={$idAd}'>";
-        echo "<p>" . htmlspecialchars($bikeAd['description']) . "</p>";
-        echo "</a>";
+        </div>
+    <?php
+    } else {
+        echo "<p>Aucune annonce de moto trouvée.</p>";
     }
-} else {
-    echo "<p>Aucune annonces de moto trouvée.</p>";
-}
-?>
+    ?>
 
 <?php
 if (!empty($scooterAds)) {
-    echo "<p>Nos annonces scooters</p>";
+    echo "<h2>Nos annonces scooters</h2>";
     echo "<a href='index.php?action=search&keyword=&type=scooter&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'>Voir tous</a>";
     foreach ($scooterAds as $scooterAd) {
         $marqueUrlEncoded = urlencode($scooterAd['brand']);
@@ -135,7 +165,7 @@ if (!empty($scooterAds)) {
 
 <?php
 if (!empty($quadAds)) {
-    echo "<p>Nos annonces quads</p>";
+    echo "<h2>Nos annonces quads</h2>";
     echo "<a href='index.php?action=search&keyword=&type=quad&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'>Voir tous</a>";
     foreach ($quadAds as $quadAd) {
         $marqueUrlEncoded = urlencode($quadAd['brand']);

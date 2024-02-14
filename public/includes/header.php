@@ -96,45 +96,37 @@
         ['FAQ', 'index.php']
     ];
     ?>
-    <header>
         <div class="navbar">
-            <div class="container nav-container">
-                <img src="<?= $glob_dev ?>/assets/logonew.png" alt="logo">
-                <input class="checkbox" type="checkbox" name="" id="" />
-                <div class="hamburger-lines">
-                <span class="line line1"></span>
-                <span class="line line2"></span>
-                <span class="line line3"></span>
-                </div>
-                <ul class="menu-items">
+                <img src="<?= $glob_dev ?>/assets/logonew.png" alt="navbar-logo" class="navbar-logo">
+                <ul class="navbar-links">
                     <?php foreach ($menu_items as $item): ?>
                         <li>
-                            <a href="<?= htmlspecialchars($item[1]) ?>"><?= htmlspecialchars($item[0]) ?></a>
+                            <a href="<?= htmlspecialchars($item[1]) ?>" class="navbar-link <?= ($item[0] == 'Acheter' || $item[0] == 'A propos') ? 'navbar-link--has-submenu' : '' ?>"><?= htmlspecialchars($item[0]) ?></a>
                             <?php if ($item[0] == 'Acheter'): ?>
-                                <ul class="submenu">
-                                    <?php foreach ($submenu_items_buy as $subitembuy): ?>
-                                        <li><a href="<?= htmlspecialchars($subitembuy[1]) ?>" class="sub"><?= htmlspecialchars($subitembuy[0]) ?></a></li>
-                                    <?php endforeach; ?>
+                                <ul class="navbar-sublinks">
+                                <?php foreach ($submenu_items_buy as $subitembuy): ?>
+                                    <li><a href="<?= htmlspecialchars($subitembuy[1]) ?>" class="navbar-sublink"><?= htmlspecialchars($subitembuy[0]) ?></a></li>
+                                <?php endforeach; ?>
                                 </ul>
                             <?php endif; ?>
                             <?php if ($item[0] == 'A propos'): ?>
-                                <ul class="submenu">
-                                    <?php foreach ($submenu_items_about as $subitemabout): ?>
-                                        <li><a href="<?= htmlspecialchars($subitemabout[1]) ?>" class="sub"><?= htmlspecialchars($subitemabout[0]) ?></a></li>
-                                    <?php endforeach; ?>
+                                <ul class="navbar-sublinks">
+                                <?php foreach ($submenu_items_about as $subitemabout): ?>
+                                    <li><a href="<?= htmlspecialchars($subitemabout[1]) ?>" class="sub"><?= htmlspecialchars($subitemabout[0]) ?></a></li>
+                                <?php endforeach; ?>
                                 </ul>
                             <?php endif; ?>
-                        </li>
+                            </li>
                     <?php endforeach; ?>
-                    <a href="<?php echo isset($_SESSION['idUtilisateur']) ? 'index.php' : 'index.php?action=loginPage'; ?>" class="btn">
-                        <?php echo isset($_SESSION['idUtilisateur']) ? 'Mon compte' : 'Se connecter'; ?>
-                    </a>
+                    
                 </ul>
-                
-            
+                <a href="<?php echo isset($_SESSION['idUtilisateur']) ? 'index.php' : 'index.php?action=accountPage'; ?>" class="btn">
+                <img src="<?= $glob_dev ?>/assets/icons/myaccount.svg" alt="btn-icon" class="btn-icon">
+                    <?php echo isset($_SESSION['idUtilisateur']) ? 'Mon compte' : 'Se connecter'; ?>
+                </a>
             </div>
         </div>
-    </header>
+
     
   
                             
