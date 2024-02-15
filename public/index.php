@@ -86,6 +86,12 @@ if (!isset($_GET['action'])) {
                 echo "Erreur : Méthode de requête invalide.";
             }
             break;
+        case 'getAllBrands':
+            $adController->getAllBrands();
+            break;
+        case 'getAllModels':
+            $adController->getAllModels();
+            break;
         default:
             $adController->home();
     }

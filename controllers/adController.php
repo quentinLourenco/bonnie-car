@@ -101,12 +101,26 @@ class AdController {
         $brands = $this->adModel->getUniqueBrands();
         $models = $this->adModel->getUniqueModels();
         $types = $this->adModel->getUniqueTypes();
-    
         require_once '../views/listing.php';
     }
 
     public function getFavoritesAdsByAdId($data){
         
+    }
+
+    public function getAllBrands() {
+        $brands = $this->adModel->getUniqueBrands();
+        echo json_encode($brands);
+    }
+
+    public function getAllModels() {
+        $models = $this->adModel->getUniqueModels();
+        echo json_encode($models);
+    }
+    
+    public function getModelsByBrand($brand) {
+        $models = $this->adModel->getModelsByBrand($brand); 
+        echo json_encode($models);
     }
     
 }
