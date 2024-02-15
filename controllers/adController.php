@@ -34,7 +34,7 @@ class AdController {
         $history = isset($_GET['history']) ? 1 : null;
         $sort = $_GET['sort'] ?? 'id_asc';
         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
-        $perPage = 10;
+        $perPage = 9;
     
         $totalAds = $this->adModel->getTotalAds($keyword, $type, $brand, $model, $cc_min, $cc_max, $price_min, $price_max, $first_hand, $history);
         $totalPages = ceil($totalAds / $perPage);
@@ -91,7 +91,7 @@ class AdController {
         $history = isset($_GET['history']) ? 1 : null;
         $sort = $_GET['sort'] ?? 'id_asc';
         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
-        $perPage = 10;
+        $perPage = 9;
     
         $totalAds = $this->adModel->getTotalAds($keyword, $type, $brand, $model, $cc_min, $cc_max, $price_min, $price_max, $first_hand, $history);
         $totalPages = ceil($totalAds / $perPage);
