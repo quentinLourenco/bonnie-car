@@ -33,6 +33,7 @@ $offset = ($page - 1) * $perPage;
 include_once '../public/includes/header.php';
 ?>
 <body>
+    <section class="container-search-ads">
     <h1>Annonces</h1>
     <a href="?action=add">Ajouter une annonce</a>
     <form action="index.php" method="GET">
@@ -110,20 +111,25 @@ include_once '../public/includes/header.php';
             <option value="date_desc" <?= $sort == 'date_desc' ? 'selected' : '' ?>>Plus ancien</option>
         </select>
     </form>
+    </section>
+    
 
-    <ul>
-    <?php foreach ($ads as $ad): ?>
-        <li>
-        <a href="?action=detail&id=<?= isset($ad['ad_id']) ? htmlspecialchars($ad['ad_id']) : '' ?>">
-                <?= htmlspecialchars($ad['title'] ?? '' ?: '', ENT_QUOTES | ENT_HTML5, 'UTF-8') ?> -
-                <?= htmlspecialchars($ad['type'] ?? 'Type inconnu') ?> 
-                <?= htmlspecialchars($ad['brand'] ?? 'Marque inconnue') ?> 
-                <?= htmlspecialchars($ad['model'] ?? 'Modèle inconnu') ?> - 
-                <?= htmlspecialchars(number_format($ad['price'] ?? 0, 2)) ?>€
-            </a>
-        </li>
-    <?php endforeach; ?>
-    </ul>
+    <section class="container-listing-ads">
+        <ul>
+            <?php foreach ($ads as $ad): ?>
+                <li>
+                <a href="?action=detail&id=<?= isset($ad['ad_id']) ? htmlspecialchars($ad['ad_id']) : '' ?>">
+                        <?= htmlspecialchars($ad['title'] ?? '' ?: '', ENT_QUOTES | ENT_HTML5, 'UTF-8') ?> -
+                        <?= htmlspecialchars($ad['type'] ?? 'Type inconnu') ?> 
+                        <?= htmlspecialchars($ad['brand'] ?? 'Marque inconnue') ?> 
+                        <?= htmlspecialchars($ad['model'] ?? 'Modèle inconnu') ?> - 
+                        <?= htmlspecialchars(number_format($ad['price'] ?? 0, 2)) ?>€
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </section>
+    
 <?php
 
 ?>

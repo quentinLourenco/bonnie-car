@@ -158,15 +158,73 @@ header .research {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 16px;
+  padding: 32px;
 }
 
 header .research h2 {
   color: var(--white);
   font-size: 30px;
-  font-family: sans-serif;
+  font-family: sans-serif;margin: 16px 0;
 }
 
+header .research .chips {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+header .research .chips a {
+  width: fit-content;
+  padding: 4px 8px;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+}
+
+header .research .chips a svg{
+  width: 16px;
+  margin-left: 8px;
+}
+
+header .research .chips .chips-off {
+  background: transparent;
+  border: 1px solid var(--white);
+  color: var(--white);
+}
+
+header .research .chips .chips-off svg {
+  display: none;
+}
+
+header .research .chips .chips-on {
+  display: flex;
+  background: var(--yellow);
+  border: none;
+  color: var(--black);
+}
+
+
+
+header .research select {
+  border: none;
+  background-color: var(--white);
+  color: var(--black);
+  padding: 16px;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+header .research input[type="submit"]{
+  border: none;
+  background-color: var(--yellow);
+  color: var(--black);
+  padding: 16px;
+  border-radius: 8px;
+  margin: 8px 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 14px;
+}
 .container-title h2 {
   font-size: 24px;
   font-family: BritanicBoldRegular;
@@ -464,7 +522,28 @@ box-shadow: 5px 5px 50px -17px #0000005e;
   text-decoration: none;
 }
 
+section.container-search-ads {
+  margin: 264px;
+}
+
+section.container-listing-ads {
+  margin: 264px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 footer {
+  width: 100%;
+  bottom: 0;
   background: var(--black);
   color: var(--white);
   display: flex;
@@ -536,6 +615,7 @@ footer .footer-end a{
 }
 
 .footer-rights {
+  bottom: 0;
   background-color: var(--black);
   color: var(--white);
   width: 100%;

@@ -101,7 +101,6 @@ class AdController {
         $brands = $this->adModel->getUniqueBrands();
         $models = $this->adModel->getUniqueModels();
         $types = $this->adModel->getUniqueTypes();
-    
         require_once '../views/listing.php';
     }
 

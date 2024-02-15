@@ -6,6 +6,29 @@
     <link rel="stylesheet" type = "text/css" href ="../public/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.css" integrity="sha512-imTMcrMfwTWMwbgH3ComWWGCoDCo2jO1Qrvoa7B/Kcy7MrP5XMojK/Ede5uYofzcYyx4aFXdwzsm1QxdQXZreg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script>
+        
+        function toggleChipState(clickedElement) {
+            document.querySelectorAll('.chips a').forEach(element => {
+                if (element !== clickedElement) {
+                    element.classList.remove('chips-on');
+                    element.classList.add('chips-off');
+                    element.querySelector('svg').style.display = 'none';
+                }
+            });
+
+            if (clickedElement.classList.contains('chips-off')) {
+                clickedElement.classList.remove('chips-off');
+                clickedElement.classList.add('chips-on');
+                clickedElement.querySelector('svg').style.display = '';
+                document.getElementById('selectedType').value = clickedElement.getAttribute('value');
+            } else {
+                clickedElement.classList.remove('chips-on');
+                clickedElement.classList.add('chips-off');
+                clickedElement.querySelector('svg').style.display = 'none';
+                document.getElementById('selectedType').value = '';
+            }
+        }
+
         // document.addEventListener('DOMContentLoaded', function() {
         //     fetchAllModels();
         // });
