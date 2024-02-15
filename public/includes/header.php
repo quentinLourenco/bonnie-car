@@ -29,21 +29,37 @@
             }
         }
 
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     fetchAllModels();
-        // });
-        // function fetchAllModels() {
-        //     fetch('index.php?action=getAllModels')
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             const modelSelect = document.getElementById('model');
-        //             modelSelect.innerHTML = '<option value="">Tous les modèles</option>';
-        //             data.forEach(model => {
-        //                 modelSelect.innerHTML += `<option value="${model.model}">${model.model}</option>`;
-        //             });
-        //         })
-        //         .catch(error => console.error('Error loading models:', error));
-        // }
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchAllBrands(event); 
+            fetchAllModels(event); 
+        });
+
+        function fetchAllBrands(event) {
+            fetch('index.php?action=getAllBrands')
+                .then(response => response.json())
+                .then(data => {
+                    const brandSelect = document.getElementById('brand');
+                    brandSelect.innerHTML = '<option value="">Toutes les marques</option>';
+                    data.forEach(brand => {
+                        brandSelect.innerHTML += `<option value="${brand.brand}">${brand.brand}</option>`;
+                    });
+                })
+                .catch(error => console.error('Error loading brands:', error));
+        }
+
+        function fetchAllModels(event) {
+            fetch('index.php?action=getAllModels')
+                .then(response => response.json())
+                .then(data => {
+                    const modelSelect = document.getElementById('model');
+                    modelSelect.innerHTML = '<option value="">Tous les modèles</option>';
+                    data.forEach(model => {
+                        modelSelect.innerHTML += `<option value="${model.model}">${model.model}</option>`;
+                    });
+                })
+                .catch(error => console.error('Error loading brands:', error));
+        }
+
         // function updateBrandOptionsFromType() {
         //     const typeSelect = document.getElementById('type');
         //     const selectedType = typeSelect.value;
@@ -98,7 +114,7 @@
     $year = date("Y");
 
     $glob_dev = '/bonnie-car/public';
-    // $glob_dev = '/bonnie-car/public';
+    // $glob_dev = '';
 
     $menu_items = [
         ['Accueil', 'index.php'],
