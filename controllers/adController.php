@@ -107,15 +107,19 @@ class AdController {
     public function getFavoritesAdsByAdId($data){
         
     }
-
-    public function getAllBrands() {
-        $brands = $this->adModel->getUniqueBrands();
-        echo json_encode($brands);
-    }
-
-    public function getAllModels() {
-        $models = $this->adModel->getUniqueModels();
-        echo json_encode($models);
+    public function someMethodToShowBrandsAndModels() {
+        $type = $_GET['type'] ?? null;
+        $brands = $this->adModel->getUniqueBrandsByType($type);
+        $models = $this->adModel->getUniqueModelsByType($type);
+        $data = [
+            'brands' => $brands,
+            'models' => $models,
+        ];
+    
+        header('Content-Type: application/json');
+    
+        echo json_encode($data);
+    
     }
     
     public function getModelsByBrand($brand) {

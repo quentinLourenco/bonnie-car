@@ -87,10 +87,10 @@ if (!isset($_GET['action'])) {
             }
             break;
         case 'getAllBrands':
-            $adController->getAllBrands();
+            $adController->someMethodToShowBrandsAndModels();
             break;
         case 'getAllModels':
-            $adController->getAllModels();
+            $adController->someMethodToShowBrandsAndModels();
             break;
         default:
             $adController->home();

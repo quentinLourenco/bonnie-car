@@ -34,8 +34,9 @@
             fetchAllModels(event); 
         });
 
-        function fetchAllBrands(event) {
-            fetch('index.php?action=getAllBrands')
+        function fetchAllBrands(type) {
+            const url = type ? `index.php?action=getAllBrands&type=${type}` : 'index.php?action=getAllBrands';
+            fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     const brandSelect = document.getElementById('brand');

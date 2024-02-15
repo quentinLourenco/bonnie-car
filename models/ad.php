@@ -251,6 +251,34 @@ class Ad {
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
 
+    public function getUniqueBrandsByType($type = null) {
+        if ($type) {
+            $query = "SELECT DISTINCT brand FROM vehicles WHERE type = ? ORDER BY brand ASC";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("s", $type);
+        } else {
+            $query = "SELECT DISTINCT brand FROM vehicles ORDER BY brand ASC";
+            $stmt = $this->db->prepare($query);
+        }
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    }
+    
+    public function getUniqueModelsByType($type = null) {
+        if ($type) {
+            $query = "SELECT DISTINCT model FROM vehicles WHERE type = ? ORDER BY model ASC";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("s", $type);
+        } else {
+            $query = "SELECT DISTINCT model FROM vehicles ORDER BY model ASC";
+            $stmt = $this->db->prepare($query);
+        }
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+    }
+    
     public function getUniqueTypes() {
         $query = "SELECT DISTINCT type FROM vehicles ORDER BY type ASC";
         $result = $this->db->query($query);

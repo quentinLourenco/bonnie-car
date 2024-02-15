@@ -298,9 +298,6 @@ if (!empty($testimonials)) {
 }
 ?>
 
-
-
-
 <?php
 if (!empty($articles)) {
 ?>
@@ -326,12 +323,6 @@ if (!empty($articles)) {
     echo "<p>Aucun article trouvé.</p>";
 }
 ?>
-
-
-<br>
-<a href="index.php?action=listing">Go to listing</a>
-<br>
-
 <?php
 include_once '../public/includes/footer.php';
 ?>
