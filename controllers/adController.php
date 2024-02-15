@@ -109,8 +109,9 @@ class AdController {
     }
     public function someMethodToShowBrandsAndModels() {
         $type = $_GET['type'] ?? null;
+        $brand = $_GET['brand'] ?? null;
         $brands = $this->adModel->getUniqueBrandsByType($type);
-        $models = $this->adModel->getUniqueModelsByType($type);
+        $models = $this->adModel->getUniqueModelsByType($type, $brand);
         $data = [
             'brands' => $brands,
             'models' => $models,

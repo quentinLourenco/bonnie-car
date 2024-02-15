@@ -21,6 +21,8 @@
                 clickedElement.classList.add('chips-on');
                 clickedElement.querySelector('svg').style.display = '';
                 document.getElementById('selectedType').value = clickedElement.getAttribute('value');
+                fetchAllBrands(document.getElementById('selectedType').value );
+                
             } else {
                 clickedElement.classList.remove('chips-on');
                 clickedElement.classList.add('chips-off');
@@ -29,85 +31,48 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            fetchAllBrands(event); 
-            fetchAllModels(event); 
-        });
-
         function fetchAllBrands(type) {
-            const url = type ? `index.php?action=getAllBrands&type=${type}` : 'index.php?action=getAllBrands';
+            const url = `index.php?action=getAllBrands${type ? `&type=${type}` : ''}`;
             fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    const brandSelect = document.getElementById('brand');
-                    brandSelect.innerHTML = '<option value="">Toutes les marques</option>';
-                    data.forEach(brand => {
-                        brandSelect.innerHTML += `<option value="${brand.brand}">${brand.brand}</option>`;
-                    });
-                })
-                .catch(error => console.error('Error loading brands:', error));
+            .then(response => response.json())
+            .then(data => {
+                const brandSelect = document.getElementById('brand');
+                brandSelect.innerHTML = '<option value="">Toutes les marques</option>';
+                data.brands.forEach(brand => {
+                    brandSelect.innerHTML += `<option value="${brand.brand}">${brand.brand}</option>`;
+                });
+            })
+            .catch(error => console.error('Error loading brands:', error));
+
+            const brandSelect = document.getElementById('brand');
+            brandSelect.onchange = () => {
+                const selectedBrand = brandSelect.value;
+                const selectedType = type; 
+                fetchAllModels(selectedType, selectedBrand);
+            };
         }
 
-        function fetchAllModels(event) {
-            fetch('index.php?action=getAllModels')
-                .then(response => response.json())
-                .then(data => {
-                    const modelSelect = document.getElementById('model');
-                    modelSelect.innerHTML = '<option value="">Tous les modèles</option>';
-                    data.forEach(model => {
-                        modelSelect.innerHTML += `<option value="${model.model}">${model.model}</option>`;
-                    });
-                })
-                .catch(error => console.error('Error loading brands:', error));
+        function fetchAllModels(type, brand) {
+            let url = 'index.php?action=getAllModels';
+            if (type) {
+                url += `&type=${type}`;
+                if (brand) {
+                    url += `&brand=${brand}`;
+                }
+            }
+            
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                const modelSelect = document.getElementById('model');
+                modelSelect.innerHTML = '<option value="">Tous les modèles</option>';
+                data.models.forEach(model => {
+                    modelSelect.innerHTML += `<option value="${model.model}">${model.model}</option>`;
+                });
+            })
+            .catch(error => console.error('Error loading models:', error));
         }
-
-        // function updateBrandOptionsFromType() {
-        //     const typeSelect = document.getElementById('type');
-        //     const selectedType = typeSelect.value;
-        //     const brandSelect = document.getElementById('marque');
-
-        //     fetch(`index.php?action=getMarquesByType&type=${selectedType}`)
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             brandSelect.innerHTML = '<option value="">Toutes les marques</option>';
-        //             data.forEach(brand => {
-        //                 brandSelect.innerHTML += `<option value="${brand.marque}">${brand.marque}</option>`;
-        //             });
-        //             updateModelOptions();
-        //         })
-        //         .catch(error => console.error('Error loading brands:', error));
-        // }
-        // function updateModelOptionsFromBrand() {
-        //     const brandSelect = document.getElementById('marque');
-        //     const selectedBrand = brandSelect.value;
-
-        //     fetch(`index.php?action=getModels&marque=${selectedBrand}`)
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             const modelSelect = document.getElementById('modele');
-        //             modelSelect.innerHTML = '<option value="">Tous les modèles</option>';
-        //             data.forEach(model => {
-        //                 modelSelect.innerHTML += `<option value="${model.modele}">${model.modele}</option>`;
-        //             });
-        //         })
-        //         .catch(error => console.error('Error loading models:', error));
-        // }
-
-        // function updateBrandFromModel() {
-        //     const modelSelect = document.getElementById('modele');
-        //     const selectedModel = modelSelect.value;
-
-        //     if (selectedModel) {
-        //         fetch(`index.php?action=getBrand&modele=${selectedModel}`)
-        //             .then(response => response.json())
-        //             .then(data => {
-        //                 const brandSelect = document.getElementById('marque');
-        //                 brandSelect.value = data[0].marque;
-        //             })
-        //             .catch(error => console.error('Error fetching brand:', error));
-        //     }
-        // }
-
     </script>
 </head>
 <body>

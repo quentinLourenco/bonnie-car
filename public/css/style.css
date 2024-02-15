@@ -310,6 +310,7 @@ box-shadow: 5px 5px 50px -17px #0000005e;
 
 
 .type-ads {
+  position: relative;
   display: flex;
   flex-direction: column;
   text-decoration: none;
@@ -320,7 +321,23 @@ box-shadow: 5px 5px 50px -17px #0000005e;
   overflow: hidden;
 }
 
-.type-ads img{
+.type-ads .reduction {
+  position: absolute;
+  background: var(--yellow);
+  border-radius: 8px 0px;
+  width: fit-content;
+  margin: 16px;
+  padding: 4px 8px;
+  font-size: 24px;
+}
+
+.type-ads .like {
+  position: absolute;
+  margin: 16px;
+  width: 32px;
+}
+
+.type-ads .picture{
   width: 100%;
 }
 

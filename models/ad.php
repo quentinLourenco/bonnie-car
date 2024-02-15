@@ -252,27 +252,39 @@ class Ad {
     }
 
     public function getUniqueBrandsByType($type = null) {
+        $query = "SELECT DISTINCT brand FROM vehicles";
         if ($type) {
-            $query = "SELECT DISTINCT brand FROM vehicles WHERE type = ? ORDER BY brand ASC";
-            $stmt = $this->db->prepare($query);
+            $query .= " WHERE type = ?";
+        }
+        $query .= " ORDER BY brand ASC";
+        $stmt = $this->db->prepare($query);
+        if ($type) {
             $stmt->bind_param("s", $type);
-        } else {
-            $query = "SELECT DISTINCT brand FROM vehicles ORDER BY brand ASC";
-            $stmt = $this->db->prepare($query);
         }
         $stmt->execute();
         $result = $stmt->get_result();
         return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
     }
     
-    public function getUniqueModelsByType($type = null) {
+    public function getUniqueModelsByType($type = null, $brand = null) {
+        $query = "SELECT DISTINCT model FROM vehicles";
+        $params = [];
+        $types = "";
+    
         if ($type) {
-            $query = "SELECT DISTINCT model FROM vehicles WHERE type = ? ORDER BY model ASC";
-            $stmt = $this->db->prepare($query);
-            $stmt->bind_param("s", $type);
-        } else {
-            $query = "SELECT DISTINCT model FROM vehicles ORDER BY model ASC";
-            $stmt = $this->db->prepare($query);
+            $query .= " WHERE type = ?";
+            $params[] = $type;
+            $types .= "s";
+        }
+        if ($brand) {
+            $query .= $type ? " AND brand = ?" : " WHERE brand = ?";
+            $params[] = $brand;
+            $types .= "s";
+        }
+        $query .= " ORDER BY model ASC";
+        $stmt = $this->db->prepare($query);
+        if (!empty($params)) {
+            $stmt->bind_param($types, ...$params);
         }
         $stmt->execute();
         $result = $stmt->get_result();

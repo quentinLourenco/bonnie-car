@@ -46,7 +46,7 @@ include_once '../public/includes/header.php';
         <input type="hidden" name="keyword">
         <input type="hidden" id="selectedType" name="type" value="">
         <div class="chips" name="type" id="type">
-            <a onclick="toggleChipState(this)" onchange="adpatByTypeOptions(event)" class="chips-off" value="moto">Moto
+            <a onclick="toggleChipState(this)" class="chips-off" value="moto">Moto
                 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'>
                     <path fill='var(--black)' d='M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z' />
                 </svg></a>
@@ -118,6 +118,8 @@ if (!empty($bikeAds)) {
         ?>
             <a href='index.php?action=detail&id=<?= $idAd ?>' class='type-ads'>
                 <img src='<?= $glob_dev ?>/assets/images/<?= urlencode($bikeAd['picture_url']) ?>' alt='<?= htmlspecialchars($bikeAd['brand']) ?>' class="picture" />
+                <p class="reduction">-30%</p>
+                <img src='<?= $glob_dev ?>/assets/icons/Coeur.svg' alt='' class="like" />
                 <div class="bot">
                     <?php
                     echo "<p class='ad-brand'>" . htmlspecialchars($bikeAd['brand']) . "</p>";
