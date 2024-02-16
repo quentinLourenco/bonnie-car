@@ -312,14 +312,14 @@ if (!empty($articles)) {
         foreach ($articles as $article) {
             echo '<a href="#" class="container-article">';
             if (!empty($article['image'])) {
-                echo "<img src='" . htmlspecialchars($glob_dev) . "/assets/images/" . urlencode($article['image']) . "' alt='" . htmlspecialchars($article['title']) . "' class='picture'/>";
+                echo "<img src='" . htmlspecialchars($glob_dev) . "/assets/images/articles/" . urlencode($article['image']) . "' alt='" . htmlspecialchars($article['title']) . "' class='picture'/>";
             }
             echo "<h4>" . htmlspecialchars($article['title']) . "</h4>";
             echo "<p>"  . htmlspecialchars($article['description']) . "</p>";
             echo '</a>';
         }
         ?>
-        <a href='index.php?action=search&keyword=&type=quad&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default' class="btn-second">Voir tous les articles</a>
+        <a href='' class="btn-second">Voir tous les articles</a>
     </div>
 <?php
 } else {
