@@ -112,7 +112,6 @@ $glob_dev = '/bonnie-car/public';
             <button onclick="showPopup('ModalSuppression')">non</button>
         </div>
     </div>
-    <script src="../public/js/account.js"></script> 
 <?php 
 include_once '../public/includes/footer.php';
 ?>
