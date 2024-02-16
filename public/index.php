@@ -47,6 +47,9 @@ if (!isset($_GET['action'])) {
         case 'logout':
             $userController->logout();
             break;
+        case 'wantToSell':
+            $adController->showSellPage();
+            break;
         case 'registrationPage':
             $userController->showRegistrationPage(); 
             break;

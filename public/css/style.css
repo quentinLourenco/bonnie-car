@@ -265,7 +265,7 @@ box-shadow: 5px 5px 50px -17px #0000005e;
 }
 
 .container-ads-brand img {
-  width: 64px;
+  height: 64px;
   
 }
 
@@ -348,6 +348,8 @@ box-shadow: 5px 5px 50px -17px #0000005e;
 
 .type-ads .picture{
   width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 
 .type-ads .bot{
@@ -511,6 +513,8 @@ box-shadow: 5px 5px 50px -17px #0000005e;
 .container-articles .container-article {
   display: flex;
   flex-direction: column;
+  text-decoration: none;
+    color: black;
 }
 
 .container-article a {
@@ -687,6 +691,113 @@ section.container-search-ads .counter-sort select {
   font-size: 18px;
   color: var(--grey);
 }
+
+section.container-wantToSell {
+  display: flex;
+  flex-direction: column;
+  padding: 164px 400px 56px;
+}
+
+section.container-wantToSell .title {
+  text-align: center;
+  font-size: 50px;
+  margin: 64px 0;
+  font-family: BritanicBoldRegular;
+}
+
+section.container-wantToSell p {
+  margin-bottom: 16px;
+}
+
+section.container-wantToSell .bg-yellow {
+  padding: 32px 0;
+  margin: 64px 0;
+  background: var(--yellow);
+  border-radius: 16px 0;
+  text-align: center;
+  font-size: 24px;
+  font-family: BritanicBoldRegular;
+}
+
+section.container-wantToSell .bg-yellow .kpis{
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+section.container-wantToSell .bg-yellow .kpis .kpi{
+  margin: 24px;
+}
+
+section.container-wantToSell .bg-yellow .kpis .kpi p:first-child{
+  font-family: BritanicBoldRegular;
+  font-size: 24px;
+}
+
+section.container-wantToSell .bg-yellow .kpis .kpi p:last-child{
+  font-family: 'Lato';
+  font-size: 16px;
+}
+
+section.container-wantToSell .bg-yellow .kpis .kpi span{
+  font-size: 64px;
+  font-family: BritanicBoldRegular;
+  color: var(--blue);
+}
+
+section.container-wantToSell .estimate{
+  background-color: var(--white);
+  -webkit-box-shadow: 5px 5px 50px -17px #0000005e; 
+  box-shadow: 5px 5px 50px -17px #0000005e;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+section.container-wantToSell .estimate p:first-child {
+  font-family: BritanicBoldRegular;
+  font-size: 24px;
+  text-align: center;
+  
+}
+
+section.container-wantToSell .estimate p:nth-child(2) {
+  font-size: 20px;
+  color: var(--grey);
+  align-self: flex-start;
+}
+
+section.container-wantToSell .estimate .inputs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+
+section.container-wantToSell .estimate input {
+  border: 1px solid var(--grey-hover);
+  background-color: var(--white);
+  color: var(--grey);
+  padding: 8px;
+  border-radius: 8px;
+  margin: 8px 18px;
+  width: 10vw;
+}
+
+section.container-wantToSell .estimate .btn {
+  background: var(--yellow);
+  margin: 8px 0;
+  width: fit-content;
+  padding: 10px 20px; 
+  border-radius: 10px;
+  align-items: center;
+  text-decoration: none;
+  color: var(--blue);
+}
+
 
 
 

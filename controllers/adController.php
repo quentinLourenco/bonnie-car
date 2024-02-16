@@ -127,5 +127,9 @@ class AdController {
         $models = $this->adModel->getModelsByBrand($brand); 
         echo json_encode($models);
     }
+
+    public function showSellPage() {
+        require_once '../views/wantToSell.php';
+    }
     
 }

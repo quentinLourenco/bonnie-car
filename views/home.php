@@ -88,9 +88,11 @@ if (!empty($brandsAds)) {
         <?php
         foreach ($brandsAds as $brandsAd) {
             $marqueUrlEncoded = urlencode($brandsAd['brand']);
+            // Correctly use strtolower to convert brand names to lowercase
+            $url = strtolower($brandsAd['brand']);
         ?>
-            <a href="index.php?action=search&keyword=&type=&brand=<?php echo $marqueUrlEncoded; ?>&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default" class="container-ads-brand">
-                <img src="https://static.vecteezy.com/system/resources/previews/020/975/589/original/yamaha-logo-yamaha-icon-transparent-free-png.png" alt=""><?php echo htmlspecialchars($brandsAd['brand']); ?>
+            <a href="index.php?action=search&keyword=&type=&brand=<?= $marqueUrlEncoded ?>&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default" class="container-ads-brand">
+                <img src='<?= $glob_dev ?>/assets/images/logos/logo_<?= $url ?>.png' alt='<?= htmlspecialchars($brandsAd['brand']) ?>'/>
             </a>
         <?php
         }
@@ -101,7 +103,6 @@ if (!empty($brandsAds)) {
     echo "<p>Aucune marque trouvée.</p>";
 }
 ?>
-
 <?php
 if (!empty($bikeAds)) {
 ?>

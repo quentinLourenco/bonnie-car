@@ -238,11 +238,16 @@ class Ad {
     }
 
     public function getUniqueBrands() {
-        $query = "SELECT DISTINCT brand FROM vehicles ORDER BY brand ASC";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+        $query = "SELECT DISTINCT brand, brand_url FROM vehicles ORDER BY brand ASC";
+        try {
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            return [];
+        }
     }
 
     public function getUniqueModels() {

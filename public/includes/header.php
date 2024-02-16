@@ -79,22 +79,22 @@
     <?php
     $year = date("Y");
 
-    $glob_dev = '/bonnie-car/public';
-    // $glob_dev = '';
+    // $glob_dev = '/bonnie-car/public';
+    $glob_dev = '';
 
     $menu_items = [
         ['Accueil', 'index.php'],
-        ['Acheter', 'index.php'],
-        ['Vendre', 'index.php'],
+        ['Acheter', 'index.php?action=listing'],
+        ['Vendre', 'index.php?action=wantToSell'],
         ['A propos', 'index.php'],
-        ['Contact', 'index.php']
+        ['Contact', 'https://www.bonnieandcar.com/concept#faq']
     ];
 
     $submenu_items_buy = [
-        ['Moto', 'index.php'],
-        ['Scooter', 'index.php'],
-        ['Quad', 'index.php'],
-        ['Electrique', 'index.php']
+        ['Moto', "index.php?action=search&keyword=&type=moto&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default"],
+        ['Scooter', 'index.php?action=search&keyword=&type=sccoter&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'],
+        ['Quad', 'index.php?action=search&keyword=&type=quad&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default'],
+        ['Electrique', 'iindex.php?action=search&keyword=&type=electrique&brand=&model=&cc_min=&cc_max=&price_min=&price_max=&sort=default']
     ];
 
     $submenu_items_about = [
