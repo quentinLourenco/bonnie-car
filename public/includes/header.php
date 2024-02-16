@@ -5,10 +5,10 @@
     <title>BonnieAndCar</title>
     <link rel="stylesheet" type = "text/css" href =".<?php $glob_dev ?>/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.css" integrity="sha512-imTMcrMfwTWMwbgH3ComWWGCoDCo2jO1Qrvoa7B/Kcy7MrP5XMojK/Ede5uYofzcYyx4aFXdwzsm1QxdQXZreg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" type = "text/css" href ="../public/css/account.css">
-    <link rel="stylesheet" type = "text/css" href ="../public/css/login.css">
-    <link rel="stylesheet" type = "text/css" href ="../public/css/register.css">
-    <link rel="stylesheet" type = "text/css" href ="../public/css/ad.css">
+    <link rel="stylesheet" type = "text/css" href =".<?php $glob_dev ?>/css/account.css">
+    <link rel="stylesheet" type = "text/css" href =".<?php $glob_dev ?>/css/login.css">
+    <link rel="stylesheet" type = "text/css" href =".<?php $glob_dev ?>/css/register.css">
+    <link rel="stylesheet" type = "text/css" href =".<?php $glob_dev ?>/css/ad.css">
     <script>
         
         function toggleChipState(clickedElement) {
@@ -84,7 +84,7 @@
     $year = date("Y");
 
     // $glob_dev = '/bonnie-car/public';
-    $glob_dev = '';
+    $glob_dev = '/bonnie-car/public';
 
     $menu_items = [
         ['Accueil', 'index.php'],

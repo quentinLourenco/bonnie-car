@@ -247,7 +247,14 @@
     margin-bottom: 20px;
     
 }
-#containerAd #containerComparateur #infoPersoComparateur input[type="date"],select{
+#containerAd > #containerComparateur > #infoPersoComparateur > input[type="date"]{
+    width: 200px;
+    height: 24px;
+    border-radius: 5px;
+    box-shadow: 0px 5px 10px rgba(136, 136, 136, 0.2);
+    
+}
+#containerAd > #containerComparateur > #infoPersoComparateur select{
     width: 200px;
     height: 24px;
     border-radius: 5px;
