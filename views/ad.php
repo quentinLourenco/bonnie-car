@@ -2,7 +2,8 @@
 include_once '../public/includes/header.php';
 ?>
 <link rel="stylesheet" type = "text/css" href ="../public/css/ad.css">
-    <h1>Annonce</h1>
+<div id="containerAd">
+<h1>Annonce</h1>
     <div id ='main'>
         <div id='infoAd'>
             <img id='imgAd' src="<?= $glob_dev.'/assets/images/'.htmlspecialchars($ad['picture_url']) ?>" alt="">
@@ -285,6 +286,8 @@ include_once '../public/includes/header.php';
             </div> 
         </div>     
     </div>
+</div>
+    
 <?php 
 include_once '../public/includes/footer.php';
 ?>

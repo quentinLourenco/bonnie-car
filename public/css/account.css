@@ -1,15 +1,15 @@
-#main{
+#account{
     display: flex;
     flex-direction: row;
 }
-h1 {
+#account h1 {
     font-size: 50px;
     text-align: center;
     margin-top: 5vh;
     margin-bottom: 5vh;
     font-family: BritanicBoldRegular;
 }
-#divContainer{
+#account #divContainer{
     margin: 120px;
     margin-top: 150px;
     display: flex;
@@ -17,7 +17,7 @@ h1 {
     align-items: left;
     
 }
-.boxRedirect {      
+#account .boxRedirect {      
     width: 186px;
     height: 186px;
     margin: 8px;
@@ -30,17 +30,17 @@ h1 {
     color: #7C7C7C;
     gap: 24px;
 }
-.boxRedirect:hover {
+#account .boxRedirect:hover {
     color: #12486B;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 }
-.boxRedirect:hover #heartIconRedirect{
+#account .boxRedirect:hover #heartIconRedirect{
     fill: #E72828;
 }
-.boxRedirect:hover .iconRedirect{
+#account .boxRedirect:hover .iconRedirect{
     fill: #12486B;
 }
-#boxAction{
+#account #boxAction{
     width: 186px;
     height: 120px;
     margin: 8px;
@@ -49,19 +49,19 @@ h1 {
     padding: 15px 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
-#boxAction > a {
+#account #boxAction > a {
     font-size: 16px;
     text-decoration: underline;
     cursor: pointer;
 }
-#boxAction > #supprimer{
+#account #boxAction > #supprimer{
     color: #E72828;
 }
 
-.submitBtn{
+#account .submitBtn{
     display: none;
 }
-#modalModif{
+#account #modalModif{
     width: 539px;
     padding:5vh 2vw;
     padding-bottom: 2vh;
@@ -72,12 +72,12 @@ h1 {
     border: solid 1px  black;
     border-radius: 20px;
 }
-#modalModif #phoneModif,#emailModif,#first_nameModif,#last_nameModif{
+#account #modalModif #phoneModif,#emailModif,#first_nameModif,#last_nameModif{
     margin-left: 100px;
     cursor: pointer;
 }
 
-#ModalSuppression{
+#account #ModalSuppression{
     display: none;
     position: fixed;
     top: 50%;
@@ -88,52 +88,52 @@ h1 {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
-h2{
+#account h2{
     font-size: 24px;
     font-family: BritanicBoldRegular;
 }
-label{
+#account label{
     font-size:20px;
     font-family: BritanicBoldRegular;
 }
-.logoInBox{
+#account .logoInBox{
     width: 63px;
     height: 63px;
 }
-.formInModal{
+#account .formInModal{
     margin: 25px 0px;
 }
-.formInModal  input[type=text],input[type=password],input[type=email], input[type=tel]{
+#account .formInModal  input[type=text],input[type=password],input[type=email], input[type=tel]{
     border: none;
     width: 60%;
     margin-bottom: 12px;
 }
-.formInModal input[type=button]{
+#account .formInModal input[type=button]{
     border: none;
     text-decoration: underline;
 }
-.formInModal input[type=submit]{
+#account .formInModal input[type=submit]{
     width: 140px;
     height: 42px;
 }
-#containerPassword{
+#account #containerPassword{
     display: none;
 }
-#containerPassword label{
+#account #containerPassword label{
     font-size: 14px;
     font-family: Lato;
 }
-#containerPassword input[type=password]{
+#account #containerPassword input[type=password]{
     border: solid 1px  black;
     padding: 10px;
     border-radius: 5px;
 }
 
-#passwordModif{
+#account #passwordModif{
     margin-left: 400px;
     cursor: pointer;
 }
 
-#divInfoPerso{
+#account #divInfoPerso{
     margin-top: 120px;
 }

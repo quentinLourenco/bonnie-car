@@ -2,9 +2,7 @@
 include_once '../public/includes/header.php';
 $glob_dev = '/bonnie-car/public';
 ?>
-
-<link rel="stylesheet" type = "text/css" href ="../public/css/account.css">
-    <div id="main">
+    <div id="account">
     <div id="divContainer">
             <div class="boxRedirect" onclick="redirect('favoritePage')">
                 <svg width="72" height="61" viewBox="0 0 72 61" xmlns="http://www.w3.org/2000/svg">

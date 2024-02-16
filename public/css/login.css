@@ -1,21 +1,21 @@
-h1{
+#login h1{
     font-size: 50px;
     text-align: center;
     margin-top: 150px;
     margin-bottom: 5vh;
     font-family: BritanicBoldRegular;
 }
-h2{
+#login h2{
     text-align: center;
     font-size: 24px;
     margin:5vh;
     font-family: BritanicBoldRegular;
 }
 
-label{
+#login label{
     font-family: BritanicBoldRegular;
 }
-#container{
+#login #container{
     text-align: center;
     border: solid 1px  black;
     border-radius: 20px;
@@ -28,17 +28,18 @@ label{
     text-align: center;
     
 }
-#container input[type=email],input[type=password]{
+#login #container input[type=email],input[type=password]{
     width: 390px;
     height: 68px;
     margin: 12px 0px;
     border-radius: 5px;
     padding-left: 1vw;
+    border: 1px solid black;
 }
-#passwordForgot{
+#login #passwordForgot{
     text-decoration: none;
 }
-input[type=submit]{
+#login input[type=submit]{
     text-align: center;
     margin: 5vh auto;
     margin-bottom: 70px;
@@ -51,10 +52,10 @@ input[type=submit]{
     font-family: BritanicBoldRegular;
     cursor: pointer;
 }
-#inputAndLabel{
+#login #inputAndLabel{
     text-align: left;
 }
-#textPasswordForgot{
+#login #textPasswordForgot{
     text-align: right;
     margin-right: 3vw;
 }
