@@ -205,13 +205,13 @@ header .research .chips .chips-on {
 
 
 
-header .research select#brand, header .research select#model{
+header form.research select{
   border: none;
   background-color: var(--white);
   color: var(--black);
   padding: 16px;
   border-radius: 8px;
-  margin: 8px 0;
+  margin: 8px 0; 
 }
 
 header .research input[type="submit"]{
