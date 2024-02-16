@@ -104,7 +104,7 @@ class Ad {
     
 
     public function getAdById($id) {
-        $stmt = $this->db->prepare("SELECT * FROM ads WHERE id = ?");
+        $stmt = $this->db->prepare("SELECT * FROM vehicles WHERE ad_id = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();
