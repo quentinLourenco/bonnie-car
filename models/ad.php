@@ -337,7 +337,7 @@ class Ad {
     }
 
     public function getPartnersList() {
-        $result = glob('../public/assets/partners/*.png');
+        $result = glob('/assets/partners/*.png');
         return $result;
     }
 

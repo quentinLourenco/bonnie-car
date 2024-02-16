@@ -205,7 +205,7 @@ header .research .chips .chips-on {
 
 
 
-header .research select {
+header .research select#brand, header .research select#model{
   border: none;
   background-color: var(--white);
   color: var(--black);
