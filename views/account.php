@@ -2,9 +2,8 @@
 include_once '../public/includes/header.php';
 $glob_dev = '/bonnie-car/public';
 ?>
-<head>
-    <link rel="stylesheet" type = "text/css" href ="../public/css/account.css">
-</head>
+
+<link rel="stylesheet" type = "text/css" href ="../public/css/account.css">
     <div id="main">
     <div id="divContainer">
             <div class="boxRedirect" onclick="redirect('favoritePage')">
@@ -33,7 +32,7 @@ $glob_dev = '/bonnie-car/public';
                 <a id="supprimer" onclick="showPopup('ModalSuppression')">Supprimer mon compte</a>
             </div>
         </div>
-        <div>
+        <div id="divInfoPerso">
             <h1>Mon Profil</h1>
             <div id="modalModif">
             <h2>Mes informations personnelles</h2>
