@@ -113,7 +113,7 @@
                     <?php foreach ($menu_items as $item): ?>
                         <li>
                             <a href="<?= htmlspecialchars($item[1]) ?>" class="navbar-link <?= ($item[0] == 'Acheter' || $item[0] == 'A propos') ? 'navbar-link--has-submenu' : '' ?>"><?= htmlspecialchars($item[0]) ?></a>
-                            <?php if ($item[0] == 'Acheter'): ?>
+                            <!-- <?php if ($item[0] == 'Acheter'): ?>
                                 <ul class="navbar-sublinks">
                                 <?php foreach ($submenu_items_buy as $subitembuy): ?>
                                     <li><a href="<?= htmlspecialchars($subitembuy[1]) ?>" class="navbar-sublink"><?= htmlspecialchars($subitembuy[0]) ?></a></li>
@@ -126,7 +126,7 @@
                                     <li><a href="<?= htmlspecialchars($subitemabout[1]) ?>" class="sub"><?= htmlspecialchars($subitemabout[0]) ?></a></li>
                                 <?php endforeach; ?>
                                 </ul>
-                            <?php endif; ?>
+                            <?php endif; ?> -->
                             </li>
                     <?php endforeach; ?>
                     
