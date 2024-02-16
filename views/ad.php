@@ -1,7 +1,6 @@
 <?php 
 include_once '../public/includes/header.php';
 ?>
-<link rel="stylesheet" type = "text/css" href ="../public/css/ad.css">
 <div id="containerAd">
 <h1>Annonce</h1>
     <div id ='main'>
