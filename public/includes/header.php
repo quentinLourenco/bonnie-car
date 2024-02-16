@@ -1,3 +1,6 @@
+<?php
+    $glob_dev = '/bonnie-car/public';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,8 +12,13 @@
     <link rel="stylesheet" type = "text/css" href =".<?php $glob_dev ?>/css/login.css">
     <link rel="stylesheet" type = "text/css" href =".<?php $glob_dev ?>/css/register.css">
     <link rel="stylesheet" type = "text/css" href =".<?php $glob_dev ?>/css/ad.css">
+<<<<<<< HEAD
     <script src=".<?php $glob_dev ?>/js/account.js"></script>
     <script src=".<?php $glob_dev ?>/js/register.js"></script>
+=======
+    <script src=".<?php $glob_dev ?>/js/registerScript.js"></script> 
+    <script src=".<?php $glob_dev ?>/js/account.js"></script> 
+>>>>>>> 9a1d84df07fe84c78315186d53243a2d231d48b2
     <script>
         
         function toggleChipState(clickedElement) {
@@ -87,8 +95,8 @@
     <?php
     $year = date("Y");
 
-    // $glob_dev = '/bonnie-car/public';
-    $glob_dev = '';
+    $glob_dev = '/bonnie-car/public';
+    // $glob_dev = '';
 
     $menu_items = [
         ['Accueil', 'index.php'],
