@@ -9,8 +9,8 @@
     <link rel="stylesheet" type = "text/css" href =".<?php $glob_dev ?>/css/login.css">
     <link rel="stylesheet" type = "text/css" href =".<?php $glob_dev ?>/css/register.css">
     <link rel="stylesheet" type = "text/css" href =".<?php $glob_dev ?>/css/ad.css">
-    <script src=".<?php $glob_dev ?>/js/registerScript.js"></script> 
-    <script src=".<?php $glob_dev ?>/js/account.js"></script> 
+    <script src=".<?php $glob_dev ?>/js/account.js"></script>
+    <script src=".<?php $glob_dev ?>/js/register.js"></script>
     <script>
         
         function toggleChipState(clickedElement) {
@@ -79,6 +79,8 @@
             })
             .catch(error => console.error('Error loading models:', error));
         }
+
+        
     </script>
 </head>
 <body>

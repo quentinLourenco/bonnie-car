@@ -1,6 +1,7 @@
 <?php 
 include_once '../public/includes/header.php';
 ?>
+
 <div id="containerRegister">
 <h1>Créez votre compte</h1>
 <div id=container>
@@ -43,6 +44,9 @@ include_once '../public/includes/header.php';
         </form>
 </div>
 </div>
+
+
+<script src="../public/js/registerScript.js"></script> 
 <?php 
 include_once '../public/includes/footer.php';
 ?>
