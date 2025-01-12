@@ -1,6 +1,3 @@
-<?php
-    $glob_dev = '/bonnie-car/public';
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -88,8 +85,8 @@
     <?php
     $year = date("Y");
 
-    $glob_dev = '/bonnie-car/public';
-    // $glob_dev = '';
+    $glob_dev = '/public';
+    //$glob_dev = '';
 
     $menu_items = [
         ['Accueil', 'index.php'],

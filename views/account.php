@@ -2,6 +2,7 @@
 include_once '../public/includes/header.php';
 $glob_dev = '/bonnie-car/public';
 ?>
+
     <div id="account">
     <div id="divContainer">
             <div class="boxRedirect" onclick="redirect('favoritePage')">
@@ -112,6 +113,7 @@ $glob_dev = '/bonnie-car/public';
             <button onclick="showPopup('ModalSuppression')">non</button>
         </div>
     </div>
+    
 <?php 
 include_once '../public/includes/footer.php';
 ?>

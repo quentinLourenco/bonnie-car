@@ -1,7 +1,6 @@
-const tabIdBtnChamp= [document.getElementById('last_nameModif'),document.getElementById('first_nameModif'), document.getElementById('emailModif'),document.getElementById('phoneModif'),document.getElementById('passwordModif')];
 var  fieldValue;
 function  modifChamp(field) {
-    console.log('bouboubou');
+    const tabIdBtnChamp= [document.getElementById('last_nameModif'),document.getElementById('first_nameModif'), document.getElementById('emailModif'),document.getElementById('phoneModif'),document.getElementById('passwordModif')];
     let fieldInput = document.getElementById(field);
     fieldInput.disabled = !fieldInput.disabled;
     fieldInput.style.border = 'solid 1px  black';
